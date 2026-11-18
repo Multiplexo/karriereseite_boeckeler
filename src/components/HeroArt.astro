@@ -1,0 +1,49 @@
+---
+// Illustrativer Bildslot (keine Personen, keine Packungen/Marken). Wird durch ein KI-Stimmungsbild oder ein echtes Foto ersetzt,
+// sobald inhalte.json → hero.bild gesetzt ist. Seitenverhältnis bleibt gleich (kein Layout-Shift).
+---
+<svg viewBox="0 0 640 480" role="img" aria-label="Illustration: Apothekenregal mit Mörser, Pflanzen und warmem Abendlicht">
+  <defs>
+    <linearGradient id="hg-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6efe2"/><stop offset="1" stop-color="#fbeceb"/></linearGradient>
+    <linearGradient id="hg-sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7c873"/><stop offset="1" stop-color="#f29d6b"/></linearGradient>
+  </defs>
+  <rect width="640" height="480" fill="url(#hg-sky)"/>
+  <circle cx="500" cy="120" r="70" fill="url(#hg-sun)" opacity=".85"/>
+  <!-- Regal -->
+  <g fill="#a3121f">
+    <rect x="60" y="70" width="300" height="10" rx="5" opacity=".9"/>
+    <rect x="60" y="170" width="300" height="10" rx="5" opacity=".9"/>
+    <rect x="60" y="270" width="300" height="10" rx="5" opacity=".9"/>
+  </g>
+  <g>
+    <rect x="80" y="20" width="40" height="50" rx="8" fill="#f3b9b4"/><rect x="88" y="12" width="24" height="12" rx="3" fill="#a3121f"/>
+    <rect x="135" y="30" width="34" height="40" rx="17" fill="#fbe1dd"/>
+    <rect x="185" y="14" width="46" height="56" rx="10" fill="#f2d6b3"/><rect x="194" y="6" width="28" height="12" rx="3" fill="#e2001a" opacity=".8"/>
+    <rect x="248" y="34" width="30" height="36" rx="6" fill="#f3b9b4"/>
+    <rect x="292" y="22" width="48" height="48" rx="24" fill="#e7c9a0"/>
+    <rect x="85" y="120" width="56" height="50" rx="10" fill="#f2d6b3"/>
+    <rect x="156" y="128" width="30" height="42" rx="15" fill="#f3b9b4"/>
+    <rect x="200" y="110" width="40" height="60" rx="8" fill="#fbe1dd"/><rect x="208" y="102" width="24" height="12" rx="3" fill="#a3121f"/>
+    <rect x="256" y="132" width="44" height="38" rx="8" fill="#e7c9a0"/>
+    <rect x="312" y="118" width="30" height="52" rx="6" fill="#f3b9b4"/>
+    <rect x="90" y="222" width="36" height="48" rx="18" fill="#fbe1dd"/>
+    <rect x="140" y="214" width="52" height="56" rx="10" fill="#f3b9b4"/>
+    <rect x="206" y="230" width="34" height="40" rx="6" fill="#f2d6b3"/>
+    <rect x="254" y="216" width="40" height="54" rx="8" fill="#e7c9a0"/><rect x="262" y="208" width="24" height="12" rx="3" fill="#e2001a" opacity=".8"/>
+    <rect x="306" y="236" width="38" height="34" rx="17" fill="#fbe1dd"/>
+  </g>
+  <!-- Theke -->
+  <rect x="0" y="360" width="640" height="120" fill="#a3121f"/>
+  <rect x="0" y="352" width="640" height="14" rx="4" fill="#7d0e18"/>
+  <!-- Mörser -->
+  <g transform="translate(430 250)">
+    <path d="M0 40h130c0 48-28 70-65 70S0 88 0 40z" fill="#fbfaf7"/>
+    <rect x="-6" y="32" width="142" height="14" rx="7" fill="#e7e2d8"/>
+    <rect x="96" y="-30" width="18" height="86" rx="9" transform="rotate(28 105 13)" fill="#d8cfbf"/>
+  </g>
+  <!-- Pflanze -->
+  <g transform="translate(400 250)">
+    <rect x="-40" y="60" width="44" height="46" rx="8" fill="#e2001a" opacity=".9"/>
+    <path d="M-18 60c-6-30-30-44-46-40 8 18 22 34 46 40zM-18 60c4-34 26-52 44-50-6 22-20 40-44 50zM-18 60c-2-24 6-50 0-70-12 18-14 46 0 70z" fill="#5f8f5a"/>
+  </g>
+</svg>

@@ -1,0 +1,16 @@
+---
+import { site, url } from '../lib/content';
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="Rechtliches und Links">
+      <a href={site.impressum_url}>Impressum</a>
+      <a href={site.datenschutz_url}>Datenschutz</a>
+      <a href={url('datenschutz-bewerbung/')}>Datenschutzhinweise für Bewerber/innen</a>
+      <a href={site.website}>Zur Website der Apotheke</a>
+      <a href={site.shop}>Online-Shop</a>
+    </nav>
+    <p>{site.name} · Inh. {site.inhaberin.name} · {site.adresse.strasse}, {site.adresse.plz} {site.adresse.ort}</p>
+    <p>Bildnachweis: Illustrationen und Bilder teilweise KI-generiert. Abgebildete Personen in Porträts sind echte Mitarbeitende.</p>
+  </div>
+</footer>

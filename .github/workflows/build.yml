@@ -1,0 +1,46 @@
+name: Build, Test & Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SFTP_HOST: ${{ secrets.SFTP_HOST }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: sodium, fileinfo, zip
+          tools: composer
+      - run: npm ci
+      - run: composer install --no-dev --optimize-autoloader
+        working-directory: api
+      - run: npm test
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: karriereseite-dist
+          path: dist
+
+      # Deployment per SFTP zum Hoster – nur auf main und nur, wenn die Secrets gesetzt sind.
+      # Benötigte Repository-Secrets: SFTP_HOST, SFTP_USER, SFTP_PASSWORD, SFTP_PATH (z. B. /html/karriere)
+      - name: Deploy (SFTP)
+        if: github.ref == 'refs/heads/main' && env.SFTP_HOST != ''
+        env:
+          SFTP_USER: ${{ secrets.SFTP_USER }}
+          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          SFTP_PATH: ${{ secrets.SFTP_PATH }}
+        run: |
+          sudo apt-get install -y lftp
+          # config.php und storage/ auf dem Server werden nicht überschrieben oder gelöscht.
+          lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST" -e "set sftp:auto-confirm yes; mirror -R --delete --exclude api/config.php --exclude api/storage/ dist/ $SFTP_PATH; bye"

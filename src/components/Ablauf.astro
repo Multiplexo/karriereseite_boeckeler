@@ -1,0 +1,12 @@
+---
+import { inhalte } from '../lib/content';
+---
+<section class="section section--alt" id="ablauf" aria-labelledby="ablauf-h">
+  <div class="wrap">
+    <span class="eyebrow">So läuft die Bewerbung</span>
+    <h2 id="ablauf-h">In drei Schritten zu uns</h2>
+    <ol class="steps">
+      {inhalte.ablauf.map((s) => <li><h3>{s.titel}</h3><p>{s.text}</p></li>)}
+    </ol>
+  </div>
+</section>

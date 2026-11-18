@@ -1,0 +1,217 @@
+{
+  "_hinweis": "Alle Einträge mit \"freigegeben\": false sind Entwürfe. Sie erscheinen NICHT auf der Live-Seite, nur in der Vorschau (npm run build:preview) mit gelbem Entwurfs-Hinweis. Zum Veröffentlichen nach Freigabe durch die Apotheke auf true setzen.",
+  "hero": {
+    "fakten": [
+      "Feierabend spätestens 18 Uhr",
+      "Samstag nur bis 12:30 Uhr",
+      "Sonntag regulär frei"
+    ],
+    "mikrotext": "Kein Anschreiben · Kein Lebenslauf nötig · Antwort in 48 h",
+    "bild": null,
+    "_bild_hinweis": "Pfad zum (KI-)Stimmungsbild, z. B. \"img/hero.webp\". Solange null, wird die Illustration gezeigt."
+  },
+  "benefits": [
+    {
+      "icon": "clock",
+      "titel": "Feierabend spätestens 18 Uhr",
+      "text": "Wir schließen um 18:00 Uhr – keine Spätschicht bis in den Abend.",
+      "freigegeben": true
+    },
+    {
+      "icon": "sun",
+      "titel": "Samstag nur vormittags",
+      "text": "Samstags ist um 12:30 Uhr Schluss, sonntags ist die Apotheke geschlossen.",
+      "freigegeben": true
+    },
+    {
+      "icon": "home",
+      "titel": "Inhabergeführt statt Kette",
+      "text": "Kurze Wege zur Chefin, Entscheidungen vor Ort – nicht in einer fernen Zentrale.",
+      "freigegeben": true
+    },
+    {
+      "icon": "sparkle",
+      "titel": "Abwechslung durch Schwerpunkte",
+      "text": "Kompressionsstrümpfe und Bandagen anmessen, Inkontinenzversorgung, Hilfsmittelverleih, Botendienst, E-Rezept – du kannst dich spezialisieren.",
+      "freigegeben": true
+    },
+    {
+      "icon": "globe",
+      "titel": "Deine Sprachen zählen",
+      "text": "Wir beraten auch auf Englisch und Russisch. Wenn du eine dieser Sprachen sprichst: umso besser.",
+      "freigegeben": true
+    },
+    {
+      "icon": "euro",
+      "titel": "Übertarifliche Bezahlung",
+      "text": "[Vom Kunden zu bestätigen: Tarifbezug bzw. Höhe]",
+      "freigegeben": false
+    },
+    {
+      "icon": "book",
+      "titel": "Fortbildungsbudget",
+      "text": "[Vom Kunden zu bestätigen: Betrag/Tage pro Jahr]",
+      "freigegeben": false
+    },
+    {
+      "icon": "car",
+      "titel": "Parkplatz vor der Tür",
+      "text": "[Vom Kunden zu bestätigen]",
+      "freigegeben": false
+    },
+    {
+      "icon": "percent",
+      "titel": "Mitarbeiterrabatt",
+      "text": "[Vom Kunden zu bestätigen: Höhe]",
+      "freigegeben": false
+    }
+  ],
+  "leistungen": [
+    "Anmessen von Kompressionsstrümpfen und Bandagen",
+    "Inkontinenzversorgung",
+    "Verleih von Medela-Milchpumpen und Pflegehilfsmitteln",
+    "Botendienst",
+    "(E-)Rezepte online",
+    "Beratung auf Englisch und Russisch"
+  ],
+  "team": [
+    {
+      "vorname": "Julia Grundmann",
+      "rolle": "Apothekerin",
+      "seit": "seit [X] Jahren im Team",
+      "zitat": "[Echtes Zitat aus dem Interview – z. B. was sie an der Arbeit hier schätzt]",
+      "foto": "julia-grundmann",
+      "stellen": [
+        "apotheker"
+      ],
+      "freigegeben": false
+    },
+    {
+      "vorname": "[Vorname]",
+      "rolle": "[Rolle, z. B. PTA]",
+      "seit": "seit [X] Jahren im Team",
+      "zitat": "[Echtes Zitat aus dem Interview – schriftliche Freigabe nötig]",
+      "foto": "mitarbeiterin-1",
+      "stellen": [
+        "pta",
+        "pka"
+      ],
+      "freigegeben": false
+    },
+    {
+      "vorname": "[Vorname]",
+      "rolle": "[Rolle, z. B. PKA]",
+      "seit": "seit [X] Jahren im Team",
+      "zitat": "[Echtes Zitat aus dem Interview – schriftliche Freigabe nötig]",
+      "foto": "mitarbeiterin-2",
+      "stellen": [
+        "pta",
+        "pka"
+      ],
+      "freigegeben": false
+    }
+  ],
+  "ablauf": [
+    {
+      "titel": "Kurzbewerbung",
+      "text": "Ein paar Fragen antippen, Kontaktdaten eintragen – fertig. Dauert keine 2 Minuten."
+    },
+    {
+      "titel": "Rückruf in 48 Stunden",
+      "text": "Wir melden uns persönlich bei dir – telefonisch, zu deiner Wunschzeit."
+    },
+    {
+      "titel": "Kennenlernen & Probetag",
+      "text": "Du lernst Team und Apotheke kennen und entscheidest in Ruhe."
+    }
+  ],
+  "standort": {
+    "text": "Die Laurentius Apotheke liegt am Hellweg mitten in Erwitte – gut erreichbar aus Lippstadt, Soest, Geseke, Anröchte und Bad Westernkotten.",
+    "pendelzeiten": [
+      {
+        "ort": "Bad Westernkotten",
+        "minuten": 5
+      },
+      {
+        "ort": "Anröchte",
+        "minuten": 12
+      },
+      {
+        "ort": "Lippstadt",
+        "minuten": 15
+      },
+      {
+        "ort": "Geseke",
+        "minuten": 20
+      },
+      {
+        "ort": "Soest",
+        "minuten": 20
+      }
+    ],
+    "pendel_hinweis": "ca. Fahrzeit mit dem Auto, je nach Verkehr",
+    "anfahrt": [
+      {
+        "text": "[Parkmöglichkeiten – vom Kunden zu bestätigen]",
+        "freigegeben": false
+      },
+      {
+        "text": "[Busanbindung, z. B. Linie/Haltestelle – vom Kunden zu bestätigen]",
+        "freigegeben": false
+      }
+    ]
+  },
+  "faq": [
+    {
+      "frage": "Muss ich einen Lebenslauf haben?",
+      "antwort": "Nein. Für die Kurzbewerbung reichen ein paar Klicks und deine Kontaktdaten. Einen Lebenslauf kannst du hochladen – musst du aber nicht. Ein Anschreiben brauchen wir gar nicht.",
+      "freigegeben": true
+    },
+    {
+      "frage": "Wie schnell meldet ihr euch?",
+      "antwort": "Innerhalb von 48 Stunden an Werktagen – persönlich und am liebsten telefonisch, zu der Zeit, die du uns nennst.",
+      "freigegeben": true
+    },
+    {
+      "frage": "Bis wann muss ich abends arbeiten?",
+      "antwort": "Die Apotheke schließt montags bis freitags um 18:00 Uhr und samstags um 12:30 Uhr. Sonntags ist geschlossen. Ausnahme sind Notdienste (siehe unten).",
+      "freigegeben": true
+    },
+    {
+      "frage": "Geht das auch in Teilzeit?",
+      "antwort": "Ja, für PTA, PKA und Apotheker/innen sind Vollzeit und Teilzeit möglich. Sag uns im Bewerbungsformular einfach, welcher Stundenumfang zu dir passt.",
+      "freigegeben": true
+    },
+    {
+      "frage": "Wie oft fallen Samstage und Notdienste an?",
+      "antwort": "[Vom Kunden zu klären: Samstage pro Monat, Notdienste pro Monat/Jahr, Ausgleich]",
+      "freigegeben": false
+    },
+    {
+      "frage": "Was verdiene ich bei euch?",
+      "antwort": "[Vom Kunden zu klären: Gehaltsrahmen bzw. Tarifbezug]",
+      "freigegeben": false
+    },
+    {
+      "frage": "Kann ich nach der Elternzeit oder einer Pause wieder einsteigen?",
+      "antwort": "Sehr gern. Wir arbeiten dich in Ruhe (wieder) ein. Erzähl uns im Formular kurz, wie lange deine Pause war und welcher Stundenumfang für dich passt.",
+      "freigegeben": true
+    },
+    {
+      "frage": "Ich habe einen anderen Beruf gelernt – lohnt sich eine Bewerbung?",
+      "antwort": "Schick uns gern eine Initiativbewerbung. Für PTA- und Apothekerstellen braucht es den passenden Abschluss, für andere Aufgaben schauen wir uns jedes Profil an.",
+      "freigegeben": true
+    }
+  ],
+  "_team_hinweis": "Fotos als src/assets/team/<foto>.jpg ablegen. Name, Rolle, Zitat und Fotofreigabe schriftlich einholen, dann freigegeben: true. \"stellen\" steuert, auf welchen Stellenseiten das Zitat zusätzlich erscheint.",
+  "botendienst": {
+    "titel": "Bis an die Haustür – unser Botendienst",
+    "text": "Unsere Boten bringen Arzneimittel und Hilfsmittel zu Kundinnen und Kunden in Erwitte und Umgebung – auch zu denen, die selbst nicht mehr in die Apotheke kommen können.",
+    "nutzen_bewerber": "Für dich heißt das: Du berätst in Ruhe, die Lieferung übernimmt unser eingespieltes Botendienst-Team. Und wer nicht mehr mobil ist, bleibt trotzdem gut versorgt.",
+    "foto": "botendienst",
+    "foto_alt": "Zwei Fahrer des Botendienstes der Laurentius Apotheke stehen lächelnd vor dem weißen Botendienst-Auto mit rotem Apotheken-A",
+    "namen": null,
+    "freigegeben": false,
+    "_hinweis": "Foto als src/assets/team/botendienst.jpg ablegen (wird automatisch oben-bündig auf 16:9 beschnitten, damit das Kennzeichen nicht sichtbar ist). Namen optional, z. B. \"Klaus & Werner\". Fotofreigabe der beiden einholen, dann freigegeben: true."
+  }
+}

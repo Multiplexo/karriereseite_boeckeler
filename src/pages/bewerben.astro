@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import funnel from '../data/funnel.json';
+import { fuerBrowser } from '../lib/funnel-logic.js';
+import { site, url, telHref, mailtoBewerbung, offeneStellen } from '../lib/content';
+import { fotoUrl } from '../lib/bilder';
+
+const inh = site.inhaberin;
+const clientConfig = {
+  ...fuerBrowser(funnel),
+  offen: offeneStellen.map((s) => s.slug).concat('initiativ'),
+  api: url('api/bewerbung.php'),
+  datenschutz: url('datenschutz-bewerbung/'),
+  start: url(),
+  tel: telHref,
+  telAnzeige: site.telefon_anzeige,
+  mailto: mailtoBewerbung(),
+  inhaberin: { name: inh.name, rolle: inh.rolle, foto: await fotoUrl(inh.foto) },
+};
+---
+<Base
+  title="Jetzt bewerben – Laurentius Apotheke Erwitte"
+  description="Kurzbewerbung in unter 2 Minuten – ohne Anschreiben, Lebenslauf optional."
+  path="bewerben/"
+  noindex
+>
+  <Header slot="header" showCta={false} />
+  <section class="section funnel-section">
+    <div class="wrap">
+      <div id="funnel" class="funnel" data-state="laden">
+        <noscript>
+          <div class="card">
+            <h1>Jetzt bewerben</h1>
+            <p>Für die Kurzbewerbung brauchst du JavaScript. Du kannst dich aber jederzeit klassisch bewerben:</p>
+            <p><a class="btn btn--primary" href={mailtoBewerbung()}>Per E-Mail bewerben</a> <a class="btn btn--outline" href={telHref}>{site.telefon_anzeige}</a></p>
+          </div>
+        </noscript>
+      </div>
+      <p class="funnel__fallback"><a href={mailtoBewerbung()}>Klassisch per E-Mail bewerben</a></p>
+    </div>
+  </section>
+  <Footer slot="footer" />
+  <script type="application/json" id="funnel-config" set:html={JSON.stringify(clientConfig)} />
+  <script>
+    import { startFunnel } from '../scripts/funnel';
+    startFunnel();
+  </script>
+</Base>

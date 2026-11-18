@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../lib/content';
+const a = site.adresse;
+---
+<Base title="Datenschutzhinweise für Bewerber/innen – Laurentius Apotheke Erwitte" description="Wie wir mit deinen Daten im Bewerbungsverfahren umgehen." path="datenschutz-bewerbung/">
+  <Header slot="header" />
+  <section class="section">
+    <div class="wrap prose">
+      {!site.datenschutzhinweise_freigegeben && (
+        <p class="notice"><strong>Entwurf:</strong> Diese Hinweise müssen vor dem Go-live vom Datenschutzbeauftragten bzw. Rechtsberater der Apotheke geprüft werden. Danach in <code>src/data/site.json</code> „datenschutzhinweise_freigegeben“ auf true setzen.</p>
+      )}
+      <h1>Datenschutzhinweise für Bewerberinnen und Bewerber</h1>
+      <p>Stand: November 2026</p>
+
+      <h2>1. Wer ist verantwortlich?</h2>
+      <p>{site.name}, Inhaberin {site.inhaberin.name}<br />{a.strasse}, {a.plz} {a.ort}<br />Telefon {site.telefon_anzeige} · E-Mail <a href={`mailto:${site.email_bewerbung}`}>{site.email_bewerbung}</a></p>
+      <p>[Kontaktdaten des/der Datenschutzbeauftragten, falls benannt – vom Kunden zu ergänzen]</p>
+
+      <h2>2. Welche Daten verarbeiten wir?</h2>
+      <p>Die Angaben aus der Kurzbewerbung: gewünschte Stelle, Abschluss bzw. beruflicher Hintergrund, Berufserfahrung, gewünschter Stundenumfang, möglicher Starttermin, ungefährer Arbeitsweg (optional mit PLZ), Bereitschaft zu Samstags- und Notdiensten, was dir im Job wichtig ist, Name, Telefonnummer, E-Mail-Adresse, beste Rückrufzeit, optional deine Nachricht und deinen Lebenslauf. Außerdem technische Angaben zur Herkunft der Bewerbung (z. B. über welche Anzeige du gekommen bist).</p>
+      <p>Wir fragen bewusst <strong>nicht</strong> nach Geburtsdatum, Foto, Familienstand, Nationalität oder Gesundheitsdaten. Bitte lade auch keine solchen Angaben hoch, wenn sie nicht nötig sind.</p>
+
+      <h2>3. Wozu und auf welcher Rechtsgrundlage?</h2>
+      <p>Wir verarbeiten deine Daten, um über die Begründung eines Beschäftigungsverhältnisses zu entscheiden (Art. 6 Abs. 1 lit. b DSGVO i. V. m. § 26 BDSG bzw. den jeweils geltenden Regelungen zum Beschäftigtendatenschutz). Die Aufnahme in unseren Talentpool erfolgt nur mit deiner freiwilligen Einwilligung (Art. 6 Abs. 1 lit. a DSGVO).</p>
+
+      <h2>4. Vorsortierung – keine automatisierte Entscheidung</h2>
+      <p>Deine Antworten werden automatisch zu einer Priorität (A, B oder C) zusammengefasst, damit wir passende Bewerbungen schneller zurückrufen können. Dabei zählen nur tätigkeitsbezogene Angaben (Abschluss, Erfahrung, Verfügbarkeit, Stundenumfang, Arbeitsweg als Selbstauskunft). <strong>Niemand wird automatisch abgelehnt.</strong> Jede Bewerbung wird von einem Menschen gelesen, und die Entscheidung trifft immer die Apothekenleitung. Eine automatisierte Einzelentscheidung im Sinne von Art. 22 DSGVO findet nicht statt.</p>
+
+      <h2>5. Wer bekommt deine Daten?</h2>
+      <p>Deine Bewerbung wird per E-Mail an das Bewerbungspostfach der Apotheke übermittelt. Zugriff haben nur die Apothekenleitung und die von ihr beauftragten Personen. Technische Dienstleister (Webhosting, E-Mail-Versand) verarbeiten die Daten in unserem Auftrag auf Grundlage von Auftragsverarbeitungsverträgen und ausschließlich in der EU: [Hoster und Mail-Dienst – vom Kunden/Auftragnehmer zu ergänzen].</p>
+
+      <h2>6. Wie lange speichern wir?</h2>
+      <p>Auf dem Webserver wird deine Bewerbung nur verschlüsselt zwischengespeichert, bis sie zugestellt ist, und danach gelöscht. Ein großer Lebenslauf kann statt als Anhang über einen geschützten Link bereitgestellt werden; die Datei wird nach spätestens 14 Tagen automatisch gelöscht. Im Postfach der Apotheke löschen wir deine Unterlagen spätestens 6 Monate nach Abschluss des Verfahrens (Frist für mögliche Ansprüche nach dem AGG), es sei denn, du wirst eingestellt oder hast der Aufnahme in den Talentpool zugestimmt (dann 12 Monate).</p>
+
+      <h2>7. Cookies und Statistik</h2>
+      <p>Wir verwenden keine Cookies. Damit deine Antworten beim versehentlichen Neuladen nicht verloren gehen, werden sie im Sitzungsspeicher deines Browsers (sessionStorage) gehalten und nach dem Absenden bzw. beim Schließen des Tabs gelöscht. [Falls aktiviert: Für anonyme Besuchsstatistiken nutzen wir Plausible Analytics (EU-Server) ohne Cookies und ohne Speicherung personenbezogener Daten.]</p>
+
+      <h2>8. Deine Rechte</h2>
+      <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie Widerspruch. Eine erteilte Einwilligung (Talentpool) kannst du jederzeit mit Wirkung für die Zukunft widerrufen, z. B. per E-Mail an {site.email_bewerbung}. Du kannst dich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren, z. B. bei der Landesbeauftragten für Datenschutz und Informationsfreiheit Nordrhein-Westfalen.</p>
+
+      <h2>9. Musst du die Daten angeben?</h2>
+      <p>Ohne Name und Kontaktdaten können wir dich nicht zurückrufen. Lebenslauf und Nachricht sind freiwillig.</p>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</Base>

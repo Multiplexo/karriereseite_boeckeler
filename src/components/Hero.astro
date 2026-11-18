@@ -1,0 +1,41 @@
+---
+import { Picture } from 'astro:assets';
+import HeroArt from './HeroArt.astro';
+import { inhalte, site, url, PRIMARY_CTA, telHref } from '../lib/content';
+import { foto } from '../lib/bilder';
+interface Props { headline: string; lead: string; stelle?: string; eyebrow?: string; portrait?: boolean }
+const { headline, lead, stelle, eyebrow = 'Karriere in der Laurentius Apotheke', portrait = false } = Astro.props;
+const inh = site.inhaberin;
+const bildInhaberin = portrait ? foto(inh.foto) : null;
+const stimmung = inhalte.hero.bild ? foto(inhalte.hero.bild) : null;
+---
+<section class="hero" data-hero aria-labelledby="hero-h">
+  <div class:list={['wrap hero__grid', { 'hero__grid--portrait': bildInhaberin }]}>
+    <div>
+      <span class="eyebrow">{eyebrow}</span>
+      <h1 id="hero-h">{headline}</h1>
+      <ul class="hero__facts" aria-label="Auf einen Blick">
+        {inhalte.hero.fakten.map((f) => <li>{f}</li>)}
+      </ul>
+      <p class="hero__lead">{lead}</p>
+      <div class="cta-group">
+        <a class="btn btn--primary" href={url('bewerben/') + (stelle ? `?stelle=${stelle}` : '')} data-track="cta_click" data-pos="hero">{PRIMARY_CTA}</a>
+        <a class="btn btn--outline" href={telHref} data-track="call_click" data-pos="hero">Lieber anrufen</a>
+      </div>
+      <p class="microtext">{inhalte.hero.mikrotext}</p>
+    </div>
+    {bildInhaberin ? (
+      <figure class="hero__portrait">
+        <Picture src={bildInhaberin} formats={['avif', 'webp']} widths={[360, 560, 800, 1040]} sizes="(min-width: 900px) 420px, 92vw"
+          alt={`${inh.name}, ${inh.rolle} der ${site.name}, lächelnd in der Offizin`} loading="eager" />
+        <figcaption><strong>{inh.name}</strong> {inh.rolle} der {site.name}</figcaption>
+      </figure>
+    ) : (
+      <div class="hero__media">
+        {stimmung
+          ? <Picture src={stimmung} formats={['avif', 'webp']} widths={[480, 800, 1280]} sizes="(min-width: 900px) 45vw, 92vw" alt="" loading="eager" fetchpriority="high" />
+          : <HeroArt />}
+      </div>
+    )}
+  </div>
+</section>

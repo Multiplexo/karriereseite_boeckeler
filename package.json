@@ -1,0 +1,21 @@
+{
+  "name": "karriereseite-laurentius-apotheke",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "node scripts/bilder.mjs && astro dev",
+    "build": "node scripts/bilder.mjs && astro build && node scripts/postbuild.mjs",
+    "build:preview": "PREVIEW=1 npm run build",
+    "test": "node --test tests/*.test.mjs && php tests/scoring_test.php",
+    "serve": "php -S 127.0.0.1:8080 -t dist scripts/router.php",
+    "og": "node scripts/og.mjs"
+  },
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "dependencies": {
+    "astro": "7.4.4",
+    "sharp": "^0.35.5"
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "_hinweis": "Stellen an- und abschalten: \"status\" auf \"offen\", \"besetzt\" oder \"entwurf\" setzen (entwurf = nur in der Vorschau sichtbar). Besetzte Stellen verschwinden von der Startseite, aus der Sitemap und aus Google for Jobs (Seite bekommt noindex). Felder mit null werden nicht angezeigt. \"freigegeben\": false = Werte stehen noch nicht fest und werden nur in der Vorschau angezeigt.",
+  "stellen": [
+    {
+      "slug": "pta",
+      "status": "offen",
+      "titel": "PTA",
+      "titel_lang": "Pharmazeutisch-technische/r Assistent/in (PTA)",
+      "titel_seo": "PTA (m/w/d) in Erwitte – Laurentius Apotheke",
+      "meta_beschreibung": "PTA (m/w/d) in Erwitte gesucht: Beratung mit Zeit statt Akkord, Feierabend spätestens 18 Uhr, Samstag nur vormittags. In 60 Sekunden bewerben – ohne Anschreiben.",
+      "hero_headline": "PTA in Erwitte gesucht – Beratung mit Zeit statt Akkord",
+      "kernbotschaft": "Beratung mit Zeit, ein festes Team und planbare Dienste.",
+      "stundenumfang": "Vollzeit oder Teilzeit",
+      "employment_type": [
+        "FULL_TIME",
+        "PART_TIME"
+      ],
+      "startdatum": "ab sofort",
+      "gehalt": null,
+      "_gehalt_beispiel": {
+        "text": "3.100–3.600 € brutto (VZ)",
+        "min": 3100,
+        "max": 3600,
+        "einheit": "MONTH",
+        "freigegeben": false
+      },
+      "date_posted": "2026-11-18",
+      "valid_through": "2027-03-31",
+      "aufgaben": [
+        "Beratung unserer Kundinnen und Kunden zu Arzneimitteln, Selbstmedikation und Hilfsmitteln",
+        "Abgabe von Arzneimitteln auf Rezept und E-Rezept",
+        "Anmessen von Kompressionsstrümpfen und Bandagen (Einarbeitung möglich)",
+        "Herstellung von Rezepturen im Labor",
+        "Mitarbeit bei Inkontinenzversorgung und Hilfsmittelverleih"
+      ],
+      "anforderungen": [
+        "Abgeschlossene Ausbildung als PTA",
+        "Freude an Beratung und am Kontakt mit Menschen",
+        "Englisch- oder Russischkenntnisse sind ein willkommenes Plus – kein Muss"
+      ]
+    },
+    {
+      "slug": "pka",
+      "status": "offen",
+      "titel": "PKA",
+      "titel_lang": "Pharmazeutisch-kaufmännische/r Angestellte/r (PKA)",
+      "titel_seo": "PKA (m/w/d) in Erwitte – Laurentius Apotheke",
+      "meta_beschreibung": "PKA (m/w/d) in Erwitte gesucht: Verantwortung für Warenwirtschaft und Einkauf in einer inhabergeführten Apotheke. Feierabend spätestens 18 Uhr. Jetzt in 60 Sekunden bewerben.",
+      "hero_headline": "PKA in Erwitte gesucht – Warenwirtschaft mit echter Verantwortung",
+      "kernbotschaft": "Du steuerst Warenwirtschaft und Einkauf – und hast dabei kurze Wege zur Chefin.",
+      "stundenumfang": "Vollzeit oder Teilzeit",
+      "employment_type": [
+        "FULL_TIME",
+        "PART_TIME"
+      ],
+      "startdatum": "ab sofort",
+      "gehalt": null,
+      "date_posted": "2026-11-18",
+      "valid_through": "2027-03-31",
+      "aufgaben": [
+        "Warenbestellung, Wareneingang und Lagerhaltung",
+        "Pflege der Warenwirtschaft und Konditionen mit Großhandel und Herstellern",
+        "Organisation von Hilfsmittelverleih (z. B. Milchpumpen) und Botendienst",
+        "Abrechnung und Rezeptkontrolle",
+        "Mitgestaltung von Sichtwahl und Freiwahl"
+      ],
+      "anforderungen": [
+        "Abgeschlossene Ausbildung als PKA oder vergleichbare kaufmännische Ausbildung",
+        "Sorgfalt und Spaß an Organisation",
+        "Erfahrung mit einer Apotheken-Warenwirtschaft ist hilfreich, aber kein Muss"
+      ]
+    },
+    {
+      "slug": "apotheker",
+      "status": "offen",
+      "titel": "Apotheker/in",
+      "titel_lang": "Apotheker/in (approbiert), auch Filialleitung/Vertretung",
+      "titel_seo": "Apotheker/in (m/w/d) in Erwitte – Laurentius Apotheke",
+      "meta_beschreibung": "Approbierte/r Apotheker/in (m/w/d) in Erwitte: Verantwortung und Gestaltungsspielraum in einer inhabergeführten Apotheke statt Kettenroutine. Jetzt in 60 Sekunden bewerben.",
+      "hero_headline": "Apotheker/in in Erwitte – Gestaltungsspielraum statt Kettenroutine",
+      "kernbotschaft": "Verantwortung und Gestaltungsspielraum in einer inhabergeführten Apotheke.",
+      "stundenumfang": "Vollzeit oder Teilzeit, auch als Vertretung",
+      "employment_type": [
+        "FULL_TIME",
+        "PART_TIME"
+      ],
+      "startdatum": "nach Absprache",
+      "gehalt": null,
+      "date_posted": "2026-11-18",
+      "valid_through": "2027-03-31",
+      "aufgaben": [
+        "Pharmazeutische Beratung und Verantwortung im Handverkauf",
+        "Vertretung der Inhaberin, perspektivisch Leitungsaufgaben",
+        "Pharmazeutische Dienstleistungen und Medikationsanalysen",
+        "Anleitung und Fortbildung des Teams",
+        "Mitgestaltung von Abläufen und Schwerpunkten der Apotheke"
+      ],
+      "anforderungen": [
+        "Deutsche Approbation als Apotheker/in oder laufendes Anerkennungsverfahren",
+        "Freude an Verantwortung und Teamführung",
+        "Englisch- oder Russischkenntnisse sind ein willkommenes Plus – kein Muss"
+      ]
+    },
+    {
+      "slug": "ausbildung",
+      "status": "offen",
+      "titel": "Ausbildung & Praktikum",
+      "titel_lang": "Ausbildung zur PKA, PTA-Praktikum, Pharmazie-Praktikum",
+      "titel_seo": "Ausbildung PKA & Praktikum (m/w/d) in Erwitte – Laurentius Apotheke",
+      "meta_beschreibung": "Ausbildung zur PKA, PTA-Praktikum oder Pharmazie-Praktikum in Erwitte: gut betreut einsteigen, mit Übernahmechance. Jetzt in 60 Sekunden bewerben.",
+      "hero_headline": "Ausbildung & Praktikum in Erwitte – gut betreut einsteigen",
+      "kernbotschaft": "Gut betreut einsteigen – mit fester Ansprechperson und Übernahmechance.",
+      "stundenumfang": "Ausbildung in Vollzeit · Praktikum nach Vereinbarung",
+      "employment_type": [
+        "FULL_TIME",
+        "INTERN"
+      ],
+      "startdatum": "Ausbildungsbeginn 01.08.2027 · Praktika laufend",
+      "gehalt": null,
+      "date_posted": "2026-11-18",
+      "valid_through": "2027-07-31",
+      "aufgaben": [
+        "PKA-Ausbildung: Warenwirtschaft, Einkauf, Abrechnung und Kundenkontakt von Grund auf",
+        "PTA-Praktikum: das praktische Halbjahr nach der PTA-Schule",
+        "Pharmazie-Praktikum: Teil des praktischen Jahrs (PJ) in einer öffentlichen Apotheke",
+        "Feste Ansprechperson im Team während der gesamten Zeit"
+      ],
+      "anforderungen": [
+        "PKA-Ausbildung: Schulabschluss (mind. Hauptschulabschluss)",
+        "PTA-Praktikum: bestandener schulischer Teil der PTA-Ausbildung",
+        "Pharmazie-Praktikum: bestandener 2. Abschnitt der Pharmazeutischen Prüfung",
+        "Neugier, Zuverlässigkeit und Freude am Umgang mit Menschen"
+      ]
+    },
+    {
+      "slug": "botendienst",
+      "status": "entwurf",
+      "titel": "Fahrer/in Botendienst",
+      "titel_lang": "Fahrer/in für unseren Botendienst (Minijob)",
+      "titel_seo": "Fahrer/in Botendienst (m/w/d) in Erwitte – Laurentius Apotheke",
+      "meta_beschreibung": "Fahrer/in für den Botendienst der Laurentius Apotheke in Erwitte gesucht (Minijob): Arzneimittel zu Kundinnen und Kunden bringen, mit Dienstwagen. Ideal auch für Rentner/innen.",
+      "hero_headline": "Fahrer/in für unseren Botendienst – unterwegs für Erwitte",
+      "kernbotschaft": "Du bringst Arzneimittel zu Menschen, die darauf warten – mit unserem Dienstwagen, in festen Touren.",
+      "stundenumfang": "Minijob [Stunden/Woche vom Kunden]",
+      "employment_type": [
+        "PART_TIME"
+      ],
+      "startdatum": "nach Absprache",
+      "gehalt": null,
+      "date_posted": "2026-11-18",
+      "valid_through": "2027-03-31",
+      "aufgaben": [
+        "Auslieferung von Arzneimitteln und Hilfsmitteln an Kundinnen und Kunden in Erwitte und Umgebung",
+        "Zuverlässige Übergabe und, wo nötig, Kassieren von Zuzahlungen",
+        "Kurze Rückmeldung an das Apothekenteam"
+      ],
+      "anforderungen": [
+        "Führerschein Klasse B",
+        "Zuverlässigkeit und ein freundliches Auftreten",
+        "Ortskenntnis in Erwitte und Umgebung ist ein Plus"
+      ]
+    }
+  ],
+  "initiativ": {
+    "slug": "initiativ",
+    "titel": "Initiativbewerbung",
+    "text": "Nichts Passendes dabei? Erzähl uns, was du suchst – wir melden uns."
+  }
+}

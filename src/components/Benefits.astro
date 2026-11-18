@@ -1,0 +1,22 @@
+---
+import Icon from './Icon.astro';
+import { inhalte, sichtbar } from '../lib/content';
+const benefits = sichtbar(inhalte.benefits);
+---
+<section class="section section--alt" id="warum" aria-labelledby="warum-h">
+  <div class="wrap">
+    <span class="eyebrow">Warum wir</span>
+    <h2 id="warum-h">Arbeiten, wo der Feierabend planbar ist</h2>
+    <p class="section__intro">Keine Versprechen aus dem Baukasten – nur das, was bei uns tatsächlich gilt.</p>
+    <div class="grid grid--3">
+      {benefits.map((b) => (
+        <div class:list={['benefit', { draft: b.freigegeben === false }]}>
+          <div class="benefit__icon"><Icon name={b.icon} /></div>
+          <div><h3>{b.titel}</h3><p>{b.text}</p></div>
+        </div>
+      ))}
+    </div>
+    <h3 style="margin-top:36px">Womit du bei uns zu tun hast</h3>
+    <ul class="chips">{inhalte.leistungen.map((l) => <li>{l}</li>)}</ul>
+  </div>
+</section>

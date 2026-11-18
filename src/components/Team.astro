@@ -1,0 +1,33 @@
+---
+import { Picture } from 'astro:assets';
+import { inhalte, sichtbar } from '../lib/content';
+import { foto } from '../lib/bilder';
+interface Props { stelle?: string; titel?: string; alt?: boolean }
+const { stelle, titel = 'Das sagt unser Team', alt = false } = Astro.props;
+const team = sichtbar(inhalte.team).filter((t) => !stelle || (t.stellen ?? []).includes(stelle));
+const initialen = (n: string) => n.replace(/[^A-Za-zÄÖÜäöüß ]/g, '').trim().split(/\s+/).map((p) => p[0]).join('').slice(0, 2) || '·';
+---
+{team.length > 0 && (
+<section class:list={['section', { 'section--alt': alt }]} id="team" aria-labelledby="team-h">
+  <div class="wrap">
+    <span class="eyebrow">Team & Alltag</span>
+    <h2 id="team-h">{titel}</h2>
+    <div class:list={['grid', team.length > 2 ? 'grid--3' : 'grid--2']}>
+      {team.map((t) => {
+        const bild = foto(t.foto);
+        return (
+          <figure class:list={['card team-card', { draft: t.freigegeben === false }]}>
+            <div class="team-card__img">
+              {bild
+                ? <Picture src={bild} formats={['avif', 'webp']} widths={[320, 480, 640]} sizes="(min-width: 960px) 340px, (min-width: 640px) 45vw, 92vw" alt={`Porträt: ${t.vorname}, ${t.rolle}`} loading="lazy" />
+                : <span class="portrait" aria-hidden="true">{initialen(t.vorname)}</span>}
+            </div>
+            <blockquote><p>„{t.zitat}“</p></blockquote>
+            <figcaption><strong>{t.vorname}</strong> {t.rolle} · {t.seit}</figcaption>
+          </figure>
+        );
+      })}
+    </div>
+  </div>
+</section>
+)}

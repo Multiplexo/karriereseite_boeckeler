@@ -1,0 +1,19 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { site, telHref, url, PRIMARY_CTA } from '../lib/content';
+interface Props { stelle?: string; showCta?: boolean }
+const { stelle, showCta = true } = Astro.props;
+const href = url('bewerben/') + (stelle ? `?stelle=${stelle}` : '');
+---
+<header class="site-header">
+  <div class="wrap site-header__in">
+    <Logo />
+    <div class="site-header__actions">
+      <a class="call-link" href={telHref} data-track="call_click" data-pos="header" aria-label={`Anrufen: ${site.telefon_anzeige}`}>
+        <Icon name="phone" /><span>{site.telefon_anzeige}</span>
+      </a>
+      {showCta && <a class="btn btn--primary" href={href} data-track="cta_click" data-pos="header">Jetzt bewerben</a>}
+    </div>
+  </div>
+</header>

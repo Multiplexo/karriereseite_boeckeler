@@ -1,0 +1,10 @@
+---
+import Icon from './Icon.astro';
+import { telHref, url, PRIMARY_CTA } from '../lib/content';
+interface Props { stelle?: string }
+const { stelle } = Astro.props;
+---
+<div class="bottom-bar" id="bottom-bar" aria-hidden="true">
+  <a class="btn btn--outline" href={telHref} data-track="call_click" data-pos="bottom-bar" aria-label="Anrufen" tabindex="-1"><Icon name="phone" /></a>
+  <a class="btn btn--primary" href={url('bewerben/') + (stelle ? `?stelle=${stelle}` : '')} data-track="cta_click" data-pos="bottom-bar" tabindex="-1">{PRIMARY_CTA}</a>
+</div>

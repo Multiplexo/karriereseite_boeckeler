@@ -1,0 +1,18 @@
+---
+import { inhalte, sichtbar } from '../lib/content';
+const faq = sichtbar(inhalte.faq);
+---
+<section class="section section--alt" id="faq" aria-labelledby="faq-h">
+  <div class="wrap">
+    <span class="eyebrow">Häufige Fragen</span>
+    <h2 id="faq-h">Was du vorher wissen willst</h2>
+    <div class="faq">
+      {faq.map((f) => (
+        <details class:list={{ draft: f.freigegeben === false }}>
+          <summary>{f.frage}</summary>
+          <div><p>{f.antwort}</p></div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

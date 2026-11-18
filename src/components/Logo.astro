@@ -1,0 +1,12 @@
+---
+import fs from 'node:fs';
+import { site, url } from '../lib/content';
+// Original-Logo: als public/img/logo.svg (bevorzugt) oder public/img/logo.png ablegen – wird dann automatisch verwendet.
+// Bis dahin: Wortmarke im Logo-Rot (das Apotheken-A wird bewusst nicht nachgezeichnet).
+const datei = ['img/logo.svg', 'img/logo.png'].find((f) => fs.existsSync(new URL(`../../public/${f}`, import.meta.url)));
+---
+<a class="logo" href={url()} aria-label={`${site.name} Erwitte – Karriere, zur Startseite`}>
+  {datei
+    ? <img class="logo__img" src={url(datei)} alt="" width="120" height="44" />
+    : <span class="logo__word">Laurentius<br />Apotheke<small>Karriere · Erwitte</small></span>}
+</a>

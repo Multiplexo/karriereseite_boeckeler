@@ -1,0 +1,15 @@
+{
+  "_hinweis": "Automatische Bildaufbereitung beim Build (scripts/bilder.mjs). Rohfoto in src/assets/roh/ ablegen, Ergebnis landet in src/assets/team/. Ausschnitt in Prozent des Originals, damit er auch bei einer höher aufgelösten Fassung passt.",
+  "aussenansicht": {
+    "quelle": "aussenansicht",
+    "ziel": "aussenansicht",
+    "ausschnitt_prozent": { "links": 26, "oben": 22, "breite": 74, "hoehe": 78 },
+    "saettigung": 0.85,
+    "helligkeit": 1.03,
+    "waerme": 6,
+    "kontrast": 0.92,
+    "alt": "Außenansicht der Laurentius Apotheke am Hellweg 19 in Erwitte mit rotem Apotheken-A und Schriftzug über den Schaufenstern",
+    "bildnachweis": "Foto: LOVELT [Nutzungsrechte klären]",
+    "freigegeben": false
+  }
+}

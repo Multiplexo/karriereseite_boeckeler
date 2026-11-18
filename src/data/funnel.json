@@ -1,0 +1,549 @@
+{
+  "_hinweis": "Fragen, Antworten und Punkte des Bewerberfunnels. Änderbar ohne Code. Regeln: \"rollen\" begrenzt eine Frage auf bestimmte Stellen (fehlt es, gilt sie für alle). \"punkte\" je Antwort; der Score wird je Pfad auf 0–100 normiert (erreichte Punkte / maximal mögliche Punkte). \"match\" kennzeichnet bei der Abschlussfrage, ob der Abschluss zur Stelle passt (passend/teilweise/anders). \"punkte_je_rolle\" überschreibt Punkte für einzelne Stellen. Die Punkte werden NUR auf dem Server ausgewertet und nie an den Browser ausgeliefert.",
+  "version": 1,
+  "schwellen": {
+    "A": 75,
+    "B": 50
+  },
+  "status_texte": {
+    "A": {
+      "label": "Top-Kandidat",
+      "aktion": "Innerhalb von 24 h anrufen",
+      "farbe": "#1a7f37"
+    },
+    "B": {
+      "label": "Passend",
+      "aktion": "Innerhalb von 48 h melden",
+      "farbe": "#b26a00"
+    },
+    "C": {
+      "label": "Prüfen",
+      "aktion": "Sichten, ggf. andere Rolle anbieten",
+      "farbe": "#6e7781"
+    }
+  },
+  "rollen": {
+    "apotheker": {
+      "label": "Apotheker/in",
+      "abschluss_hinweis": "eine deutsche Approbation (oder ein laufendes Anerkennungsverfahren)"
+    },
+    "pta": {
+      "label": "PTA",
+      "abschluss_hinweis": "eine abgeschlossene Ausbildung als PTA"
+    },
+    "pka": {
+      "label": "PKA",
+      "abschluss_hinweis": "eine abgeschlossene Ausbildung als PKA oder eine vergleichbare Ausbildung"
+    },
+    "ausbildung": {
+      "label": "Ausbildung/Praktikum"
+    },
+    "initiativ": {
+      "label": "Initiativ",
+      "mindest_status": "B"
+    },
+    "botendienst": {
+      "label": "Fahrer/in Botendienst",
+      "abschluss_hinweis": "einen Führerschein Klasse B"
+    }
+  },
+  "fragen": [
+    {
+      "id": "stelle",
+      "typ": "einzel",
+      "frage": "Für welche Stelle interessierst du dich?",
+      "optionen": [
+        {
+          "wert": "apotheker",
+          "label": "Apotheker/in"
+        },
+        {
+          "wert": "pta",
+          "label": "PTA"
+        },
+        {
+          "wert": "pka",
+          "label": "PKA"
+        },
+        {
+          "wert": "ausbildung",
+          "label": "Ausbildung / Praktikum"
+        },
+        {
+          "wert": "botendienst",
+          "label": "Fahrer/in Botendienst"
+        },
+        {
+          "wert": "initiativ",
+          "label": "Initiativ – ich erzähle euch, was ich suche"
+        }
+      ]
+    },
+    {
+      "id": "abschluss",
+      "typ": "einzel",
+      "wertung": "abschluss",
+      "rollen": [
+        "apotheker",
+        "pta",
+        "pka",
+        "initiativ",
+        "botendienst"
+      ],
+      "varianten": {
+        "apotheker": {
+          "frage": "Welchen Abschluss hast du?",
+          "optionen": [
+            {
+              "wert": "passend",
+              "label": "Deutsche Approbation als Apotheker/in",
+              "punkte": 40,
+              "match": "passend"
+            },
+            {
+              "wert": "laufend",
+              "label": "Anerkennungsverfahren läuft / PJ läuft",
+              "punkte": 20,
+              "match": "teilweise"
+            },
+            {
+              "wert": "anders",
+              "label": "Anderer Abschluss",
+              "punkte": 0,
+              "match": "anders"
+            }
+          ]
+        },
+        "pta": {
+          "frage": "Welchen Abschluss hast du?",
+          "optionen": [
+            {
+              "wert": "passend",
+              "label": "Abgeschlossene PTA-Ausbildung",
+              "punkte": 40,
+              "match": "passend"
+            },
+            {
+              "wert": "laufend",
+              "label": "Bin noch in der PTA-Ausbildung",
+              "punkte": 20,
+              "match": "teilweise"
+            },
+            {
+              "wert": "anders",
+              "label": "Anderer Abschluss",
+              "punkte": 0,
+              "match": "anders"
+            }
+          ]
+        },
+        "pka": {
+          "frage": "Welchen Abschluss hast du?",
+          "optionen": [
+            {
+              "wert": "passend",
+              "label": "Abgeschlossene PKA-Ausbildung",
+              "punkte": 40,
+              "match": "passend"
+            },
+            {
+              "wert": "vergleichbar",
+              "label": "Vergleichbare kaufmännische Ausbildung",
+              "punkte": 20,
+              "match": "teilweise"
+            },
+            {
+              "wert": "laufend",
+              "label": "Bin noch in der PKA-Ausbildung",
+              "punkte": 20,
+              "match": "teilweise"
+            },
+            {
+              "wert": "anders",
+              "label": "Anderer Abschluss",
+              "punkte": 0,
+              "match": "anders"
+            }
+          ]
+        },
+        "initiativ": {
+          "frage": "Was machst du aktuell beruflich?",
+          "freitext": {
+            "label": "Magst du es kurz beschreiben? (optional)",
+            "max": 300
+          },
+          "optionen": [
+            {
+              "wert": "apotheker",
+              "label": "Apotheker/in",
+              "punkte": 40,
+              "match": "passend"
+            },
+            {
+              "wert": "pta",
+              "label": "PTA",
+              "punkte": 40,
+              "match": "passend"
+            },
+            {
+              "wert": "pka",
+              "label": "PKA",
+              "punkte": 40,
+              "match": "passend"
+            },
+            {
+              "wert": "gesundheit",
+              "label": "Anderer Gesundheitsberuf (z. B. MFA, Drogist/in)",
+              "punkte": 20,
+              "match": "teilweise"
+            },
+            {
+              "wert": "anders",
+              "label": "Etwas ganz anderes / Wiedereinstieg",
+              "punkte": 10,
+              "match": "anders"
+            }
+          ]
+        },
+        "botendienst": {
+          "frage": "Hast du einen Führerschein Klasse B?",
+          "optionen": [
+            {
+              "wert": "passend",
+              "label": "Ja",
+              "punkte": 40,
+              "match": "passend"
+            },
+            {
+              "wert": "anders",
+              "label": "Nein",
+              "punkte": 0,
+              "match": "anders"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "art",
+      "typ": "einzel",
+      "rollen": [
+        "ausbildung"
+      ],
+      "frage": "Was genau suchst du?",
+      "optionen": [
+        {
+          "wert": "pka_ausbildung",
+          "label": "Ausbildung zur PKA",
+          "kurz": "PKA-Ausbildung"
+        },
+        {
+          "wert": "pta_praktikum",
+          "label": "PTA-Praktikum (praktisches Halbjahr)",
+          "kurz": "PTA-Praktikum"
+        },
+        {
+          "wert": "pharmazie_praktikum",
+          "label": "Pharmazie-Praktikum (PJ)",
+          "kurz": "Pharmazie-PJ"
+        },
+        {
+          "wert": "schuelerpraktikum",
+          "label": "Schülerpraktikum",
+          "kurz": "Schülerpraktikum"
+        }
+      ]
+    },
+    {
+      "id": "erfahrung",
+      "typ": "einzel",
+      "rollen": [
+        "apotheker",
+        "pta",
+        "pka",
+        "initiativ"
+      ],
+      "frage": "Wie viel Berufserfahrung hast du?",
+      "optionen": [
+        {
+          "wert": "einsteiger",
+          "label": "Berufseinsteiger/in",
+          "punkte": 5
+        },
+        {
+          "wert": "1-3",
+          "label": "1–3 Jahre",
+          "punkte": 10
+        },
+        {
+          "wert": "3-10",
+          "label": "3–10 Jahre",
+          "punkte": 15
+        },
+        {
+          "wert": "10+",
+          "label": "Über 10 Jahre",
+          "punkte": 15
+        }
+      ]
+    },
+    {
+      "id": "schulabschluss",
+      "typ": "einzel",
+      "wertung": "abschluss",
+      "rollen": [
+        "ausbildung"
+      ],
+      "frage": "Welchen Schulabschluss hast du bzw. strebst du an?",
+      "optionen": [
+        {
+          "wert": "hauptschule",
+          "label": "Hauptschulabschluss",
+          "punkte": 40,
+          "match": "passend"
+        },
+        {
+          "wert": "mittlere_reife",
+          "label": "Mittlere Reife / FOR",
+          "punkte": 40,
+          "match": "passend"
+        },
+        {
+          "wert": "abitur",
+          "label": "(Fach-)Abitur",
+          "punkte": 40,
+          "match": "passend"
+        },
+        {
+          "wert": "pta_pharmazie",
+          "label": "PTA-Schule bzw. Pharmaziestudium",
+          "punkte": 40,
+          "match": "passend"
+        },
+        {
+          "wert": "anderer",
+          "label": "Anderer / noch offen",
+          "punkte": 20,
+          "match": "teilweise"
+        }
+      ]
+    },
+    {
+      "id": "stunden",
+      "typ": "einzel",
+      "rollen": [
+        "apotheker",
+        "pta",
+        "pka",
+        "initiativ",
+        "botendienst"
+      ],
+      "frage": "Welcher Stundenumfang passt zu dir?",
+      "optionen": [
+        {
+          "wert": "vollzeit",
+          "label": "Vollzeit",
+          "kurz": "Vollzeit",
+          "punkte": 15
+        },
+        {
+          "wert": "tz20-30",
+          "label": "Teilzeit 20–30 h",
+          "kurz": "Teilzeit 20–30 h",
+          "punkte": 15
+        },
+        {
+          "wert": "tz<20",
+          "label": "Teilzeit unter 20 h",
+          "kurz": "Teilzeit unter 20 h",
+          "punkte": 8
+        },
+        {
+          "wert": "minijob",
+          "label": "Minijob",
+          "kurz": "Minijob",
+          "punkte": 5
+        }
+      ],
+      "punkte_je_rolle": {
+        "_beispiel": {
+          "vollzeit": 15,
+          "tz20-30": 15,
+          "tz<20": 8,
+          "minijob": 5
+        },
+        "botendienst": {
+          "vollzeit": 5,
+          "tz20-30": 10,
+          "tz<20": 15,
+          "minijob": 15
+        }
+      }
+    },
+    {
+      "id": "start",
+      "typ": "einzel",
+      "rollen": [
+        "apotheker",
+        "pta",
+        "pka",
+        "initiativ",
+        "botendienst"
+      ],
+      "frage": "Ab wann könntest du starten?",
+      "optionen": [
+        {
+          "wert": "sofort",
+          "label": "Sofort",
+          "kurz": "Start sofort",
+          "punkte": 10
+        },
+        {
+          "wert": "1-3",
+          "label": "In 1–3 Monaten",
+          "kurz": "Start in 1–3 Mon.",
+          "punkte": 10
+        },
+        {
+          "wert": "spaeter",
+          "label": "Später",
+          "kurz": "Start später",
+          "punkte": 4
+        }
+      ]
+    },
+    {
+      "id": "zeitraum",
+      "typ": "einzel",
+      "rollen": [
+        "ausbildung"
+      ],
+      "frage": "Welcher Zeitraum passt dir?",
+      "optionen": [
+        {
+          "wert": "sofort",
+          "label": "So bald wie möglich",
+          "kurz": "ab sofort",
+          "punkte": 10
+        },
+        {
+          "wert": "sommer",
+          "label": "Zum nächsten Ausbildungsstart (1. August)",
+          "kurz": "ab 1. August",
+          "punkte": 10
+        },
+        {
+          "wert": "spaeter",
+          "label": "Später / weiß ich noch nicht",
+          "kurz": "Zeitraum offen",
+          "punkte": 4
+        }
+      ]
+    },
+    {
+      "id": "arbeitsweg",
+      "typ": "einzel",
+      "wertung": "arbeitsweg",
+      "frage": "Wie lange ist dein Arbeitsweg nach Erwitte?",
+      "hinweis": "Ungefähr reicht – mit Auto, Bus oder Rad.",
+      "zusatz": {
+        "id": "plz",
+        "label": "Deine PLZ (optional)",
+        "muster": "^[0-9]{5}$"
+      },
+      "optionen": [
+        {
+          "wert": "<20",
+          "label": "Unter 20 Minuten",
+          "punkte": 10
+        },
+        {
+          "wert": "20-40",
+          "label": "20–40 Minuten",
+          "punkte": 7
+        },
+        {
+          "wert": ">40",
+          "label": "Über 40 Minuten",
+          "punkte": 2
+        }
+      ]
+    },
+    {
+      "id": "samstage",
+      "typ": "einzel",
+      "rollen": [
+        "apotheker",
+        "pta",
+        "pka",
+        "initiativ"
+      ],
+      "frage": "Sind gelegentliche Samstage und Notdienste für dich okay?",
+      "hinweis": "Samstags ist bei uns um 12:30 Uhr Schluss.",
+      "optionen": [
+        {
+          "wert": "ja",
+          "label": "Ja",
+          "punkte": 10
+        },
+        {
+          "wert": "absprache",
+          "label": "Nach Absprache",
+          "punkte": 6
+        },
+        {
+          "wert": "nein",
+          "label": "Nein",
+          "punkte": 0
+        }
+      ]
+    },
+    {
+      "id": "wichtig",
+      "typ": "mehrfach",
+      "max": 3,
+      "frage": "Was ist dir bei deinem nächsten Job am wichtigsten?",
+      "hinweis": "Wähle bis zu 3 Punkte – das hilft uns im Gespräch.",
+      "ermutigung": "Fast geschafft!",
+      "optionen": [
+        {
+          "wert": "gehalt",
+          "label": "Gehalt"
+        },
+        {
+          "wert": "arbeitszeiten",
+          "label": "Feste Arbeitszeiten"
+        },
+        {
+          "wert": "team",
+          "label": "Team"
+        },
+        {
+          "wert": "fortbildung",
+          "label": "Fortbildung"
+        },
+        {
+          "wert": "weg",
+          "label": "Kurzer Weg"
+        },
+        {
+          "wert": "verantwortung",
+          "label": "Verantwortung"
+        }
+      ]
+    },
+    {
+      "id": "kontakt",
+      "typ": "kontakt",
+      "frage": "Wie erreichen wir dich?",
+      "hinweis": "Wir rufen dich persönlich zurück – zu deiner Wunschzeit.",
+      "rueckrufzeiten": [
+        "Egal",
+        "Vormittags (8–12 Uhr)",
+        "Mittags (12–14 Uhr)",
+        "Nachmittags (14–18 Uhr)",
+        "Abends (ab 18 Uhr)"
+      ]
+    }
+  ]
+}

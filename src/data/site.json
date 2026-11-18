@@ -1,0 +1,56 @@
+{
+  "_hinweis": "Stammdaten der Apotheke. Änderungen hier wirken auf alle Seiten und Mails. Nach jeder Änderung neu bauen (passiert per GitHub Action automatisch).",
+  "name": "Laurentius Apotheke",
+  "inhaberin": {
+    "name": "Dorothee Böckeler",
+    "rolle": "Inhaberin",
+    "foto": "dorothee-boeckeler",
+    "_foto_hinweis": "Dateiname (ohne Endung) in src/assets/team/, z. B. dorothee-boeckeler.jpg. Fehlt die Datei, erscheint ein Platzhalter mit Initialen.",
+    "zitat": {
+      "text": "Bei uns hat Beratung Zeit – und Feierabend ist Feierabend. Ich freue mich darauf, dich kennenzulernen.",
+      "freigegeben": false,
+      "_hinweis": "Entwurf – erst nach Freigabe durch Frau Böckeler auf true setzen."
+    }
+  },
+  "adresse": {
+    "strasse": "Hellweg 19",
+    "plz": "59597",
+    "ort": "Erwitte",
+    "region": "NRW",
+    "land": "DE",
+    "lat": 51.6118,
+    "lng": 8.3381
+  },
+  "telefon": "+49 2943 97270",
+  "telefon_anzeige": "02943 97270",
+  "whatsapp": null,
+  "_whatsapp_hinweis": "Offener Punkt: WhatsApp-Business-Nummer im internationalen Format ohne +, z. B. \"4915112345678\". Solange null, wird kein WhatsApp-Button gezeigt.",
+  "email_allgemein": "laurentiusapotheke.erwitte@freenet.de",
+  "email_bewerbung": "bewerbung@laurentius-apo-erwitte.de",
+  "website": "https://www.laurentius-apo-erwitte.de/",
+  "shop": "https://www.laurentius-apotheke-erwitte.de/",
+  "impressum_url": "https://www.laurentius-apo-erwitte.de/impressum",
+  "datenschutz_url": "https://www.laurentius-apo-erwitte.de/datenschutz",
+  "karriere_url": "https://www.laurentius-apo-erwitte.de/karriere",
+  "oeffnungszeiten": [
+    {
+      "tage": "Mo–Fr",
+      "zeiten": "08:00–12:30 und 14:15–18:00"
+    },
+    {
+      "tage": "Sa",
+      "zeiten": "08:00–12:30"
+    },
+    {
+      "tage": "So",
+      "zeiten": "geschlossen"
+    }
+  ],
+  "rueckruf_werktage": 2,
+  "analytics": {
+    "plausible_domain": null,
+    "plausible_src": "https://plausible.io/js/script.tagged-events.js",
+    "_hinweis": "Cookieloses Analytics. Domain eintragen (z. B. \"laurentius-apo-erwitte.de\"), sobald der Plausible-Account (EU) angelegt ist. Solange null, wird kein Skript geladen."
+  },
+  "datenschutzhinweise_freigegeben": false
+}

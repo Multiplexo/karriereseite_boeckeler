@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.astro/
+api/vendor/
+api/config.php
+api/storage/*
+!api/storage/.htaccess
+*.log
+.DS_Store
+# Aus src/assets/roh/ erzeugte Bilder (scripts/bilder.mjs)
+src/assets/team/aussenansicht.jpg
+dist-preview/
