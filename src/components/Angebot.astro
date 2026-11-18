@@ -1,0 +1,19 @@
+---
+import { inhalte, sichtbar } from '../lib/content';
+const a = inhalte.angebot;
+const felder = sichtbar(a.felder);
+---
+{felder.length > 1 && (
+<section class="band" id="angebot" aria-labelledby="angebot-h">
+  <div class="wrap">
+    <div class="intro">
+      <span class="kicker">Konditionen</span>
+      <h2 id="angebot-h">{a.titel}</h2>
+      <p>{a.text}</p>
+    </div>
+    <dl class="angebot">
+      {felder.map((f) => <div class:list={{ draft: f.freigegeben === false }}><dt>{f.label}</dt><dd>{f.wert}</dd></div>)}
+    </dl>
+  </div>
+</section>
+)}

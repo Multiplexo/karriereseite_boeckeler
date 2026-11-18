@@ -3,11 +3,11 @@ import { Picture } from 'astro:assets';
 import { inhalte, site, sichtbar } from '../lib/content';
 import { foto } from '../lib/bilder';
 import bilder from '../data/bilder.json';
-const aussen = sichtbar([bilder.aussenansicht])[0];
-const aussenBild = aussen ? foto(aussen.ziel) : null;
 const st = inhalte.standort;
 const anfahrt = sichtbar(st.anfahrt);
-// Schematische Karte (statisch, keine Drittanbieter-Requests). Positionen ≈ reale Lage relativ zu Erwitte, 1 km ≈ 14 px.
+const aussen = sichtbar([bilder.aussenansicht])[0];
+const aussenBild = aussen ? foto(aussen.ziel) : null;
+// Schematische Karte (statisch, keine Drittanbieter-Requests). Positionen ≈ reale Lage relativ zu Erwitte.
 const orte = [
   { n: 'Erwitte', x: 300, y: 190, haupt: true },
   { n: 'Lippstadt', x: 310, y: 96 },
@@ -17,42 +17,41 @@ const orte = [
   { n: 'Geseke', x: 464, y: 144 },
 ];
 ---
-<section class="section" id="standort" aria-labelledby="standort-h">
+<section class="band" id="standort" aria-labelledby="standort-h">
   <div class="wrap standort">
-    <div>
-      <span class="eyebrow">Standort</span>
-      <h2 id="standort-h">Mitten in Erwitte</h2>
+    <div class="intro" style="margin-bottom:0">
+      <span class="kicker">Standort</span>
+      <h2 id="standort-h">{st.titel}</h2>
       <p>{st.text}</p>
-      <p><strong>{site.firma}</strong><br />{site.adresse.strasse}<br />{site.adresse.plz} {site.adresse.ort}</p>
-      <h3>Pendelzeiten</h3>
-      <ul class="pendel">
+      <address class="adresse"><strong>{site.firma}</strong><br />{site.adresse.strasse}, {site.adresse.plz} {site.adresse.ort}</address>
+      <ul class="pendel" aria-label="Fahrzeiten">
         {st.pendelzeiten.map((p) => <li><span>{p.ort}</span><span>ca. {p.minuten} Min.</span></li>)}
       </ul>
       <p class="microtext">{st.pendel_hinweis}</p>
       {anfahrt.length > 0 && <ul>{anfahrt.map((a) => <li class:list={{ draft: a.freigegeben === false }}>{a.text}</li>)}</ul>}
     </div>
     <div class="standort__media">
-    {aussenBild && aussen && (
-      <figure class:list={['standort__foto', { draft: aussen.freigegeben === false }]}>
-        <Picture src={aussenBild} formats={['avif', 'webp']} widths={[480, 720, 1000]} sizes="(min-width: 900px) 540px, 92vw" alt={aussen.alt} loading="lazy" />
-        <figcaption>{site.adresse.strasse}, {site.adresse.ort} · <span>{aussen.bildnachweis}</span></figcaption>
+      {aussenBild && aussen && (
+        <figure class:list={['standort__foto', { draft: aussen.freigegeben === false }]}>
+          <Picture src={aussenBild} formats={['avif', 'webp']} widths={[480, 720, 1000]} sizes="(min-width: 960px) 620px, 92vw" alt={aussen.alt} loading="lazy" />
+          <figcaption>{site.adresse.strasse}, {site.adresse.ort} · {aussen.bildnachweis}</figcaption>
+        </figure>
+      )}
+      <figure class="map" style="margin:0">
+        <svg viewBox="0 0 560 320" role="img" aria-label="Schematische Karte: Erwitte mit Lippstadt im Norden, Geseke im Osten, Anröchte im Süden und Soest im Westen">
+          <rect width="560" height="320" rx="12" fill="#f6f1ec" />
+          <path d="M20 205 C140 185 260 195 300 190 S460 150 545 135" stroke="#e3d6cc" stroke-width="10" fill="none" stroke-linecap="round" />
+          <text x="430" y="126" font-size="12" fill="#6e4a33">Hellweg / B1</text>
+          <path d="M310 30 L310 96 L320 159 L300 190 L290 252 L285 310" stroke="#ebe0d8" stroke-width="6" fill="none" stroke-linecap="round" />
+          {orte.map((o) => (
+            <g>
+              <circle cx={o.x} cy={o.y} r={o.haupt ? 11 : 6} fill={o.haupt ? '#e2001a' : '#6e4a33'} stroke="#fff" stroke-width="3" />
+              <text x={o.x + (o.haupt ? 16 : 11)} y={o.y + 5} font-size={o.haupt ? 17 : 14} font-weight={o.haupt ? 800 : 600} fill="#1d1716">{o.n}</text>
+            </g>
+          ))}
+          <text x="20" y="306" font-size="11" fill="#5f5552">Schematische Darstellung, nicht maßstabsgetreu</text>
+        </svg>
       </figure>
-    )}
-    <figure class="map" style="margin:0">
-      <svg viewBox="0 0 560 320" role="img" aria-label="Schematische Karte: Erwitte mit Lippstadt im Norden, Geseke im Osten, Anröchte im Süden und Soest im Westen">
-        <rect width="560" height="320" rx="10" fill="#f6f1ee" />
-        <path d="M20 205 C140 185 260 195 300 190 S460 150 545 135" stroke="#e6d4cf" stroke-width="10" fill="none" stroke-linecap="round" />
-        <text x="430" y="128" font-size="12" fill="#8a7b77">Hellweg / B1</text>
-        <path d="M310 30 L310 96 L320 159 L300 190 L290 252 L285 310" stroke="#ecdcd8" stroke-width="6" fill="none" stroke-linecap="round" />
-        {orte.map((o) => (
-          <g>
-            <circle cx={o.x} cy={o.y} r={o.haupt ? 11 : 6} fill={o.haupt ? '#e2001a' : '#a3121f'} stroke="#fff" stroke-width="3" />
-            <text x={o.x + (o.haupt ? 16 : 11)} y={o.y + 5} font-size={o.haupt ? 17 : 14} font-weight={o.haupt ? 800 : 600} fill="#1f1b1a">{o.n}</text>
-          </g>
-        ))}
-        <text x="20" y="306" font-size="11" fill="#8a7b77">Schematische Darstellung, nicht maßstabsgetreu</text>
-      </svg>
-    </figure>
     </div>
   </div>
 </section>

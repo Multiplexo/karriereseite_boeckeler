@@ -2,24 +2,29 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import Stellen from '../components/Stellen.astro';
-import Benefits from '../components/Benefits.astro';
-import Ablauf from '../components/Ablauf.astro';
+import RollenKacheln from '../components/RollenKacheln.astro';
+import Tag from '../components/Tag.astro';
 import Team from '../components/Team.astro';
+import Ehrlich from '../components/Ehrlich.astro';
+import Ablauf from '../components/Ablauf.astro';
 import FAQ from '../components/FAQ.astro';
 import FinalCta from '../components/FinalCta.astro';
 import Footer from '../components/Footer.astro';
 import BottomBar from '../components/BottomBar.astro';
-import { seitenStellen, istOffen, gehaltSichtbar, url, PRIMARY_CTA, inhalte, type Stelle } from '../lib/content';
+import { seitenStellen, istOffen, gehaltSichtbar, url, PRIMARY_CTA, inhalte, sichtbar, PREVIEW, type Stelle } from '../lib/content';
 import { jobPosting } from '../lib/jsonld';
 
 export function getStaticPaths() {
   // Auch besetzte Stellen bekommen eine Seite (noindex, Hinweis), damit alte Links nicht ins Leere laufen.
   return seitenStellen.map((s) => ({ params: { stelle: s.slug }, props: { s } }));
 }
-const { s } = Astro.props as { s: Stelle };
+const { s } = Astro.props as { s: Stelle & { foto?: string; einstieg?: string; kurz?: string } };
 const offen = istOffen(s);
 const g = gehaltSichtbar(s);
+// Bildunterschrift nur, wenn die abgebildete Person freigegeben ist (oder in der Vorschau)
+const person = inhalte.team.personen.find((p) => p.foto === s.foto);
+const caption = person && (person.freigegeben !== false || PREVIEW) && !person.quer ? { name: person.name, rolle: person.rolle } : null;
+const zeigtArbeitszeiten = s.slug !== 'botendienst';
 ---
 <Base
   title={s.titel_seo}
@@ -32,39 +37,41 @@ const g = gehaltSichtbar(s);
   <Header slot="header" stelle={offen ? s.slug : undefined} />
   {offen ? (
     <>
-      <Hero headline={s.hero_headline} lead={s.kernbotschaft} stelle={s.slug} eyebrow={`${s.titel} (m/w/d) · Erwitte`} />
-      <section class="section section--alt" aria-labelledby="detail-h">
+      <Hero headline={s.hero_headline} lead={s.einstieg ?? s.kernbotschaft} stelle={s.slug} dachzeile={`${s.titel} (m/w/d) · Laurentius Apotheke · Erwitte`}
+        bild={s.foto} bildAlt={person ? `${person.name}, ${person.rolle}` : ''} bildCaption={caption} />
+      <section class="band band--sand" aria-labelledby="detail-h">
         <div class="wrap detail">
           <div>
-            <h2 id="detail-h">{s.titel_lang} (m/w/d)</h2>
-            <h3>Deine Aufgaben</h3>
+            <span class="kicker">Die Stelle</span>
+            <h2 id="detail-h" style="margin-bottom:28px">{s.titel_lang} (m/w/d)</h2>
+            <h3>Was du bei uns machst</h3>
             <ul>{s.aufgaben.map((a) => <li>{a}</li>)}</ul>
-            <h3>Das bringst du mit</h3>
+            <h3>Was du mitbringst</h3>
             <ul>{s.anforderungen.map((a) => <li>{a}</li>)}</ul>
           </div>
-          <aside class="card">
-            <h3 style="margin-top:0">Auf einen Blick</h3>
-            <ul class="job__facts" style="margin-bottom:16px">
-              <li><strong>Umfang:</strong> {s.stundenumfang}</li>
-              <li><strong>Start:</strong> {s.startdatum}</li>
-              {g && <li class:list={{ draft: g.freigegeben === false }}><strong>Gehalt:</strong> {g.text}</li>}
-              <li><strong>Arbeitszeiten:</strong> Mo–Fr bis spätestens 18 Uhr, Sa bis 12:30 Uhr</li>
-              <li><strong>Ort:</strong> Hellweg 19, 59597 Erwitte</li>
-            </ul>
+          <aside class="fakten">
+            <dl>
+              <div><dt>Umfang</dt><dd>{s.stundenumfang}</dd></div>
+              <div><dt>Start</dt><dd>{s.startdatum}</dd></div>
+              {g && <div class:list={{ draft: g.freigegeben === false }}><dt>Gehalt</dt><dd>{g.text}</dd></div>}
+              {zeigtArbeitszeiten && <div><dt>Arbeitszeiten</dt><dd>Mo–Fr bis spätestens 18:00, Sa bis 12:30, So geschlossen (außer Notdienst)</dd></div>}
+              <div><dt>Ort</dt><dd>Hellweg 19, 59597 Erwitte</dd></div>
+            </dl>
             <a class="btn btn--primary btn--block" href={url(`bewerben/?stelle=${s.slug}`)} data-track="cta_click" data-pos="detail">{PRIMARY_CTA}</a>
             <p class="microtext">{inhalte.hero.mikrotext}</p>
           </aside>
         </div>
       </section>
-      <Team stelle={s.slug} titel="Deine künftigen Kolleginnen und Kollegen" />
-      <Benefits />
+      <Team stelle={s.slug} titel="Deine künftigen Kolleginnen und Kollegen" band="band" />
+      {zeigtArbeitszeiten && <Tag />}
+      <Ehrlich />
       <Ablauf />
       <FAQ />
-      <Stellen ohne={s.slug} titel="Weitere offene Stellen" />
+      <RollenKacheln ohne={s.slug} titel="Andere Stellen" text="Vielleicht passt eine davon noch besser." />
       <FinalCta stelle={s.slug} />
     </>
   ) : (
-    <section class="section">
+    <section class="band">
       <div class="wrap prose">
         <h1>Diese Stelle ist bereits besetzt</h1>
         <p>Danke für dein Interesse! Die Stelle „{s.titel}“ ist aktuell nicht mehr offen. Schau dir unsere anderen Stellen an oder bewirb dich initiativ.</p>

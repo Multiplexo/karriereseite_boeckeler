@@ -14,7 +14,7 @@ Mobile-first Karriereseite mit mehrstufigem Bewerberfunnel (Kurzbewerbung < 2 Mi
 
 | URL | Inhalt |
 | --- | --- |
-| `/` | One-Pager: Hero mit Inhaberin, Stellen, Benefits, Team, Botendienst, Ablauf, Standort, FAQ, Abschluss-CTA |
+| `/` | Einstieg mit Inhaberin und Öffnungszeiten-Schild, Stellen-Kacheln, Ein Tag am Hellweg, Belege, Team, Ehrlich gesagt, Konditionen, Ablauf, Standort, Fragen, Abschluss |
 | `/pta/` · `/pka/` · `/apotheker/` · `/ausbildung/` | Stellenseiten mit JSON-LD `JobPosting` (Google for Jobs) |
 | `/bewerben/?stelle=…` | Funnel (Stelle vorbelegt → Schritt 1 entfällt) |
 | `/datenschutz-bewerbung/` | Datenschutzhinweise für Bewerber/innen (**Entwurf, DSB-Prüfung nötig**) |
@@ -26,7 +26,9 @@ Alle Inhalte liegen in `src/data/` und lassen sich z. B. direkt in der GitHub-We
 
 - **Stelle an/aus:** `src/data/stellen.json`, Feld `status` auf `"offen"`, `"besetzt"` oder `"entwurf"` setzen. Besetzte Stellen verschwinden aus Übersicht, Sitemap und Google for Jobs; ihre Seite bekommt `noindex` und einen Hinweis.
 - **Fragen, Antworten, Punkte, Schwellenwerte:** `src/data/funnel.json`. Der Score wird je Pfad auf 0–100 normiert, die Punkte gehen nie an den Browser.
-- **Entwürfe freigeben:** Alles mit `"freigegeben": false` (Benefits, FAQ, Teamzitate, Zitat der Inhaberin, Botendienst, Außenansicht) ist nur in der **Vorschau** sichtbar: `npm run build:preview`, gelb markiert und mit `noindex`. Nach Freigabe auf `true` setzen.
+- **Texte:** alle in `src/data/inhalte.json`, Konzept und Begründung in `docs/konzept-karriereseite.html`.
+- **Entwürfe freigeben:** Alles mit `"freigegeben": false` (z. B. Notdienste, Gehalt, Teamzitate, Zitat der Inhaberin) ist nur in der **Vorschau** sichtbar, gelb markiert und mit `noindex`. Nach Freigabe auf `true` setzen.
+- **Vorschaumodus:** `src/data/site.json` → `"vorschau_modus": true` zeigt die Entwürfe auch auf Render (Testphase). **Vor dem Go-live auf `false` setzen.**
 - **Gehalt:** je Stelle `gehalt` setzen, z. B. `{ "text": "3.100–3.600 € brutto (VZ)", "min": 3100, "max": 3600, "einheit": "MONTH" }`. Es erscheint dann auf Karte, Stellenseite und im JSON-LD (`baseSalary`).
 
 ## Fotos

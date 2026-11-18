@@ -1,0 +1,25 @@
+---
+import { inhalte, sichtbar } from '../lib/content';
+const t = sichtbar([inhalte.tag])[0];
+---
+{t && (
+<section class:list={['band band--sand', { draft: t.freigegeben === false }]} id="alltag" aria-labelledby="tag-h">
+  <div class="wrap tag">
+    <div class="intro">
+      <span class="kicker">Alltag</span>
+      <h2 id="tag-h">{t.titel}</h2>
+      <p>{t.text}</p>
+    </div>
+    <div>
+      <ol class="zeitleiste">
+        {t.eintraege.map((e) => (
+          <li class:list={{ pause: e.pause, ende: e.ende }}>
+            <time>{e.zeit}</time><span class="punkt" aria-hidden="true"></span><p>{e.text}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="tag__hinweis">{t.hinweis}</p>
+    </div>
+  </div>
+</section>
+)}

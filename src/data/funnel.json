@@ -24,7 +24,7 @@
   },
   "rollen": {
     "apotheker": {
-      "label": "Apotheker/in",
+      "label": "Apotheker:in",
       "abschluss_hinweis": "eine deutsche Approbation (oder ein laufendes Anerkennungsverfahren)"
     },
     "pta": {
@@ -55,7 +55,7 @@
       "optionen": [
         {
           "wert": "apotheker",
-          "label": "Apotheker/in"
+          "label": "Apotheker:in"
         },
         {
           "wert": "pta",
@@ -96,7 +96,7 @@
           "optionen": [
             {
               "wert": "passend",
-              "label": "Deutsche Approbation als Apotheker/in",
+              "label": "Deutsche Approbation als Apotheker:in",
               "punkte": 40,
               "match": "passend"
             },
@@ -175,7 +175,7 @@
           "optionen": [
             {
               "wert": "apotheker",
-              "label": "Apotheker/in",
+              "label": "Apotheker:in",
               "punkte": 40,
               "match": "passend"
             },

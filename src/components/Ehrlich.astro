@@ -1,0 +1,17 @@
+---
+import { inhalte, sichtbar } from '../lib/content';
+const e = inhalte.ehrlich;
+const punkte = sichtbar(e.punkte);
+---
+<section class="band band--ink" id="ehrlich" aria-labelledby="ehrlich-h">
+  <div class="wrap ehrlich">
+    <div class="intro">
+      <span class="kicker">Ohne Beschönigung</span>
+      <h2 id="ehrlich-h">{e.titel}</h2>
+      <p>{e.text}</p>
+    </div>
+    <ul>
+      {punkte.map((p) => <li class:list={{ draft: p.freigegeben === false }}><strong>{p.titel}</strong><span>{p.text}</span></li>)}
+    </ul>
+  </div>
+</section>

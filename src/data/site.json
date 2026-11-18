@@ -1,17 +1,14 @@
 {
   "_hinweis": "Stammdaten der Apotheke. Änderungen hier wirken auf alle Seiten und Mails. Nach jeder Änderung neu bauen (passiert per GitHub Action automatisch).",
+  "vorschau_modus": true,
+  "_vorschau_hinweis": "true = Entwürfe werden gelb markiert angezeigt und die Seite ist für Suchmaschinen gesperrt (noindex). VOR DEM GO-LIVE auf false setzen.",
   "name": "Laurentius Apotheke",
   "firma": "Laurentius Apotheke Böckeler e.K.",
   "inhaberin": {
     "name": "Dorothee Böckeler",
     "rolle": "Inhaberin",
     "foto": "dorothee-boeckeler",
-    "_foto_hinweis": "Dateiname (ohne Endung) in src/assets/team/, z. B. dorothee-boeckeler.jpg. Fehlt die Datei, erscheint ein Platzhalter mit Initialen.",
-    "zitat": {
-      "text": "Bei uns hat Beratung Zeit – und Feierabend ist Feierabend. Ich freue mich darauf, dich kennenzulernen.",
-      "freigegeben": false,
-      "_hinweis": "Entwurf – erst nach Freigabe durch Frau Böckeler auf true setzen."
-    }
+    "_foto_hinweis": "Dateiname (ohne Endung) in src/assets/team/, z. B. dorothee-boeckeler.jpg. Fehlt die Datei, erscheint ein Platzhalter mit Initialen."
   },
   "adresse": {
     "strasse": "Hellweg 19",

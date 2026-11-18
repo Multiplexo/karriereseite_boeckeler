@@ -2,32 +2,31 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import Stellen from '../components/Stellen.astro';
-import Benefits from '../components/Benefits.astro';
+import RollenKacheln from '../components/RollenKacheln.astro';
+import Tag from '../components/Tag.astro';
+import Belege from '../components/Belege.astro';
 import Team from '../components/Team.astro';
-import Botendienst from '../components/Botendienst.astro';
+import Ehrlich from '../components/Ehrlich.astro';
+import Angebot from '../components/Angebot.astro';
 import Ablauf from '../components/Ablauf.astro';
 import Standort from '../components/Standort.astro';
 import FAQ from '../components/FAQ.astro';
 import FinalCta from '../components/FinalCta.astro';
 import Footer from '../components/Footer.astro';
 import BottomBar from '../components/BottomBar.astro';
-import { site } from '../lib/content';
 ---
 <Base
-  title="Karriere in Erwitte: PTA, PKA, Apotheker/in (m/w/d) – Laurentius Apotheke"
-  description="Jobs in der Laurentius Apotheke Erwitte: PTA, PKA, Apotheker/in, Ausbildung. Feierabend spätestens 18 Uhr, Samstag nur vormittags. In 60 Sekunden bewerben – ohne Anschreiben."
+  title="Jobs in der Laurentius Apotheke Erwitte: PTA, PKA, Apotheker:in (m/w/d)"
+  description="Hier hat Beratung Zeit und dein Feierabend eine Uhrzeit: PTA, PKA und Apotheker:innen in Erwitte gesucht. Inhabergeführt, um 18 Uhr ist Schluss. In 60 Sekunden bewerben."
 >
   <Header slot="header" />
-  <Hero
-    portrait
-    headline="Apothekenjobs in Erwitte – mit Feierabend, der planbar ist"
-    lead={`Inhabergeführt, festes Team, Beratung mit Zeit statt Akkord. Wir suchen PTA, PKA und Apotheker/innen aus Erwitte, Lippstadt, Soest und Umgebung.`}
-  />
-  <Stellen />
-  <Benefits />
+  <Hero />
+  <RollenKacheln />
+  <Tag />
+  <Belege />
   <Team />
-  <Botendienst />
+  <Ehrlich />
+  <Angebot />
   <Ablauf />
   <Standort />
   <FAQ />

@@ -1,0 +1,22 @@
+---
+// Echtes Foto aus src/assets/team/ (AVIF/WebP mit srcset) oder, falls die Datei fehlt, ein ruhiger Platzhalter.
+import { Picture } from 'astro:assets';
+import { foto } from '../lib/bilder';
+interface Props {
+  name: string | null | undefined;
+  alt: string;
+  widths: number[];
+  sizes: string;
+  width?: number;
+  height?: number;
+  position?: string;
+  eager?: boolean;
+  platzhalter?: string;
+}
+const { name, alt, widths, sizes, width, height, position = 'top', eager = false, platzhalter = '' } = Astro.props;
+const bild = foto(name);
+const zuschnitt = width && height ? { width, height, fit: 'cover' as const, position } : {};
+---
+{bild
+  ? <Picture src={bild} formats={['avif', 'webp']} widths={widths} sizes={sizes} alt={alt} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} {...zuschnitt} />
+  : <span class="person__init" aria-hidden="true">{platzhalter}</span>}

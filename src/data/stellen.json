@@ -8,7 +8,7 @@
       "titel_lang": "Pharmazeutisch-technische/r Assistent/in (PTA)",
       "titel_seo": "PTA (m/w/d) in Erwitte – Laurentius Apotheke",
       "meta_beschreibung": "PTA (m/w/d) in Erwitte gesucht: Beratung mit Zeit statt Akkord, Feierabend spätestens 18 Uhr, Samstag nur vormittags. In 60 Sekunden bewerben – ohne Anschreiben.",
-      "hero_headline": "PTA in Erwitte gesucht – Beratung mit Zeit statt Akkord",
+      "hero_headline": "PTA in Erwitte: Beratung mit Zeit statt Akkord",
       "kernbotschaft": "Beratung mit Zeit, ein festes Team und planbare Dienste.",
       "stundenumfang": "Vollzeit oder Teilzeit",
       "employment_type": [
@@ -37,7 +37,10 @@
         "Abgeschlossene Ausbildung als PTA",
         "Freude an Beratung und am Kontakt mit Menschen",
         "Englisch- oder Russischkenntnisse sind ein willkommenes Plus – kein Muss"
-      ]
+      ],
+      "kurz": "Du berätst, misst an, stellst her. In Ruhe.",
+      "einstieg": "Du misst Kompressionsstrümpfe an, erklärst Hilfsmittel und stehst in der Rezeptur. Zwischen zwei Kundinnen bleibt Zeit für eine Nachfrage. Um 18 Uhr ist Schluss.",
+      "foto": "mitarbeiterin-1"
     },
     {
       "slug": "pka",
@@ -46,7 +49,7 @@
       "titel_lang": "Pharmazeutisch-kaufmännische/r Angestellte/r (PKA)",
       "titel_seo": "PKA (m/w/d) in Erwitte – Laurentius Apotheke",
       "meta_beschreibung": "PKA (m/w/d) in Erwitte gesucht: Verantwortung für Warenwirtschaft und Einkauf in einer inhabergeführten Apotheke. Feierabend spätestens 18 Uhr. Jetzt in 60 Sekunden bewerben.",
-      "hero_headline": "PKA in Erwitte gesucht – Warenwirtschaft mit echter Verantwortung",
+      "hero_headline": "PKA in Erwitte: Du hältst den Laden am Laufen",
       "kernbotschaft": "Du steuerst Warenwirtschaft und Einkauf – und hast dabei kurze Wege zur Chefin.",
       "stundenumfang": "Vollzeit oder Teilzeit",
       "employment_type": [
@@ -68,16 +71,19 @@
         "Abgeschlossene Ausbildung als PKA oder vergleichbare kaufmännische Ausbildung",
         "Sorgfalt und Spaß an Organisation",
         "Erfahrung mit einer Apotheken-Warenwirtschaft ist hilfreich, aber kein Muss"
-      ]
+      ],
+      "kurz": "Du sorgst dafür, dass alles da ist, bevor jemand danach fragt.",
+      "einstieg": "Bestellung, Wareneingang, Konditionen, Abrechnung. Du siehst als Erste, wenn etwas knapp wird, und sorgst dafür, dass niemand ohne sein Medikament nach Hause geht.",
+      "foto": "mitarbeiterin-2"
     },
     {
       "slug": "apotheker",
       "status": "offen",
-      "titel": "Apotheker/in",
-      "titel_lang": "Apotheker/in (approbiert), auch Filialleitung/Vertretung",
-      "titel_seo": "Apotheker/in (m/w/d) in Erwitte – Laurentius Apotheke",
+      "titel": "Apotheker:in",
+      "titel_lang": "Apotheker:in (approbiert), auch Vertretung",
+      "titel_seo": "Apotheker:in (m/w/d) in Erwitte – Laurentius Apotheke",
       "meta_beschreibung": "Approbierte/r Apotheker/in (m/w/d) in Erwitte: Verantwortung und Gestaltungsspielraum in einer inhabergeführten Apotheke statt Kettenroutine. Jetzt in 60 Sekunden bewerben.",
-      "hero_headline": "Apotheker/in in Erwitte – Gestaltungsspielraum statt Kettenroutine",
+      "hero_headline": "Apotheker:in in Erwitte: Verantwortung ohne Konzernzentrale",
       "kernbotschaft": "Verantwortung und Gestaltungsspielraum in einer inhabergeführten Apotheke.",
       "stundenumfang": "Vollzeit oder Teilzeit, auch als Vertretung",
       "employment_type": [
@@ -99,7 +105,10 @@
         "Deutsche Approbation als Apotheker/in oder laufendes Anerkennungsverfahren",
         "Freude an Verantwortung und Teamführung",
         "Englisch- oder Russischkenntnisse sind ein willkommenes Plus – kein Muss"
-      ]
+      ],
+      "kurz": "Du trägst Verantwortung und gestaltest mit.",
+      "einstieg": "Du vertrittst die Inhaberin, entwickelst pharmazeutische Dienstleistungen weiter und arbeitest mit Apothekerin Julia Grundmann zusammen. Entscheidungen fallen hier, nicht in einer Zentrale.",
+      "foto": "julia-grundmann"
     },
     {
       "slug": "ausbildung",
@@ -108,7 +117,7 @@
       "titel_lang": "Ausbildung zur PKA, PTA-Praktikum, Pharmazie-Praktikum",
       "titel_seo": "Ausbildung PKA & Praktikum (m/w/d) in Erwitte – Laurentius Apotheke",
       "meta_beschreibung": "Ausbildung zur PKA, PTA-Praktikum oder Pharmazie-Praktikum in Erwitte: gut betreut einsteigen, mit Übernahmechance. Jetzt in 60 Sekunden bewerben.",
-      "hero_headline": "Ausbildung & Praktikum in Erwitte – gut betreut einsteigen",
+      "hero_headline": "Ausbildung und Praktikum in Erwitte: Lernen bei Leuten, die gern erklären",
       "kernbotschaft": "Gut betreut einsteigen – mit fester Ansprechperson und Übernahmechance.",
       "stundenumfang": "Ausbildung in Vollzeit · Praktikum nach Vereinbarung",
       "employment_type": [
@@ -130,16 +139,19 @@
         "PTA-Praktikum: bestandener schulischer Teil der PTA-Ausbildung",
         "Pharmazie-Praktikum: bestandener 2. Abschnitt der Pharmazeutischen Prüfung",
         "Neugier, Zuverlässigkeit und Freude am Umgang mit Menschen"
-      ]
+      ],
+      "kurz": "Du lernst bei Leuten, die gern erklären.",
+      "einstieg": "PKA-Ausbildung, PTA-Praktikum oder Pharmazie-PJ: Du lernst den Alltag einer Apotheke von der Rezeptur bis zum Botendienst kennen.",
+      "foto": "mitarbeiterin-2"
     },
     {
       "slug": "botendienst",
       "status": "entwurf",
-      "titel": "Fahrer/in Botendienst",
+      "titel": "Fahrer:in Botendienst",
       "titel_lang": "Fahrer/in für unseren Botendienst (Minijob)",
       "titel_seo": "Fahrer/in Botendienst (m/w/d) in Erwitte – Laurentius Apotheke",
       "meta_beschreibung": "Fahrer/in für den Botendienst der Laurentius Apotheke in Erwitte gesucht (Minijob): Arzneimittel zu Kundinnen und Kunden bringen, mit Dienstwagen. Ideal auch für Rentner/innen.",
-      "hero_headline": "Fahrer/in für unseren Botendienst – unterwegs für Erwitte",
+      "hero_headline": "Fahrer:in für unseren Botendienst",
       "kernbotschaft": "Du bringst Arzneimittel zu Menschen, die darauf warten – mit unserem Dienstwagen, in festen Touren.",
       "stundenumfang": "Minijob [Stunden/Woche vom Kunden]",
       "employment_type": [
@@ -158,7 +170,10 @@
         "Führerschein Klasse B",
         "Zuverlässigkeit und ein freundliches Auftreten",
         "Ortskenntnis in Erwitte und Umgebung ist ein Plus"
-      ]
+      ],
+      "kurz": "Du bringst Arzneimittel zu Menschen, die darauf warten.",
+      "einstieg": "Du bringst Arzneimittel und Hilfsmittel zu Kundinnen und Kunden in Erwitte und Umgebung, mit unserem Dienstwagen.",
+      "foto": "botendienst"
     }
   ],
   "initiativ": {

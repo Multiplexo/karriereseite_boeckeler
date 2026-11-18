@@ -1,0 +1,10 @@
+---
+import { site, inhalte } from '../lib/content';
+---
+<div class="schild" role="group" aria-label={inhalte.hero.schild_titel}>
+  <span class="schild__titel">{inhalte.hero.schild_titel}</span>
+  <dl>
+    {site.oeffnungszeiten.map((o) => (<><dt>{o.tage}</dt><dd>{o.zeiten.replace(' und ', ' · ').replace(/geschlossen$/, 'geschlossen*')}</dd></>))}
+  </dl>
+  <span class="schild__fuss">* {inhalte.hero.schild_fussnote}</span>
+</div>

@@ -398,11 +398,11 @@ export function startFunnel() {
     root!.dataset.state = 'danke';
     root!.innerHTML = `
       <div class="danke">
-        ${inh.foto ? `<img class="portrait portrait--lg" src="${esc(inh.foto)}" alt="${esc(inh.name)}, ${esc(inh.rolle)}" width="224" height="280">` : `<span class="portrait portrait--lg" aria-hidden="true">${esc(init)}</span>`}
+        ${inh.foto ? `<img class="danke__foto" src="${esc(inh.foto)}" alt="${esc(inh.name)}, ${esc(inh.rolle)}" width="336" height="420">` : `<span class="danke__init" aria-hidden="true">${esc(init)}</span>`}
         <h1 tabindex="-1">Danke, ${esc(j.vorname)}!</h1>
         <p>Deine Bewerbung ist bei uns angekommen. Eine Bestätigung ist auf dem Weg in dein E-Mail-Postfach.</p>
         <div class="danke__next"><strong>So geht es weiter:</strong> Wir rufen dich bis spätestens <strong>${esc(j.rueckruf_bis)}</strong> an.</div>
-        <p>Fragen in der Zwischenzeit? Ruf uns gern an.</p>
+        <p>Wenn dir bis dahin noch etwas einfällt, ruf gern an.</p>
         <p><a class="btn btn--outline" href="${cfg.tel}" data-track="call_click" data-pos="danke">${icon.phone} ${esc(cfg.telAnzeige)}</a></p>
         <p class="microtext">${esc(inh.name)}, ${esc(inh.rolle)} der Laurentius Apotheke</p>
       </div>`;

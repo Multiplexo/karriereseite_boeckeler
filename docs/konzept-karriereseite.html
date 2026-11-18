@@ -1,0 +1,332 @@
+<title>Karrierekonzept Laurentius Apotheke</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: Arbeitsdokument zur Freigabe. Eine Lesespalte, Abschnitte der Karriereseite als nummerierte Blöcke (echte Seitenreihenfolge), Copy in „Textkarten“, offene Fakten gelb. */
+:root {
+  --bg: #ffffff; --paper: #f6f2ee; --fg: #1d1716; --muted: #5f5552; --line: #e6dedb;
+  --red: #d40019; --red-soft: #fdecec; --wood: #6e4a33; --wood-soft: #f3ebe4;
+  --todo: #7a5600; --todo-bg: #fff3d1; --no: #8f1d1d; --no-bg: #fbe9e9; --yes: #1d6b3a; --yes-bg: #e6f4ea;
+  --f-display: "Bricolage Grotesque", "Inter", system-ui, sans-serif; --f-body: "Inter", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #161211; --paper: #201a19; --fg: #f3eeec; --muted: #b9adaa; --line: #3a312f;
+  --red: #ff5f6c; --red-soft: #3a1c1f; --wood: #d9a77f; --wood-soft: #2d221b;
+  --todo: #f4c766; --todo-bg: #3a2e12; --no: #ff9b9b; --no-bg: #3a1b1b; --yes: #74d394; --yes-bg: #183222; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #161211; --paper: #201a19; --fg: #f3eeec; --muted: #b9adaa; --line: #3a312f;
+  --red: #ff5f6c; --red-soft: #3a1c1f; --wood: #d9a77f; --wood-soft: #2d221b;
+  --todo: #f4c766; --todo-bg: #3a2e12; --no: #ff9b9b; --no-bg: #3a1b1b; --yes: #74d394; --yes-bg: #183222; color-scheme: dark }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 400 16px/1.62 var(--f-body); }
+.wrap { max-width: 900px; margin: 0 auto; padding-block: 48px 96px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 56px; }
+h1, h2, h3, h4 { font-family: var(--f-display); line-height: 1.1; margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+h1 { font-size: clamp(2.1rem, 6vw, 3.4rem); font-weight: 800; }
+h2 { font-size: clamp(1.5rem, 3.4vw, 2rem); font-weight: 700; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+h4 { font-size: 1rem; font-weight: 700; }
+p { margin: 0; max-width: 68ch; }
+ul, ol { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+.eyebrow { font: 600 .76rem/1 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--red); }
+.muted { color: var(--muted); }
+header.top { display: grid; gap: 16px; }
+.lead { font-size: 1.15rem; color: var(--muted); max-width: 62ch; }
+nav.toc { display: flex; flex-wrap: wrap; gap: 8px; }
+nav.toc a { color: var(--fg); text-decoration: none; border: 1px solid var(--line); padding: 7px 12px; border-radius: 999px; font-size: .9rem; font-weight: 500; }
+nav.toc a:hover, nav.toc a:focus-visible { border-color: var(--red); outline: none; }
+section { display: grid; gap: 22px; scroll-margin-top: 16px; }
+.evp { background: var(--fg); color: var(--bg); border-radius: 20px; padding: 32px clamp(20px, 4vw, 40px); display: grid; gap: 14px; }
+.evp .eyebrow { color: var(--bg); opacity: .75; }
+.evp p.big { font: 700 clamp(1.5rem, 3.6vw, 2.2rem)/1.15 var(--f-display); max-width: 30ch; }
+.pillars { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.pillar { border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 10px; align-content: start; }
+.pillar .proof { font-size: .92rem; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 10px; }
+.words { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.words > div { border-radius: 14px; padding: 16px 18px; display: grid; gap: 8px; align-content: start; }
+.words .no { background: var(--no-bg); }
+.words .no h4 { color: var(--no); }
+.words .yes { background: var(--yes-bg); }
+.words .yes h4 { color: var(--yes); }
+.swap { display: grid; grid-template-columns: 1fr auto 1fr; gap: 6px 10px; font-size: .94rem; align-items: start; }
+.swap .x { text-decoration: line-through; color: var(--muted); }
+.swap .arrow { color: var(--muted); }
+ol.blocks { list-style: none; padding: 0; counter-reset: b; display: grid; gap: 20px; }
+ol.blocks > li { counter-increment: b; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: grid; }
+.bhead { display: flex; gap: 14px; align-items: baseline; padding: 18px 20px 12px; flex-wrap: wrap; }
+.bhead::before { content: counter(b, decimal-leading-zero); font: 800 1.4rem/1 var(--f-display); color: var(--red); }
+.bhead h3 { flex: 1; min-width: 200px; }
+.bmeta { padding: 0 20px 14px; display: grid; gap: 4px; font-size: .9rem; color: var(--muted); }
+.bmeta b { color: var(--fg); font-weight: 600; }
+.copy { background: var(--paper); padding: 18px 20px; display: grid; gap: 10px; border-top: 1px solid var(--line); }
+.copy .k { font: 600 .72rem/1 var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.copy .h { font: 700 1.35rem/1.15 var(--f-display); }
+.copy .h.l { font-size: 1.7rem; }
+.copy blockquote { margin: 0; padding-left: 12px; border-left: 3px solid var(--red); font-style: italic; }
+.tl { display: grid; gap: 0; }
+.tl div { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 8px 0; border-bottom: 1px dashed var(--line); }
+.tl div:last-child { border-bottom: 0; }
+.tl time { font: 700 1rem/1.4 var(--f-display); color: var(--wood); font-variant-numeric: tabular-nums; }
+.todo { background: var(--todo-bg); color: var(--todo); font-weight: 600; padding: 1px 6px; border-radius: 5px; font-size: .88em; white-space: nowrap; }
+.sign { justify-self: start; border: 2px solid var(--fg); border-radius: 10px; padding: 14px 18px; display: grid; gap: 4px; font-variant-numeric: tabular-nums; min-width: 0; max-width: 100%; }
+.sign .row { display: grid; grid-template-columns: 70px 1fr; gap: 10px; font-size: .95rem; }
+.sign .row b { font-weight: 700; }
+.photos { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.photos div { border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: grid; gap: 6px; font-size: .93rem; align-content: start; }
+.photos b { font-family: var(--f-display); font-size: 1rem; }
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: .93rem; min-width: 560px; }
+th, td { padding: 10px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+th { background: var(--paper); font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+.qs { columns: 2 280px; column-gap: 28px; }
+.qs li { break-inside: avoid; margin-bottom: 8px; }
+footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line); padding-top: 20px; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">Laurentius Apotheke Böckeler e.K. · Konzept zur Freigabe</span>
+    <h1>Text- und Strukturkonzept für die Karriereseite</h1>
+    <p class="lead">Die Seite soll wechselwillige PTA, PKA und Apotheker:innen aus Erwitte und Umgebung überzeugen, die abends am Handy scrollen und eigentlich nicht suchen. Das gelingt nicht mit Versprechen, sondern mit Dingen, die man nachprüfen kann: Öffnungszeiten, echte Aufgaben, echte Gesichter.</p>
+    <p class="muted">Stand 18.11.2026. Gelb markiert <span class="todo">bestätigen</span> sind Aussagen, die wir im Interview mit Frau Böckeler prüfen müssen. Sie gehen erst nach Freigabe live.</p>
+    <nav class="toc" aria-label="Inhalt">
+      <a href="#kern">Kernbotschaft</a><a href="#ton">Tonalität</a><a href="#struktur">Seitenstruktur</a><a href="#stellen">Stellenseiten</a><a href="#funnel">Bewerbung</a><a href="#bilder">Bilder</a><a href="#interview">Interviewfragen</a>
+    </nav>
+  </header>
+
+  <section id="kern" aria-labelledby="kern-h">
+    <h2 id="kern-h">Kernbotschaft</h2>
+    <div class="evp">
+      <span class="eyebrow">Employer Value Proposition</span>
+      <p class="big">Hier hat Beratung Zeit. Und dein Feierabend eine Uhrzeit.</p>
+      <p>Die Laurentius Apotheke ist inhabergeführt, liegt mitten in Erwitte und schließt um 18 Uhr. Wer hier arbeitet, nimmt noch Maß, erklärt eine Milchpumpe so lange, bis keine Frage offen ist, und weiß, wer entscheidet: die Inhaberin, ein paar Meter weiter.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <h3>Zeit, die man planen kann</h3>
+        <p>Die Öffnungszeiten sind die Arbeitsgrenzen. Kein Spätdienst bis 20 Uhr, samstags um 12:30 Uhr Schluss, sonntags geschlossen.</p>
+        <p class="proof">Beweis: das Öffnungszeiten-Schild an der Tür. Offen: Häufigkeit der Notdienste <span class="todo">bestätigen</span></p>
+      </div>
+      <div class="pillar">
+        <h3>Beratung als Handwerk</h3>
+        <p>Kompressionsstrümpfe und Bandagen anmessen, Inkontinenzversorgung, Hilfsmittel- und Milchpumpenverleih, Rezeptur. Arbeit mit den Händen und mit Menschen.</p>
+        <p class="proof">Beweis: das Leistungsangebot der Apotheke. Offen: bezahlte Schulungen für Anmessen <span class="todo">bestätigen</span></p>
+      </div>
+      <div class="pillar">
+        <h3>Nähe, die man sieht</h3>
+        <p>Die Inhaberin arbeitet vor Ort, eigene Boten bringen Arzneimittel nach Hause, beraten wird auf Deutsch, Englisch und Russisch.</p>
+        <p class="proof">Beweis: echte Fotos von Team und Boten, Name statt „das Team“.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="ton" aria-labelledby="ton-h">
+    <h2 id="ton-h">Tonalität</h2>
+    <p>Du-Ansprache, kurze Sätze, Alltagssprache. Jeder Satz soll eine Situation zeigen, die man sich vorstellen kann. Wenn wir etwas nicht belegen können, lassen wir es weg. Bei der Apotheker-Stelle bleibt die Du-Ansprache, sofern Frau Böckeler nicht anders entscheidet <span class="todo">bestätigen</span>.</p>
+    <div class="words">
+      <div class="no">
+        <h4>Gestrichen</h4>
+        <p>flache Hierarchien · familiäres Umfeld · dynamisches Team · Obstkorb · attraktive Vergütung · abwechslungsreiche Tätigkeit · spannende Herausforderung · Wohlfühlatmosphäre · „Wir sind wie eine Familie“</p>
+      </div>
+      <div class="yes">
+        <h4>Ersetzt durch</h4>
+        <div class="swap">
+          <span class="x">flache Hierarchien</span><span class="arrow">→</span><span>„Deine Idee besprichst du mit der Chefin an der Theke, nicht per Formular.“</span>
+          <span class="x">attraktive Vergütung</span><span class="arrow">→</span><span>Gehaltsspanne in Euro oder gar nichts</span>
+          <span class="x">abwechslungsreich</span><span class="arrow">→</span><span>„Vormittags Maß nehmen, nachmittags eine Milchpumpe erklären.“</span>
+          <span class="x">familiär</span><span class="arrow">→</span><span>Fotos und Namen der Menschen, mit denen man arbeitet</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="struktur" aria-labelledby="struktur-h">
+    <h2 id="struktur-h">Seitenstruktur mit finalen Texten</h2>
+    <p class="muted">Reihenfolge der Startseite. Jeder Abschnitt hat genau eine Aufgabe. Der Button „In 60 Sekunden bewerben“ ist auf jeder Bildschirmhöhe erreichbar (mobil als feste Leiste unten).</p>
+    <ol class="blocks">
+      <li>
+        <div class="bhead"><h3>Einstieg</h3></div>
+        <div class="bmeta"><span><b>Aufgabe:</b> In drei Sekunden klarmachen, was hier anders ist.</span><span><b>Bild:</b> Porträt Dorothee Böckeler in der Offizin, groß, daneben das Öffnungszeiten-Schild als grafisches Element.</span></div>
+        <div class="copy">
+          <span class="k">Dachzeile</span><p>Laurentius Apotheke · Hellweg 19 · Erwitte</p>
+          <span class="k">Überschrift</span><p class="h l">Hier hat Beratung Zeit. Und dein Feierabend eine Uhrzeit.</p>
+          <span class="k">Text</span><p>Wir suchen PTA, PKA und Apotheker:innen, die lieber zuhören als abfertigen. Inhabergeführt, mitten in Erwitte, um 18 Uhr ist Schluss.</p>
+          <span class="k">Schild „Deine Arbeitszeiten hängen an unserer Tür“</span>
+          <div class="sign" aria-label="Öffnungszeiten">
+            <div class="row"><b>Mo–Fr</b><span>8:00–12:30 · 14:15–18:00</span></div>
+            <div class="row"><b>Sa</b><span>8:00–12:30</span></div>
+            <div class="row"><b>So</b><span>geschlossen*</span></div>
+          </div>
+          <p class="muted">* Notdienste ausgenommen. Wie oft, steht in den Fragen unten.</p>
+          <span class="k">Buttons und Hinweis</span><p><b>In 60 Sekunden bewerben</b> · Lieber erst reden? 02943 97270<br>Kein Anschreiben. Lebenslauf optional. Rückruf innerhalb von 48 Stunden.</p>
+        </div>
+      </li>
+      <li>
+        <div class="bhead"><h3>Was suchst du?</h3></div>
+        <div class="bmeta"><span><b>Aufgabe:</b> Sofort zur passenden Stelle, ein Tipp startet die Bewerbung.</span><span><b>Form:</b> Große Kacheln, je eine Zeile Nutzen, Umfang und Start.</span></div>
+        <div class="copy">
+          <p><b>PTA</b>: Du berätst, misst an, stellst her. In Ruhe.</p>
+          <p><b>PKA</b>: Du sorgst dafür, dass alles da ist, bevor jemand danach fragt.</p>
+          <p><b>Apotheker:in</b>: Du trägst Verantwortung und gestaltest mit, als Vertretung oder perspektivisch in Leitungsaufgaben.</p>
+          <p><b>Ausbildung &amp; Praktikum</b>: Du lernst bei Leuten, die gern erklären.</p>
+          <p><b>Initiativ</b>: Du passt in keine Schublade? Wir haben viele.</p>
+          <p class="muted">Das Wortspiel mit den Schubladen greift die alte Holz-Schubladenwand der Offizin auf, die auf dem Foto von Julia Grundmann zu sehen ist.</p>
+        </div>
+      </li>
+      <li>
+        <div class="bhead"><h3>Ein Tag am Hellweg</h3></div>
+        <div class="bmeta"><span><b>Aufgabe:</b> Den Alltag spürbar machen, statt „abwechslungsreich“ zu behaupten.</span><span><b>Form:</b> Zeitleiste; die Uhrzeiten außer den Öffnungszeiten sind Beispiele <span class="todo">mit dem Team abgleichen</span></span></div>
+        <div class="copy">
+          <div class="tl">
+            <div><time>08:00</time><span>Die Tür geht auf. Die ersten online geschickten E-Rezepte warten schon.</span></div>
+            <div><time>10:30</time><span>Eine Kundin braucht Kompressionsstrümpfe. Du nimmst Maß, an beiden Beinen, ohne Wartenummer im Nacken.</span></div>
+            <div><time>11:15</time><span>Die Boten fahren los, zu Kundinnen und Kunden, die nicht selbst kommen können.</span></div>
+            <div><time>12:30</time><span>Mittagspause bis 14:15. Zeit für einen Spaziergang, Einkäufe oder den Weg zur Kita.</span></div>
+            <div><time>15:00</time><span>Eine junge Mutter leiht eine Milchpumpe. Du erklärst sie, bis keine Frage mehr offen ist.</span></div>
+            <div><time>16:40</time><span>Ein Kunde fragt auf Russisch nach seinem neuen Blutdruckmittel. Eine Kollegin übernimmt.</span></div>
+            <div><time>18:00</time><span>Abschließen. Feierabend.</span></div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="bhead"><h3>Woran du merkst, dass es hier anders läuft</h3></div>
+        <div class="bmeta"><span><b>Aufgabe:</b> Fünf Belege statt Benefit-Liste. Jeder Beleg ist eine Situation, kein Adjektiv.</span><span><b>Form:</b> Abwechselnd Bild und Text, wo echte Fotos vorhanden sind.</span></div>
+        <div class="copy">
+          <p class="h">Wer entscheidet, steht im Laden.</p><p>Dorothee Böckeler führt die Apotheke selbst und arbeitet vor Ort <span class="todo">bestätigen</span>. Wenn du eine Idee hast, besprichst du sie an der Theke, nicht mit einer Zentrale.</p>
+          <p class="h">Hier wird noch Maß genommen.</p><p>Kompressionsstrümpfe, Bandagen, Inkontinenzversorgung, Hilfsmittelverleih. Wer will, wird darin richtig gut und wird dafür geschult <span class="todo">bestätigen</span>.</p>
+          <p class="h">Wir fahren auch raus.</p><p>Unsere Boten bringen Arzneimittel zu Menschen, die nicht mehr selbst kommen können. Du berätst, sie liefern.</p>
+          <p class="h">Drei Sprachen am HV-Tisch.</p><p>Wir beraten auf Deutsch, Englisch und Russisch. Sprichst du eine davon, bist du gleich doppelt willkommen.</p>
+          <p class="h">Holzschubladen und E-Rezept.</p><p>Hinter dem HV-Tisch steht eine alte Schubladenwand, im System laufen E-Rezepte und der Online-Shop. Tradition, die nicht stehen geblieben ist.</p>
+        </div>
+      </li>
+      <li>
+        <div class="bhead"><h3>Mit diesen Menschen arbeitest du</h3></div>
+        <div class="bmeta"><span><b>Aufgabe:</b> Gesichter und Namen statt „unser Team“.</span><span><b>Form:</b> Foto-Mosaik mit Vorname, Rolle, Jahren im Team und einem Satz in eigenen Worten <span class="todo">im Interview sammeln</span></span></div>
+        <div class="copy">
+          <p>Satzanfänge für die Zitate, damit sie konkret werden: „Am liebsten mache ich …“, „Neue Kolleginnen frage ich immer …“, „Was mich hier gehalten hat: …“, „Mein bester Moment an der Theke war …“</p>
+        </div>
+      </li>
+      <li>
+        <div class="bhead"><h3>Ehrlich gesagt</h3></div>
+        <div class="bmeta"><span><b>Aufgabe:</b> Vertrauen durch Offenheit. Wer weiß, worauf er sich einlässt, bleibt.</span><span><b>Form:</b> Ruhiger Kasten mit vier Punkten, ohne Beschönigung.</span></div>
+        <div class="copy">
+          <p class="h">Damit du weißt, worauf du dich einlässt</p>
+          <ul>
+            <li><b>Geteilter Dienst.</b> Zwischen 12:30 und 14:15 ist die Apotheke geschlossen. Für viele ein Plus, für manche ein Haken.</li>
+            <li><b>Notdienste gehören dazu.</b> Im Schnitt <span class="todo">[Anzahl]</span> pro Monat, mit <span class="todo">[Ausgleich]</span>.</li>
+            <li><b>Samstagvormittag wird gearbeitet,</b> im Wechsel <span class="todo">bestätigen</span>.</li>
+            <li><b>Wir sind nicht in der Großstadt.</b> Aus Lippstadt rund 15 Minuten mit dem Auto, Bus: <span class="todo">[Linie]</span>.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="bhead"><h3>Was du bekommst</h3></div>
+        <div class="bmeta"><span><b>Aufgabe:</b> Zahlen statt Adjektive.</span><span><b>Form:</b> Faktentabelle je Stelle. Felder ohne Freigabe erscheinen nicht.</span></div>
+        <div class="copy">
+          <p>Gehalt (Spanne in Euro oder Tarif plus Zulage) · Wochenstunden · Urlaubstage · Fortbildung (Budget oder Tage) · Personalrabatt · Parkplatz <span class="todo">alles bestätigen</span></p>
+        </div>
+      </li>
+      <li>
+        <div class="bhead"><h3>So geht es weiter</h3></div>
+        <div class="bmeta"><span><b>Aufgabe:</b> Angst vor dem Prozess nehmen. Wer ruft an, wie lange dauert es?</span></div>
+        <div class="copy">
+          <ol>
+            <li><b>60 Sekunden:</b> Ein paar Fragen antippen, Kontaktdaten, fertig. Kein Anschreiben.</li>
+            <li><b>Innerhalb von 48 Stunden:</b> Dorothee Böckeler ruft dich persönlich an <span class="todo">bestätigen</span>, zu der Uhrzeit, die du angibst.</li>
+            <li><b>Probetag:</b> Du arbeitest einen halben Tag mit <span class="todo">bezahlt? bestätigen</span> und entscheidest danach in Ruhe.</li>
+          </ol>
+        </div>
+      </li>
+      <li>
+        <div class="bhead"><h3>So findest du uns</h3></div>
+        <div class="bmeta"><span><b>Bild:</b> Außenansicht am Hellweg (Nutzungsrechte klären), schematische Karte mit Pendelzeiten.</span></div>
+        <div class="copy"><p>Hellweg 19, mitten in Erwitte. Bad Westernkotten ca. 5 Minuten, Anröchte 12, Lippstadt 15, Geseke und Soest je 20 Minuten mit dem Auto.</p></div>
+      </li>
+      <li>
+        <div class="bhead"><h3>Fragen, die du dir gerade stellst</h3></div>
+        <div class="bmeta"><span><b>Aufgabe:</b> Die echten Einwände beantworten: Teilzeit, Samstage, Notdienste, Gehalt, Lebenslauf, Wiedereinstieg, Quereinstieg.</span></div>
+      </li>
+      <li>
+        <div class="bhead"><h3>Abschluss</h3></div>
+        <div class="bmeta"><span><b>Bild:</b> Zweites Porträt von Frau Böckeler oder ein Teamfoto.</span></div>
+        <div class="copy">
+          <blockquote>„Ich lese jede Bewerbung selbst. Und ich rufe zurück.“ – Dorothee Böckeler <span class="todo">Zitat freigeben</span></blockquote>
+          <p><b>In 60 Sekunden bewerben</b> · oder anrufen: 02943 97270</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section id="stellen" aria-labelledby="stellen-h">
+    <h2 id="stellen-h">Stellenseiten</h2>
+    <p class="muted">Jede Stelle bekommt eine eigene Seite für Anzeigen und Google for Jobs. Aufbau: Überschrift, drei Sätze Alltag, Aufgaben, Anforderungen, Faktentabelle, die passende Kollegin, Bewerben.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Stelle</th><th>Überschrift</th><th>Einstieg</th></tr></thead>
+        <tbody>
+          <tr><td>PTA</td><td>PTA in Erwitte: Beratung mit Zeit statt Akkord</td><td>Du misst Kompressionsstrümpfe an, erklärst Hilfsmittel und stehst in der Rezeptur. Um 18 Uhr ist Schluss.</td></tr>
+          <tr><td>PKA</td><td>PKA in Erwitte: Du hältst den Laden am Laufen</td><td>Bestellung, Wareneingang, Konditionen, Abrechnung. Du siehst als Erste, wenn etwas knapp wird, und sorgst dafür, dass niemand ohne sein Medikament nach Hause geht.</td></tr>
+          <tr><td>Apotheker:in</td><td>Apotheker:in in Erwitte: Verantwortung ohne Konzernzentrale</td><td>Du vertrittst die Inhaberin, entwickelst pharmazeutische Dienstleistungen weiter und arbeitest mit Julia Grundmann zusammen.</td></tr>
+          <tr><td>Ausbildung &amp; Praktikum</td><td>Ausbildung und Praktikum in Erwitte: Lernen bei Leuten, die gern erklären</td><td>PKA-Ausbildung, PTA-Praktikum oder Pharmazie-PJ, mit fester Ansprechperson vom ersten Tag an <span class="todo">bestätigen</span>.</td></tr>
+          <tr><td>Botendienst (vorbereitet)</td><td>Fahrer:in für unseren Botendienst</td><td>Du bringst Arzneimittel zu Menschen, die darauf warten, mit Dienstwagen und festen Touren <span class="todo">bestätigen</span>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="funnel" aria-labelledby="funnel-h">
+    <h2 id="funnel-h">Bewerbung und Danke-Seite</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Stelle im Ablauf</th><th>Text</th></tr></thead>
+        <tbody>
+          <tr><td>Start</td><td>„Sieben kurze Fragen. Kein Anschreiben, kein Lebenslauf nötig.“</td></tr>
+          <tr><td>Abschluss passt nicht</td><td>„Für diese Stelle brauchen wir eine abgeschlossene Ausbildung als … Vielleicht passt etwas anderes? Du kannst auch einfach weitermachen, wir lesen jede Bewerbung.“</td></tr>
+          <tr><td>Vor den Kontaktdaten</td><td>„Fast geschafft. Wie erreichen wir dich am besten?“</td></tr>
+          <tr><td>Danke-Seite</td><td>„Danke, [Vorname]! Wir rufen dich bis spätestens [Datum] an. Bis dahin: Wenn dir noch etwas einfällt, ruf gern an: 02943 97270.“</td></tr>
+          <tr><td>Bestätigungsmail</td><td>Absender Dorothee Böckeler, Betreff „Danke für deine Bewerbung, [Vorname]!“, nächster Schritt mit Datum, Telefonnummer, Hinweis zur Löschfrist.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="bilder" aria-labelledby="bilder-h">
+    <h2 id="bilder-h">Bildkonzept mit den vorhandenen Fotos</h2>
+    <p>Die Seite lebt von echten Gesichtern. KI-Bilder kommen nur dort zum Einsatz, wo keine Person zu sehen ist.</p>
+    <div class="photos">
+      <div><b>Dorothee Böckeler</b><span>Einstieg (groß) und Abschluss. Weißer Pullover vor den Regalen: zugänglich, nicht im Kittel.</span></div>
+      <div><b>Julia Grundmann</b><span>Apotheker-Seite und Team. Kittel vor der Holz-Schubladenwand: das Bild für „Tradition und E-Rezept“.</span></div>
+      <div><b>Kollegin mit Locken, rote Jacke</b><span>Team-Mosaik und PTA-/PKA-Seiten. Name und Rolle fehlen.</span></div>
+      <div><b>Kollegin mit Kurzhaar, rote Jacke</b><span>Team-Mosaik und PTA-/PKA-Seiten. Name und Rolle fehlen.</span></div>
+      <div><b>Die beiden Boten</b><span>Beleg „Wir fahren auch raus“. Kennzeichen wird automatisch abgeschnitten.</span></div>
+      <div><b>Außenansicht</b><span>„So findest du uns“. Wasserzeichen und Nutzungsrechte mit dem Fotografen klären.</span></div>
+    </div>
+    <p class="muted">Freigaben: Für alle abgebildeten Personen braucht es eine schriftliche Einwilligung zur Nutzung auf der Karriereseite.</p>
+  </section>
+
+  <section id="interview" aria-labelledby="interview-h">
+    <h2 id="interview-h">Fragen für das Interview mit Frau Böckeler (30 Minuten)</h2>
+    <p class="muted">Jede Antwort ersetzt eine gelbe Markierung oben durch einen konkreten Beleg.</p>
+    <ol class="qs">
+      <li>Wie oft im Monat hat eine Vollzeitkraft Notdienst, und wie wird er ausgeglichen?</li>
+      <li>Wie werden Samstage verteilt? Jeder zweite, jeder dritte?</li>
+      <li>Welche Gehaltsspanne dürfen wir je Stelle nennen? Tarif, übertariflich, Zulagen?</li>
+      <li>Wie viele Urlaubstage, welches Fortbildungsbudget, welcher Personalrabatt?</li>
+      <li>Stehen Sie selbst regelmäßig im HV? Wie oft?</li>
+      <li>Wer ruft Bewerber:innen zurück, und schaffen Sie 48 Stunden?</li>
+      <li>Ist der Probetag bezahlt? Wie lange dauert er?</li>
+      <li>Werden Schulungen für Kompression und Bandagen bezahlt?</li>
+      <li>Wie lange sind die Kolleginnen auf den Fotos schon im Team? Wie heißen sie?</li>
+      <li>Eine Situation aus dem letzten Monat, in der Sie stolz auf Ihr Team waren?</li>
+      <li>Was sagen neue Kolleg:innen nach drei Monaten über die Apotheke?</li>
+      <li>Was ist an der Arbeit hier ehrlich gesagt anstrengend?</li>
+      <li>Gibt es Parkplätze für Mitarbeitende, welche Busverbindung?</li>
+      <li>Wie alt ist die Schubladenwand, und gibt es eine Geschichte dazu?</li>
+      <li>Du oder Sie für die Apotheker-Stelle?</li>
+      <li>Darf Ihr Zitat „Ich lese jede Bewerbung selbst. Und ich rufe zurück.“ so stehen?</li>
+    </ol>
+  </section>
+
+  <footer>Konzept: Multiplexo GmbH für die Laurentius Apotheke Böckeler e.K. Die Texte sind auf der Karriereseite umgesetzt; gelb markierte Aussagen erscheinen dort erst nach Freigabe.</footer>
+</div>

@@ -1,41 +1,42 @@
 ---
-import { Picture } from 'astro:assets';
 import HeroArt from './HeroArt.astro';
+import Foto from './Foto.astro';
+import Schild from './Schild.astro';
 import { inhalte, site, url, PRIMARY_CTA, telHref } from '../lib/content';
 import { foto } from '../lib/bilder';
-interface Props { headline: string; lead: string; stelle?: string; eyebrow?: string; portrait?: boolean }
-const { headline, lead, stelle, eyebrow = 'Karriere in der Laurentius Apotheke', portrait = false } = Astro.props;
+interface Props { headline?: string; lead?: string; stelle?: string; dachzeile?: string; bild?: string | null; bildAlt?: string; bildCaption?: { name: string; rolle: string } | null }
+const h = inhalte.hero;
 const inh = site.inhaberin;
-const bildInhaberin = portrait ? foto(inh.foto) : null;
-const stimmung = inhalte.hero.bild ? foto(inhalte.hero.bild) : null;
+const {
+  headline = h.headline, lead = h.text, stelle, dachzeile = h.dachzeile,
+  bild = inh.foto, bildAlt = `${inh.name}, ${inh.rolle} der ${site.name}, in der Offizin`,
+  bildCaption = { name: inh.name, rolle: `${inh.rolle} der ${site.name}` },
+} = Astro.props;
+const vorhanden = !!foto(bild);
+const bewerbenHref = url('bewerben/') + (stelle ? `?stelle=${stelle}` : '');
 ---
 <section class="hero" data-hero aria-labelledby="hero-h">
-  <div class:list={['wrap hero__grid', { 'hero__grid--portrait': bildInhaberin }]}>
-    <div>
-      <span class="eyebrow">{eyebrow}</span>
+  <div class="wrap hero__grid">
+    <div class="hero__text">
+      <span class="hero__dach">{dachzeile}</span>
       <h1 id="hero-h">{headline}</h1>
-      <ul class="hero__facts" aria-label="Auf einen Blick">
-        {inhalte.hero.fakten.map((f) => <li>{f}</li>)}
-      </ul>
       <p class="hero__lead">{lead}</p>
-      <div class="cta-group">
-        <a class="btn btn--primary" href={url('bewerben/') + (stelle ? `?stelle=${stelle}` : '')} data-track="cta_click" data-pos="hero">{PRIMARY_CTA}</a>
-        <a class="btn btn--outline" href={telHref} data-track="call_click" data-pos="hero">Lieber anrufen</a>
+      <div class="cta-row">
+        <a class="btn btn--primary" href={bewerbenHref} data-track="cta_click" data-pos="hero">{PRIMARY_CTA}</a>
+        <a class="call-inline" href={telHref} data-track="call_click" data-pos="hero"><small>{h.anruf_text}</small><strong>{site.telefon_anzeige}</strong></a>
       </div>
-      <p class="microtext">{inhalte.hero.mikrotext}</p>
+      <p class="microtext">{h.mikrotext}</p>
     </div>
-    {bildInhaberin ? (
-      <figure class="hero__portrait">
-        <Picture src={bildInhaberin} formats={['avif', 'webp']} widths={[360, 560, 800, 1040]} sizes="(min-width: 900px) 420px, 92vw"
-          alt={`${inh.name}, ${inh.rolle} der ${site.name}, lächelnd in der Offizin`} loading="eager" />
-        <figcaption><strong>{inh.name}</strong> {inh.rolle} der {site.name}</figcaption>
-      </figure>
-    ) : (
-      <div class="hero__media">
-        {stimmung
-          ? <Picture src={stimmung} formats={['avif', 'webp']} widths={[480, 800, 1280]} sizes="(min-width: 900px) 45vw, 92vw" alt="" loading="eager" fetchpriority="high" />
-          : <HeroArt />}
-      </div>
-    )}
+    <div class="hero__media">
+      {vorhanden ? (
+        <figure class="hero__foto">
+          <Foto name={bild} alt={bildAlt} widths={[400, 640, 880, 1100]} sizes="(min-width: 960px) 460px, 92vw" eager />
+        </figure>
+      ) : (
+        <div class="hero__foto hero__foto--art"><HeroArt /></div>
+      )}
+      {vorhanden && bildCaption && <div class="hero__caption"><strong>{bildCaption.name}</strong>{bildCaption.rolle}</div>}
+      <Schild />
+    </div>
   </div>
 </section>

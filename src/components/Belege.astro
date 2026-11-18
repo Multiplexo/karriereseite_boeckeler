@@ -1,0 +1,37 @@
+---
+import Foto from './Foto.astro';
+import { inhalte, sichtbar } from '../lib/content';
+import { foto } from '../lib/bilder';
+const b = inhalte.belege;
+const alle = sichtbar(b.eintraege);
+// Belege mit vorhandenem Foto bekommen eine große Bild-Text-Zeile, die übrigen eine Textkarte.
+const mitBild = alle.filter((e) => foto(e.foto));
+const ohneBild = alle.filter((e) => !foto(e.foto));
+---
+<section class="band" id="anders" aria-labelledby="belege-h">
+  <div class="wrap">
+    <div class="intro">
+      <span class="kicker">Belege statt Versprechen</span>
+      <h2 id="belege-h">{b.titel}</h2>
+    </div>
+    <div class="belege">
+      {mitBild.map((e) => (
+        <div class:list={['beleg-bild', { draft: e.freigegeben === false }]}>
+          <figure class:list={['beleg-bild__foto', `beleg-bild__foto--${e.foto_format ?? 'quer'}`]}>
+            {e.foto_format === 'hoch'
+              ? <Foto name={e.foto} alt={e.foto_alt ?? ''} widths={[400, 640, 920]} sizes="(min-width: 860px) 460px, 92vw" />
+              : <Foto name={e.foto} alt={e.foto_alt ?? ''} widths={[480, 800, 1200]} sizes="(min-width: 860px) 560px, 92vw" width={1200} height={675} position="top" />}
+          </figure>
+          <div class="beleg-bild__text"><h3>{e.titel}</h3><p>{e.text}</p></div>
+        </div>
+      ))}
+      {ohneBild.length > 0 && (
+        <div class="beleg-karten">
+          {ohneBild.map((e) => (
+            <div class:list={['beleg-karte', { draft: e.freigegeben === false }]}><h3>{e.titel}</h3><p>{e.text}</p></div>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</section>

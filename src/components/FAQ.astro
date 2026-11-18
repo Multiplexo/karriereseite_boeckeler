@@ -1,16 +1,19 @@
 ---
 import { inhalte, sichtbar } from '../lib/content';
-const faq = sichtbar(inhalte.faq);
+const f = inhalte.faq;
+const eintraege = sichtbar(f.eintraege);
 ---
-<section class="section section--alt" id="faq" aria-labelledby="faq-h">
-  <div class="wrap">
-    <span class="eyebrow">Häufige Fragen</span>
-    <h2 id="faq-h">Was du vorher wissen willst</h2>
+<section class="band" id="faq" aria-labelledby="faq-h">
+  <div class="wrap faq-grid">
+    <div class="intro">
+      <span class="kicker">Fragen</span>
+      <h2 id="faq-h">{f.titel}</h2>
+    </div>
     <div class="faq">
-      {faq.map((f) => (
-        <details class:list={{ draft: f.freigegeben === false }}>
-          <summary>{f.frage}</summary>
-          <div><p>{f.antwort}</p></div>
+      {eintraege.map((e) => (
+        <details class:list={{ draft: e.freigegeben === false }}>
+          <summary>{e.frage}</summary>
+          <div><p>{e.antwort}</p></div>
         </details>
       ))}
     </div>

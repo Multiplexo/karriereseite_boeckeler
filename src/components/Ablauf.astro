@@ -1,12 +1,21 @@
 ---
-import { inhalte } from '../lib/content';
+import { inhalte, PREVIEW } from '../lib/content';
+const a = inhalte.ablauf;
 ---
-<section class="section section--alt" id="ablauf" aria-labelledby="ablauf-h">
+<section class="band band--sand" id="ablauf" aria-labelledby="ablauf-h">
   <div class="wrap">
-    <span class="eyebrow">So läuft die Bewerbung</span>
-    <h2 id="ablauf-h">In drei Schritten zu uns</h2>
-    <ol class="steps">
-      {inhalte.ablauf.map((s) => <li><h3>{s.titel}</h3><p>{s.text}</p></li>)}
+    <div class="intro">
+      <span class="kicker">Bewerbung</span>
+      <h2 id="ablauf-h">{a.titel}</h2>
+    </div>
+    <ol class="ablauf">
+      {a.schritte.map((s) => (
+        <li class:list={{ draft: PREVIEW && !!s.text_entwurf }}>
+          <span class="ablauf__zeit">{s.zeit}</span>
+          <h3>{s.titel}</h3>
+          <p>{PREVIEW && s.text_entwurf ? s.text_entwurf : s.text}</p>
+        </li>
+      ))}
     </ol>
   </div>
 </section>

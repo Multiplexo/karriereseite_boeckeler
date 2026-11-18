@@ -1,33 +1,42 @@
 ---
-import { Picture } from 'astro:assets';
+import Foto from './Foto.astro';
 import { inhalte, sichtbar } from '../lib/content';
-import { foto } from '../lib/bilder';
-interface Props { stelle?: string; titel?: string; alt?: boolean }
-const { stelle, titel = 'Das sagt unser Team', alt = false } = Astro.props;
-const team = sichtbar(inhalte.team).filter((t) => !stelle || (t.stellen ?? []).includes(stelle));
-const initialen = (n: string) => n.replace(/[^A-Za-zÄÖÜäöüß ]/g, '').trim().split(/\s+/).map((p) => p[0]).join('').slice(0, 2) || '·';
+interface Props { stelle?: string; titel?: string; text?: string; band?: string }
+const t = inhalte.team;
+const { stelle, titel = t.titel, text = t.text, band = 'band band--sand' } = Astro.props;
+// Startseite: ohne Inhaberin (sie ist im Einstieg und im Abschluss zu sehen); Stellenseite: passende Kolleg:innen
+const personen = sichtbar(t.personen).filter((p) => (stelle ? (p.stellen ?? []).includes(stelle) : p.startseite !== false));
+const portraits = personen.filter((p) => !p.quer);
+const quer = personen.filter((p) => p.quer);
+const initialen = (n: string) => n.replace(/[^A-Za-zÄÖÜäöüß ]/g, '').trim().split(/\s+/).map((p) => p[0]).join('').slice(0, 2);
 ---
-{team.length > 0 && (
-<section class:list={['section', { 'section--alt': alt }]} id="team" aria-labelledby="team-h">
+{personen.length > 0 && (
+<section class={band} id="team" aria-labelledby="team-h">
   <div class="wrap">
-    <span class="eyebrow">Team & Alltag</span>
-    <h2 id="team-h">{titel}</h2>
-    <div class:list={['grid', team.length > 2 ? 'grid--3' : 'grid--2']}>
-      {team.map((t) => {
-        const bild = foto(t.foto);
-        return (
-          <figure class:list={['card team-card', { draft: t.freigegeben === false }]}>
-            <div class="team-card__img">
-              {bild
-                ? <Picture src={bild} formats={['avif', 'webp']} widths={[320, 480, 640]} sizes="(min-width: 960px) 340px, (min-width: 640px) 45vw, 92vw" alt={`Porträt: ${t.vorname}, ${t.rolle}`} loading="lazy" />
-                : <span class="portrait" aria-hidden="true">{initialen(t.vorname)}</span>}
-            </div>
-            <blockquote><p>„{t.zitat}“</p></blockquote>
-            <figcaption><strong>{t.vorname}</strong> {t.rolle} · {t.seit}</figcaption>
-          </figure>
-        );
-      })}
+    <div class="intro">
+      <span class="kicker">Team</span>
+      <h2 id="team-h">{titel}</h2>
+      <p>{text}</p>
     </div>
+    {portraits.length > 0 && (
+      <div class="team">
+        {portraits.map((p) => (
+          <figure class:list={['person', { draft: p.freigegeben === false }]}>
+            <Foto name={p.foto} alt={`Porträt ${p.name}, ${p.rolle}`} widths={[300, 480, 720]} sizes="(min-width: 900px) 370px, 78vw" platzhalter={initialen(p.name)} />
+            <figcaption>
+              <strong>{p.name}</strong>{p.rolle}{p.seit ? ` · ${p.seit}` : ''}
+              {p.zitat && <q>{p.zitat}</q>}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    )}
+    {quer.map((p) => (
+      <figure class:list={['person person--quer', { draft: p.freigegeben === false }]}>
+        <Foto name={p.foto} alt={`${p.name}, ${p.rolle}`} widths={[480, 800, 1200, 1600]} sizes="(min-width: 1180px) 1150px, 92vw" width={1600} height={686} position="top" />
+        <figcaption><strong>{p.name}</strong>{p.rolle}</figcaption>
+      </figure>
+    ))}
   </div>
 </section>
 )}

@@ -5,13 +5,14 @@ import stellenData from '../data/stellen.json';
 import inhalte from '../data/inhalte.json';
 
 /** Vorschau-Build zeigt auch nicht freigegebene Entwürfe (mit Markierung). */
-export const PREVIEW = process.env.PREVIEW === '1';
+export const PREVIEW = process.env.PREVIEW === '1' || (site as { vorschau_modus?: boolean }).vorschau_modus === true;
 
 export function sichtbar<T extends { freigegeben?: boolean }>(items: T[]): T[] {
   return items.filter((i) => i.freigegeben !== false || PREVIEW);
 }
 
 export type Stelle = (typeof stellenData.stellen)[number] & {
+  kurz?: string; einstieg?: string; foto?: string;
   gehalt: null | { text: string; min?: number; max?: number; einheit?: string; freigegeben?: boolean };
 };
 

@@ -25,7 +25,7 @@ const logoIcons = inPublic('favicon-32.png');
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
   {(noindex || PREVIEW) && <meta name="robots" content="noindex, nofollow" />}
-  <meta name="theme-color" content="#e2001a" />
+  <meta name="theme-color" content="#ffffff" />
   {logoIcons ? (
     <>
       <link rel="icon" href={url('favicon-32.png')} type="image/png" sizes="32x32" />
@@ -48,7 +48,7 @@ const logoIcons = inPublic('favicon-32.png');
 </head>
 <body>
   <a class="skip" href="#main">Zum Inhalt springen</a>
-  {PREVIEW && <div class="notice" style="margin:0;border-radius:0;text-align:center">Vorschau-Version: gelb markierte Inhalte sind Entwürfe und auf der Live-Seite noch nicht sichtbar.</div>}
+  {PREVIEW && <div class="vorschau-banner">Vorschau: Gelb markierte Inhalte sind Entwürfe und erscheinen erst nach Freigabe.</div>}
   <slot name="header" />
   <main id="main"><slot /></main>
   <slot name="footer" />

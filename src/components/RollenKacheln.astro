@@ -1,0 +1,45 @@
+---
+import Icon from './Icon.astro';
+import { offeneStellen, inhalte, url, gehaltSichtbar } from '../lib/content';
+interface Props { ohne?: string; titel?: string; text?: string }
+const r = inhalte.rollen;
+const { ohne, titel = r.titel, text = r.text } = Astro.props;
+const liste = offeneStellen.filter((s) => s.slug !== ohne);
+---
+<section class="band" id="stellen" aria-labelledby="stellen-h">
+  <div class="wrap">
+    <div class="intro">
+      <span class="kicker">Offene Stellen · alle (m/w/d)</span>
+      <h2 id="stellen-h">{titel}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="rollen">
+      {liste.map((s) => {
+        const g = gehaltSichtbar(s);
+        return (
+          <article class:list={['rolle', { draft: s.status === 'entwurf' }]}>
+            <h3><a href={url(`${s.slug}/`)}>{s.titel}</a><span class="rolle__mwd">m/w/d</span></h3>
+            <p class="rolle__kurz">{s.kurz}</p>
+            <ul class="rolle__meta">
+              <li>{s.stundenumfang}</li>
+              <li>Start {s.startdatum}</li>
+              {g && <li>{g.text}</li>}
+            </ul>
+            <div class="rolle__aktion">
+              <a href={url(`bewerben/?stelle=${s.slug}`)} data-track="cta_click" data-pos={`kachel-${s.slug}`}>Direkt bewerben<span class="sr-only"> als {s.titel}</span></a>
+              <span class="rolle__pfeil" aria-hidden="true"><Icon name="arrow" /></span>
+            </div>
+          </article>
+        );
+      })}
+      <article class="rolle rolle--initiativ">
+        <h3><a href={url('bewerben/?stelle=initiativ')} data-track="cta_click" data-pos="kachel-initiativ">{r.initiativ_titel}</a></h3>
+        <p class="rolle__kurz">{r.initiativ_text}</p>
+        <div class="rolle__aktion">
+          <span>Erzähl uns, was du suchst</span>
+          <span class="rolle__pfeil" aria-hidden="true"><Icon name="arrow" /></span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
