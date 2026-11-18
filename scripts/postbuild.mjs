@@ -76,7 +76,7 @@ ${httpsUmleitung ? `<IfModule mod_rewrite.c>
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
   <FilesMatch "\\.html$">
-    Header set Cache-Control "public, max-age=300"
+    Header set Cache-Control "no-cache"
   </FilesMatch>
 </IfModule>
 
