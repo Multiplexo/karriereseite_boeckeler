@@ -1,8 +1,7 @@
-import fs from 'node:fs';
-import { site, url, gehaltSichtbar, type Stelle } from './content';
+import { site, url, gehaltSichtbar, inPublic, type Stelle } from './content';
 
 // Quadratisches Logo (mind. 112×112 px) für Google for Jobs: public/img/logo-google.png
-const googleLogo = fs.existsSync(new URL('../../public/img/logo-google.png', import.meta.url));
+const googleLogo = inPublic('img/logo-google.png');
 
 const esc = (s: string) => s.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]!);
 
@@ -26,6 +25,7 @@ export function jobPosting(s: Stelle, siteUrl: URL | undefined) {
     hiringOrganization: {
       '@type': 'Organization',
       name: `${site.name} Erwitte`,
+      legalName: site.firma,
       sameAs: site.website,
       ...(googleLogo ? { logo: abs('img/logo-google.png') } : {}),
     },

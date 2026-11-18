@@ -1,11 +1,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-// Pfad, unter dem die Karriereseite läuft.
-//   /karriere  → laurentius-apo-erwitte.de/karriere (Standard)
-//   /          → karriere.laurentius-apo-erwitte.de (Subdomain)
-const base = process.env.BASE_PATH ?? '/karriere';
-const site = process.env.SITE_URL ?? 'https://www.laurentius-apo-erwitte.de';
+// Adresse der Karriereseite (Standard: eigene Subdomain).
+// Alternative Unterseite der Homepage: SITE_URL=https://www.laurentius-apo-erwitte.de BASE_PATH=/karriere
+const base = process.env.BASE_PATH ?? '/';
+const site = process.env.SITE_URL ?? 'https://karriere.laurentius-apotheke-erwitte.de';
 
 export default defineConfig({
   site,

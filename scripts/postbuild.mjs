@@ -28,7 +28,7 @@ fs.cpSync(api, ziel, {
   },
 });
 fs.mkdirSync(path.join(ziel, 'storage'), { recursive: true });
-fs.copyFileSync(path.join(api, 'storage/.htaccess'), path.join(ziel, 'storage/.htaccess'));
+fs.writeFileSync(path.join(ziel, 'storage/.htaccess'), 'Require all denied\nDeny from all\n');
 fs.mkdirSync(path.join(ziel, 'data'), { recursive: true });
 for (const f of ['site', 'funnel', 'stellen']) {
   fs.copyFileSync(path.join(root, `src/data/${f}.json`), path.join(ziel, 'data', `${f}.json`));
@@ -36,6 +36,10 @@ for (const f of ['site', 'funnel', 'stellen']) {
 fs.writeFileSync(path.join(ziel, 'data/.htaccess'), 'Require all denied\nDeny from all\n');
 fs.writeFileSync(path.join(ziel, 'vendor/.htaccess'), 'Require all denied\nDeny from all\n');
 fs.writeFileSync(path.join(ziel, 'lib/.htaccess'), 'Require all denied\nDeny from all\n');
+
+const basePfad = (process.env.BASE_PATH ?? '/').replace(/\/+$/, '');
+const httpsUmleitung = process.env.HTTPS_REDIRECT !== '0';
+fs.writeFileSync(path.join(dist, 'healthz.txt'), 'ok\n');
 
 // Security-Header (Apache). Plausible nur erlauben, wenn konfiguriert.
 const plausible = site.analytics.plausible_domain ? new URL(site.analytics.plausible_src).origin : '';
@@ -53,15 +57,15 @@ const csp = [
 ].join('; ');
 fs.writeFileSync(path.join(dist, '.htaccess'), `# Automatisch erzeugt von scripts/postbuild.mjs
 Options -Indexes
-ErrorDocument 404 ${process.env.BASE_PATH ?? '/karriere'}/404.html
+ErrorDocument 404 ${basePfad}/404.html
 
-<IfModule mod_rewrite.c>
+${httpsUmleitung ? `<IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteCond %{HTTPS} !=on
   RewriteCond %{HTTP:X-Forwarded-Proto} !https
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
-
+` : '# HTTPS-Umleitung übernimmt die Plattform (z. B. Render).\n'}
 <IfModule mod_headers.c>
   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
   Header always set X-Content-Type-Options "nosniff"
@@ -81,6 +85,6 @@ ErrorDocument 404 ${process.env.BASE_PATH ?? '/karriere'}/404.html
 </IfModule>
 
 # Besetzte Stellen: optional mit 410 beantworten, z. B.
-# Redirect gone ${process.env.BASE_PATH ?? '/karriere'}/pka/
+# Redirect gone ${basePfad}/pka/
 `);
 console.log('[postbuild] API, Daten und .htaccess nach dist/ geschrieben.');

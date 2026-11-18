@@ -1,6 +1,7 @@
 {
   "_hinweis": "Stammdaten der Apotheke. Änderungen hier wirken auf alle Seiten und Mails. Nach jeder Änderung neu bauen (passiert per GitHub Action automatisch).",
   "name": "Laurentius Apotheke",
+  "firma": "Laurentius Apotheke Böckeler e.K.",
   "inhaberin": {
     "name": "Dorothee Böckeler",
     "rolle": "Inhaberin",
@@ -26,12 +27,12 @@
   "whatsapp": null,
   "_whatsapp_hinweis": "Offener Punkt: WhatsApp-Business-Nummer im internationalen Format ohne +, z. B. \"4915112345678\". Solange null, wird kein WhatsApp-Button gezeigt.",
   "email_allgemein": "laurentiusapotheke.erwitte@freenet.de",
-  "email_bewerbung": "bewerbung@laurentius-apo-erwitte.de",
+  "email_bewerbung": "info@laurentius-apotheke-erwitte.de",
   "website": "https://www.laurentius-apo-erwitte.de/",
   "shop": "https://www.laurentius-apotheke-erwitte.de/",
   "impressum_url": "https://www.laurentius-apo-erwitte.de/impressum",
   "datenschutz_url": "https://www.laurentius-apo-erwitte.de/datenschutz",
-  "karriere_url": "https://www.laurentius-apo-erwitte.de/karriere",
+  "karriere_url": "https://karriere.laurentius-apotheke-erwitte.de",
   "oeffnungszeiten": [
     {
       "tage": "Mo–Fr",
@@ -52,5 +53,6 @@
     "plausible_src": "https://plausible.io/js/script.tagged-events.js",
     "_hinweis": "Cookieloses Analytics. Domain eintragen (z. B. \"laurentius-apo-erwitte.de\"), sobald der Plausible-Account (EU) angelegt ist. Solange null, wird kein Skript geladen."
   },
-  "datenschutzhinweise_freigegeben": false
+  "datenschutzhinweise_freigegeben": false,
+  "_email_hinweis": "Adresse für den „Klassisch per E-Mail bewerben“-Link und die Datenschutzhinweise. Die Empfänger der Bewerbungsmails selbst werden in der Server-Konfiguration (Render-Umgebungsvariablen) festgelegt."
 }

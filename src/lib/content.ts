@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import site from '../data/site.json';
 import stellenData from '../data/stellen.json';
 import inhalte from '../data/inhalte.json';
@@ -37,5 +39,8 @@ export const waHref = site.whatsapp
   : null;
 export const mailtoBewerbung = (stelle?: string) =>
   `mailto:${site.email_bewerbung}?subject=${encodeURIComponent('Bewerbung' + (stelle ? ' ' + stelle : ''))}`;
+
+/** Existiert eine Datei unter public/? (Build läuft immer im Projektordner) */
+export const inPublic = (f: string) => fs.existsSync(path.join(process.cwd(), 'public', f));
 
 export const PRIMARY_CTA = 'In 60 Sekunden bewerben';

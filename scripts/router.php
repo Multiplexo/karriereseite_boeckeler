@@ -1,9 +1,9 @@
 <?php
-// Lokaler Testserver: npm run serve  →  http://127.0.0.1:8080/karriere/
-// Bildet das Deployment unter /karriere nach (dist/ = Inhalt von /karriere).
-$base = getenv('BASE_PATH') ?: '/karriere';
+// Lokaler Testserver: npm run serve  →  http://127.0.0.1:8080/
+// Bei BASE_PATH=/karriere bildet er das Deployment unter /karriere nach.
+$base = rtrim(getenv('BASE_PATH') ?: '/', '/');
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-if (strncmp($uri, $base, strlen($base)) !== 0) { header("Location: $base/"); return true; }
+if ($base !== '' && strncmp($uri, $base, strlen($base)) !== 0) { header("Location: $base/"); return true; }
 $rel = substr($uri, strlen($base)) ?: '/';
 $file = __DIR__ . '/../dist' . $rel;
 if (is_dir($file)) $file = rtrim($file, '/') . '/index.html';

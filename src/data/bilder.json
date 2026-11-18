@@ -3,7 +3,12 @@
   "aussenansicht": {
     "quelle": "aussenansicht",
     "ziel": "aussenansicht",
-    "ausschnitt_prozent": { "links": 26, "oben": 22, "breite": 74, "hoehe": 78 },
+    "ausschnitt_prozent": {
+      "links": 26,
+      "oben": 22,
+      "breite": 74,
+      "hoehe": 78
+    },
     "saettigung": 0.85,
     "helligkeit": 1.03,
     "waerme": 6,
@@ -11,5 +16,14 @@
     "alt": "Außenansicht der Laurentius Apotheke am Hellweg 19 in Erwitte mit rotem Apotheken-A und Schriftzug über den Schaufenstern",
     "bildnachweis": "Foto: LOVELT [Nutzungsrechte klären]",
     "freigegeben": false
+  },
+  "logo": {
+    "quelle": "logo",
+    "_hinweis": "Original-Logo (rotes A über dem Schriftzug) als src/assets/roh/logo.png oder .svg ablegen. Für Favicon und Header-Zeichen wird der obere Bereich mit dem A ausgeschnitten und automatisch auf den Rand zugeschnitten. Für Google for Jobs wird das ganze Logo quadratisch auf Weiß gesetzt.",
+    "zeichen_bereich_prozent": {
+      "oben": 0,
+      "hoehe": 52
+    },
+    "hintergrund": "#ffffff"
   }
 }

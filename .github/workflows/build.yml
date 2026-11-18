@@ -1,4 +1,4 @@
-name: Build, Test & Deploy
+name: Build & Test
 
 on:
   push:
@@ -9,8 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      SFTP_HOST: ${{ secrets.SFTP_HOST }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -20,7 +18,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
-          extensions: sodium, fileinfo, zip
+          extensions: sodium, fileinfo, curl
           tools: composer
       - run: npm ci
       - run: composer install --no-dev --optimize-autoloader
@@ -32,15 +30,6 @@ jobs:
           name: karriereseite-dist
           path: dist
 
-      # Deployment per SFTP zum Hoster – nur auf main und nur, wenn die Secrets gesetzt sind.
-      # Benötigte Repository-Secrets: SFTP_HOST, SFTP_USER, SFTP_PASSWORD, SFTP_PATH (z. B. /html/karriere)
-      - name: Deploy (SFTP)
-        if: github.ref == 'refs/heads/main' && env.SFTP_HOST != ''
-        env:
-          SFTP_USER: ${{ secrets.SFTP_USER }}
-          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
-          SFTP_PATH: ${{ secrets.SFTP_PATH }}
-        run: |
-          sudo apt-get install -y lftp
-          # config.php und storage/ auf dem Server werden nicht überschrieben oder gelöscht.
-          lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST" -e "set sftp:auto-confirm yes; mirror -R --delete --exclude api/config.php --exclude api/storage/ dist/ $SFTP_PATH; bye"
+      # Deployment: Render baut bei jedem Push auf main automatisch aus dem Dockerfile (siehe render.yaml).
+      - name: Docker-Image testweise bauen
+        run: docker build -t karriere-test .

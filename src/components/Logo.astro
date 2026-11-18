@@ -1,12 +1,19 @@
 ---
-import fs from 'node:fs';
-import { site, url } from '../lib/content';
-// Original-Logo: als public/img/logo.svg (bevorzugt) oder public/img/logo.png ablegen – wird dann automatisch verwendet.
-// Bis dahin: Wortmarke im Logo-Rot (das Apotheken-A wird bewusst nicht nachgezeichnet).
-const datei = ['img/logo.svg', 'img/logo.png'].find((f) => fs.existsSync(new URL(`../../public/${f}`, import.meta.url)));
+import { site, url, inPublic } from '../lib/content';
+// Logo im Header:
+//  1. public/img/logo.svg/.png (komplettes Logo, falls ein Querformat-Logo geliefert wird)
+//  2. sonst: rotes A aus dem Original-Logo (automatisch aus src/assets/roh/logo.* erzeugt) + Schriftzug
+//  3. sonst: nur Schriftzug
+const komplett = ['img/logo.svg', 'img/logo.png'].find(inPublic);
+const zeichen = inPublic('img/logo-zeichen.png') ? 'img/logo-zeichen.png' : null;
 ---
 <a class="logo" href={url()} aria-label={`${site.name} Erwitte – Karriere, zur Startseite`}>
-  {datei
-    ? <img class="logo__img" src={url(datei)} alt="" width="120" height="44" />
-    : <span class="logo__word">Laurentius<br />Apotheke<small>Karriere · Erwitte</small></span>}
+  {komplett
+    ? <img class="logo__img" src={url(komplett)} alt="" height="44" />
+    : (
+      <>
+        {zeichen && <img class="logo__zeichen" src={url(zeichen)} alt="" height="40" />}
+        <span class="logo__word">Laurentius<br />Apotheke<small>Karriere · Erwitte</small></span>
+      </>
+    )}
 </a>

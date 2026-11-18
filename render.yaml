@@ -1,0 +1,41 @@
+# Render Blueprint: Dashboard → New → Blueprint → dieses Repository auswählen.
+# Werte mit "sync: false" werden beim ersten Anlegen im Dashboard abgefragt (Secrets, private Adressen).
+services:
+  - type: web
+    name: karriere-laurentius-apotheke
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    region: frankfurt           # Server in der EU (DSGVO)
+    plan: starter               # Free-Plan schläft bei Inaktivität ein und hat keinen persistenten Speicher
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /healthz.txt
+    disk:
+      name: karriere-daten
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: SITE_URL
+        value: https://karriere.laurentius-apotheke-erwitte.de
+      - key: BASE_PATH
+        value: /
+      - key: MAIL_TRANSPORT
+        value: brevo
+      - key: BREVO_API_KEY
+        sync: false
+      - key: MAIL_EMPFAENGER
+        value: info@laurentius-apotheke-erwitte.de
+      - key: MAIL_CC
+        sync: false               # private Adresse nicht im Repository speichern
+      - key: MAIL_CC_MODUS
+        value: voll
+      - key: MAIL_ABSENDER
+        value: karriere@laurentius-apotheke-erwitte.de
+      - key: MAIL_ALARM
+        sync: false
+      - key: KARRIERE_SCHLUESSEL
+        generateValue: true
+      - key: STORAGE_DIR
+        value: /var/data/karriere
+      - key: PROXY_IP_HEADER
+        value: X-Forwarded-For

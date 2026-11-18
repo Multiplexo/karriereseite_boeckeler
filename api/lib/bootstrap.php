@@ -18,6 +18,28 @@ function lade_daten(string $name): array
     throw new RuntimeException("Datendatei $name.json nicht gefunden.");
 }
 
+/**
+ * Client-IP: hinter einem Reverse-Proxy (Render) aus dem konfigurierten Header, sonst REMOTE_ADDR.
+ * Der Header kann vom Client vorbelegt werden – deshalb gibt es zusätzlich ein globales Limit.
+ */
+function client_ip(array $cfg): string
+{
+    $h = $cfg['ip_header'] ?? null;
+    if ($h) {
+        $v = $_SERVER['HTTP_' . strtoupper(str_replace('-', '_', $h))] ?? '';
+        $ip = trim(explode(',', $v)[0] ?? '');
+        if (filter_var($ip, FILTER_VALIDATE_IP)) return $ip;
+    }
+    return $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+}
+
+/** Öffentliche URL der Karriereseite aus der Server-Konfiguration übernehmen (für Links in Mails). */
+function site_mit_url(array $site, array $cfg): array
+{
+    if (!empty($cfg['basis_url'])) $site['karriere_url'] = rtrim($cfg['basis_url'], '/');
+    return $site;
+}
+
 function lade_config(): array
 {
     $p = getenv('KARRIERE_CONFIG') ?: __DIR__ . '/../config.php';

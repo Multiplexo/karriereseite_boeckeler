@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { site, url, PREVIEW } from '../lib/content';
+import { site, url, PREVIEW, inPublic } from '../lib/content';
 interface Props {
   title: string;
   description: string;
@@ -13,6 +13,8 @@ const { title, description, path = '', ogImage = 'og/karriere.png', noindex = fa
 const canonical = new URL(url(path), Astro.site).href;
 const og = new URL(url(ogImage), Astro.site).href;
 const plausible = site.analytics.plausible_domain;
+// Favicon aus dem Original-Logo (scripts/bilder.mjs), sonst SVG-Platzhalter
+const logoIcons = inPublic('favicon-32.png');
 ---
 <!doctype html>
 <html lang="de">
@@ -24,7 +26,13 @@ const plausible = site.analytics.plausible_domain;
   <link rel="canonical" href={canonical} />
   {(noindex || PREVIEW) && <meta name="robots" content="noindex, nofollow" />}
   <meta name="theme-color" content="#e2001a" />
-  <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+  {logoIcons ? (
+    <>
+      <link rel="icon" href={url('favicon-32.png')} type="image/png" sizes="32x32" />
+      <link rel="icon" href={url('favicon-192.png')} type="image/png" sizes="192x192" />
+      <link rel="apple-touch-icon" href={url('apple-touch-icon.png')} />
+    </>
+  ) : <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />}
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="de_DE" />
   <meta property="og:site_name" content={`${site.name} Erwitte`} />

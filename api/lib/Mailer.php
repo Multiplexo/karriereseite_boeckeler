@@ -6,7 +6,10 @@ use PHPMailer\PHPMailer\Exception as MailException;
 
 /**
  * Versand über SMTP (transaktionaler Dienst mit EU-Datenhaltung oder Hoster-SMTP) – bewusst kein PHP-mail().
- * Transport "datei" schreibt .eml-Dateien (nur für Tests/Abnahme ohne echten Versand).
+ * Transporte:
+ *   "brevo" – Brevo-HTTP-API (EU, Frankreich). Empfohlen auf Plattformen, die ausgehendes SMTP sperren (z. B. Render).
+ *   "smtp"  – beliebiger SMTP-Server (Hoster oder transaktionaler Dienst)
+ *   "datei" – schreibt .eml-Dateien (nur für Tests/Abnahme ohne echten Versand)
  */
 final class Mailer
 {
@@ -32,7 +35,9 @@ final class Mailer
         $mail->AltBody = $m['text'];
         foreach ($m['anhaenge'] ?? [] as $a) $mail->addStringAttachment($a['inhalt'], $a['name'], PHPMailer::ENCODING_BASE64, $a['mime']);
 
-        if (($this->cfg['transport'] ?? 'smtp') === 'datei') {
+        $transport = $this->cfg['transport'] ?? 'smtp';
+        if ($transport === 'brevo') { $this->brevo($m); return; }
+        if ($transport === 'datei') {
             $mail->preSend();
             $dir = $this->cfg['datei_transport_dir'];
             if (!is_dir($dir)) mkdir($dir, 0700, true);
@@ -56,6 +61,39 @@ final class Mailer
             $mail->DKIM_selector = $s['dkim_selector'] ?? 'default';
         }
         $mail->send();
+    }
+
+    /** Versand über die Brevo-Transaktions-API (https://api.brevo.com/v3/smtp/email). */
+    private function brevo(array $m): void
+    {
+        $key = $this->cfg['brevo_api_key'] ?? '';
+        if ($key === '') throw new RuntimeException('Brevo: API-Key fehlt (BREVO_API_KEY).');
+        $an = fn(array $liste) => array_map(fn($e) => ['email' => $e], array_values(array_filter($liste)));
+        $body = [
+            'sender' => ['email' => $m['von'], 'name' => $m['von_name']],
+            'to' => $an((array)$m['an']),
+            'subject' => $m['betreff'],
+            'htmlContent' => $m['html'],
+            'textContent' => $m['text'],
+        ];
+        if (!empty($m['cc'])) $body['cc'] = $an($m['cc']);
+        if (!empty($m['antwort_an'])) $body['replyTo'] = array_filter(['email' => $m['antwort_an'], 'name' => $m['antwort_an_name'] ?? null]);
+        foreach ($m['anhaenge'] ?? [] as $a) $body['attachment'][] = ['name' => $a['name'], 'content' => base64_encode($a['inhalt'])];
+
+        $ch = curl_init($this->cfg['brevo_api_url'] ?? 'https://api.brevo.com/v3/smtp/email');
+        curl_setopt_array($ch, [
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 20,
+            CURLOPT_HTTPHEADER => ['api-key: ' . $key, 'Content-Type: application/json', 'Accept: application/json'],
+            CURLOPT_POSTFIELDS => json_encode($body, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR),
+        ]);
+        $antwort = curl_exec($ch);
+        $code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        $fehler = curl_error($ch);
+        if ($antwort === false || $code < 200 || $code >= 300) {
+            throw new RuntimeException("Brevo: HTTP $code " . ($fehler ?: mb_substr((string)$antwort, 0, 300)));
+        }
     }
 
     /** Sendet mit bis zu 3 Wiederholungen (Backoff 1 s, 3 s, 6 s). Gibt die letzte Fehlermeldung zurück oder null. */

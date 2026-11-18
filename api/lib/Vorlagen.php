@@ -149,14 +149,14 @@ final class Vorlagen
             . ($k['rueckruf'] && $k['rueckruf'] !== 'Egal' ? ' – am liebsten ' . $e(mb_strtolower(preg_replace('/\s*\(.*\)$/', '', $k['rueckruf']))) : '') . '. Danach lernen wir uns gern persönlich kennen – auf Wunsch mit Probetag.</p>'
             . '<p>Fragen in der Zwischenzeit? Ruf uns an: <a href="tel:' . $e(preg_replace('/\s+/', '', $s['telefon'])) . '" style="color:#a3121f;font-weight:700">' . $e($s['telefon_anzeige']) . '</a> oder antworte einfach auf diese E-Mail.</p>'
             . '<p>Herzliche Grüße<br>' . $e($inh['name']) . ' und das Team der ' . $e($s['name']) . '</p>'
-            . '<p style="font-size:12px;color:#777;border-top:1px solid #eee;padding-top:12px;margin-top:20px">' . $e($s['name']) . ' · ' . $e($s['adresse']['strasse']) . ' · ' . $e($s['adresse']['plz'] . ' ' . $s['adresse']['ort']) . '<br>'
+            . '<p style="font-size:12px;color:#777;border-top:1px solid #eee;padding-top:12px;margin-top:20px">' . $e($s['firma'] ?? $s['name']) . ' · ' . $e($s['adresse']['strasse']) . ' · ' . $e($s['adresse']['plz'] . ' ' . $s['adresse']['ort']) . '<br>'
             . 'Wie wir mit deinen Daten umgehen und wann wir sie löschen, liest du in unseren <a href="' . $e($s['karriere_url']) . '/datenschutz-bewerbung/" style="color:#777">Datenschutzhinweisen für Bewerber/innen</a>. '
             . 'Kurz: Ohne Talentpool-Einwilligung löschen wir deine Unterlagen spätestens 6 Monate nach Abschluss des Verfahrens.</p>'
             . '</td></tr></table></td></tr></table></body></html>';
         $text = "Hallo {$k['vorname']},\n\nvielen Dank für deine Bewerbung als {$b['stelle_label']}. Sie ist bei uns angekommen.\n\n"
             . "So geht es weiter: Wir rufen dich bis spätestens {$b['rueckruf_bis']} an. Danach lernen wir uns gern persönlich kennen – auf Wunsch mit Probetag.\n\n"
             . "Fragen in der Zwischenzeit? Ruf uns an: {$s['telefon_anzeige']} – oder antworte einfach auf diese E-Mail.\n\n"
-            . "Herzliche Grüße\n{$inh['name']} und das Team der {$s['name']}\n\n--\n{$s['name']} · {$s['adresse']['strasse']} · {$s['adresse']['plz']} {$s['adresse']['ort']}\n"
+            . "Herzliche Grüße\n{$inh['name']} und das Team der {$s['name']}\n\n--\n" . ($s['firma'] ?? $s['name']) . " · {$s['adresse']['strasse']} · {$s['adresse']['plz']} {$s['adresse']['ort']}\n"
             . "Datenschutzhinweise: {$s['karriere_url']}/datenschutz-bewerbung/\n"
             . "Ohne Talentpool-Einwilligung löschen wir deine Unterlagen spätestens 6 Monate nach Abschluss des Verfahrens.\n";
         return ['betreff' => $betreff, 'html' => $html, 'text' => $text];

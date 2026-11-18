@@ -13,7 +13,7 @@ $cfg = lade_config();
 $krypto = new Krypto($cfg['schluessel']);
 $speicher = new Speicher($cfg['storage_dir'], $krypto);
 $funnel = lade_daten('funnel');
-$site = lade_daten('site');
+$site = site_mit_url(lade_daten('site'), $cfg);
 $zustellung = new Zustellung($cfg, $speicher, new Mailer($cfg), new Vorlagen(new Scoring($funnel), $funnel, $site), $site);
 
 $ok = 0; $offen = 0;

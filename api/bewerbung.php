@@ -45,7 +45,7 @@ if ($origin && !empty($cfg['erlaubte_origins']) && !in_array($origin, $cfg['erla
 }
 
 try {
-    $site = lade_daten('site');
+    $site = site_mit_url(lade_daten('site'), $cfg);
     $funnel = lade_daten('funnel');
     $stellen = lade_daten('stellen');
     $speicher = new Speicher($cfg['storage_dir'], $krypto);
@@ -58,10 +58,11 @@ try {
 //  - max. 30 Anfragen/Stunde insgesamt (bremst Bots, ohne Tippfehler-Korrekturen zu bestrafen)
 //  - max. 5 angenommene Bewerbungen/Stunde (gezählt erst nach erfolgreicher Prüfung, s. u.)
 $rl = $cfg['rate_limit'] ?? ['max' => 5, 'fenster' => 3600];
-$ipHash = $krypto->ipHash($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
+$ipHash = $krypto->ipHash(client_ip($cfg));
 $zuViele = ['ok' => false, 'meldung' => 'Es wurden gerade sehr viele Bewerbungen von deinem Anschluss gesendet. Bitte versuch es später noch einmal oder ruf uns an.'];
 if (!$speicher->rateLimit("$ipHash-anfragen", 30, (int)$rl['fenster'])
-    || !$speicher->rateLimit("$ipHash-bewerbungen", (int)$rl['max'], (int)$rl['fenster'], false)) {
+    || !$speicher->rateLimit("$ipHash-bewerbungen", (int)$rl['max'], (int)$rl['fenster'], false)
+    || !$speicher->rateLimit('global-bewerbungen', (int)($rl['global_max'] ?? 60), (int)$rl['fenster'], false)) {
     antwort(429, $zuViele);
 }
 
@@ -141,10 +142,10 @@ if ($datei && ($datei['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
     ];
     if (!isset($erlaubt[$ext]) || !in_array($mime, $erlaubt[$ext], true)) $dateiFehler('Dieser Dateityp geht leider nicht. Erlaubt sind PDF, JPG, PNG und DOCX.');
     if ($ext === 'docx') {
-        $zip = new ZipArchive();
-        $istDocx = $zip->open($datei['tmp_name']) === true && $zip->locateName('word/document.xml') !== false;
-        if ($istDocx && $zip->locateName('word/vbaProject.bin') !== false) $istDocx = false; // keine Makros
-        $zip->close();
+        // DOCX = ZIP-Container mit word/document.xml; Dateinamen stehen unkomprimiert im ZIP-Verzeichnis.
+        $roh = (string)file_get_contents($datei['tmp_name']);
+        $istDocx = str_starts_with($roh, "PK\x03\x04") && str_contains($roh, 'word/document.xml')
+            && !str_contains($roh, 'vbaProject.bin'); // keine Makros
         if (!$istDocx) $dateiFehler('Die Word-Datei ist beschädigt oder kein gültiges DOCX.');
         $mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
     }
@@ -201,6 +202,7 @@ $bewerbung = [
 ];
 
 if (!$speicher->rateLimit("$ipHash-bewerbungen", (int)$rl['max'], (int)$rl['fenster'])) antwort(429, $zuViele);
+$speicher->rateLimit('global-bewerbungen', (int)($rl['global_max'] ?? 60), (int)$rl['fenster']);
 
 try {
     $speicher->ablegen($id, $bewerbung);
@@ -233,7 +235,7 @@ if ($plausible) {
     $ch = curl_init($cfg['plausible']['api'] ?? 'https://plausible.io/api/event');
     curl_setopt_array($ch, [
         CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 3,
-        CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'User-Agent: ' . ($_SERVER['HTTP_USER_AGENT'] ?? 'karriere'), 'X-Forwarded-For: ' . ($_SERVER['REMOTE_ADDR'] ?? '')],
+        CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'User-Agent: ' . ($_SERVER['HTTP_USER_AGENT'] ?? 'karriere'), 'X-Forwarded-For: ' . client_ip($cfg)],
         CURLOPT_POSTFIELDS => json_encode(['name' => 'funnel_status_' . $bewertung['status'], 'domain' => $plausible, 'url' => rtrim($cfg['basis_url'], '/') . '/bewerben/', 'props' => ['stelle' => $rolle]]),
     ]);
     curl_exec($ch);

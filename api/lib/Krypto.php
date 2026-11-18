@@ -10,7 +10,9 @@ final class Krypto
     {
         $k = base64_decode($base64Key, true);
         if ($k === false || strlen($k) !== SODIUM_CRYPTO_SECRETBOX_KEYBYTES) {
-            throw new RuntimeException('config.php: "schluessel" fehlt oder ist ungültig (32 Byte, base64).');
+            // Alternativ: beliebiger Zufallsstring mit mind. 32 Zeichen (z. B. von Render erzeugt) → daraus ableiten
+            if (strlen($base64Key) < 32) throw new RuntimeException('Schlüssel fehlt oder ist zu kurz (KARRIERE_SCHLUESSEL / config.php "schluessel").');
+            $k = hash('sha256', 'karriere-v1:' . $base64Key, true);
         }
         $this->key = $k;
     }

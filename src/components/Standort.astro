@@ -23,7 +23,7 @@ const orte = [
       <span class="eyebrow">Standort</span>
       <h2 id="standort-h">Mitten in Erwitte</h2>
       <p>{st.text}</p>
-      <p><strong>{site.name}</strong><br />{site.adresse.strasse}<br />{site.adresse.plz} {site.adresse.ort}</p>
+      <p><strong>{site.firma}</strong><br />{site.adresse.strasse}<br />{site.adresse.plz} {site.adresse.ort}</p>
       <h3>Pendelzeiten</h3>
       <ul class="pendel">
         {st.pendelzeiten.map((p) => <li><span>{p.ort}</span><span>ca. {p.minuten} Min.</span></li>)}

@@ -76,7 +76,7 @@ Dann `http://127.0.0.1:8080/karriere/` öffnen.
 5. Optional per GitHub Action: Repository-Secrets `SFTP_HOST`, `SFTP_USER`, `SFTP_PASSWORD`, `SFTP_PATH` setzen. Die Action testet, baut und spiegelt `dist/` per SFTP (`config.php` und `storage/` bleiben unangetastet).
 6. Search Console: Sitemap einreichen. Läuft die Seite unter `/karriere`, gehört die Sitemap-Zeile auch in die `robots.txt` der Hauptdomain.
 
-Voraussetzungen beim Hoster: PHP ≥ 8.1 mit `sodium`, `fileinfo`, `zip`, `curl`. Apache mit `.htaccess` (HTTPS-Umleitung, CSP/HSTS-Header und Zugriffssperren werden automatisch erzeugt). Unter nginx die Regeln aus `dist/.htaccess` übertragen und `api/` außer `bewerbung.php`/`download.php` sperren.
+Voraussetzungen beim Hoster: PHP ≥ 8.1 mit `sodium`, `fileinfo`, `curl`. Apache mit `.htaccess` (HTTPS-Umleitung, CSP/HSTS-Header und Zugriffssperren werden automatisch erzeugt). Unter nginx die Regeln aus `dist/.htaccess` übertragen und `api/` außer `bewerbung.php`/`download.php` sperren.
 
 ## Funnel: Sicherheit & Datenschutz
 

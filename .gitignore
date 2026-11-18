@@ -10,3 +10,9 @@ api/storage/*
 # Aus src/assets/roh/ erzeugte Bilder (scripts/bilder.mjs)
 src/assets/team/aussenansicht.jpg
 dist-preview/
+# Aus src/assets/roh/logo.* erzeugt (scripts/bilder.mjs)
+public/favicon-32.png
+public/favicon-192.png
+public/apple-touch-icon.png
+public/img/logo-zeichen.png
+public/img/logo-google.png
