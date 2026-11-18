@@ -1,0 +1,297 @@
+<title>Karriere-Subdomain Einrichtung</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: ruhige Arbeitsanleitung, eine Spalte, Schritte nummeriert (echte Reihenfolge), DNS-Werte kopierbar */
+:root {
+  --bg: #faf8f7; --surface: #ffffff; --fg: #1f1b1a; --muted: #625a57; --line: #e7e0dd;
+  --accent: #c4001a; --accent-soft: #fdeeee; --ok: #1a7f37; --ok-soft: #e8f5ec; --warn: #8a5a00; --warn-soft: #fff4dc;
+  --code-bg: #f3efed;
+  --f-display: "Space Grotesk", system-ui, sans-serif; --f-body: "Inter", system-ui, sans-serif; --f-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #171413; --surface: #211d1c; --fg: #f2eeec; --muted: #b3aaa6; --line: #3a3331;
+  --accent: #ff5a66; --accent-soft: #3a1d20; --ok: #5fd07f; --ok-soft: #17301f; --warn: #f2c25b; --warn-soft: #382c12; --code-bg: #2b2524; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #171413; --surface: #211d1c; --fg: #f2eeec; --muted: #b3aaa6; --line: #3a3331;
+  --accent: #ff5a66; --accent-soft: #3a1d20; --ok: #5fd07f; --ok-soft: #17301f; --warn: #f2c25b; --warn-soft: #382c12; --code-bg: #2b2524; color-scheme: dark }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 400 16px/1.6 var(--f-body); }
+.wrap { max-width: 860px; margin: 0 auto; padding-block: 40px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 40px; }
+h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(1.9rem, 5vw, 2.6rem); letter-spacing: -.02em; }
+h2 { font-size: 1.55rem; }
+h3 { font-size: 1.1rem; }
+p { margin: 0; max-width: 68ch; }
+a { color: var(--accent); }
+.eyebrow { font: 600 .78rem/1 var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+header { display: grid; gap: 14px; border-bottom: 1px solid var(--line); padding-bottom: 28px; }
+.lead { color: var(--muted); font-size: 1.08rem; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); font-size: .92rem; }
+nav.toc { display: flex; flex-wrap: wrap; gap: 10px; }
+nav.toc a { text-decoration: none; border: 1px solid var(--line); background: var(--surface); color: var(--fg); padding: 8px 14px; border-radius: 999px; font-weight: 600; font-size: .95rem; }
+nav.toc a:hover { border-color: var(--accent); }
+section { display: grid; gap: 20px; scroll-margin-top: 16px; }
+.part-head { display: grid; gap: 8px; }
+.status { display: grid; gap: 8px; }
+.status-row { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; padding: 12px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.pill { font: 600 .75rem/1 var(--f-body); padding: 5px 9px; border-radius: 999px; white-space: nowrap; }
+.pill.ok { background: var(--ok-soft); color: var(--ok); }
+.pill.todo { background: var(--warn-soft); color: var(--warn); }
+ol.steps { list-style: none; counter-reset: s; padding: 0; margin: 0; display: grid; gap: 18px; }
+ol.steps > li { counter-increment: s; position: relative; padding: 20px 20px 20px 64px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; display: grid; gap: 12px; min-width: 0; }
+ol.steps > li::before { content: counter(s); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font: 700 .95rem/1 var(--f-display); }
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: .93rem; min-width: 560px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; color: var(--muted); background: var(--code-bg); font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }
+tr:last-child td { border-bottom: 0; }
+code, .mono { font-family: var(--f-mono); font-size: .88em; }
+code { background: var(--code-bg); padding: 2px 6px; border-radius: 5px; word-break: break-all; }
+.val { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.copy { font: 600 .78rem/1 var(--f-body); border: 1px solid var(--line); background: var(--surface); color: var(--fg); padding: 6px 10px; border-radius: 6px; cursor: pointer; }
+.copy:hover { border-color: var(--accent); }
+.copy:focus-visible, nav.toc a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.note { padding: 14px 16px; border-radius: 10px; background: var(--warn-soft); color: var(--fg); border-left: 4px solid var(--warn); display: grid; gap: 6px; }
+.note strong { color: var(--warn); }
+.dont { padding: 14px 16px; border-radius: 10px; background: var(--accent-soft); border-left: 4px solid var(--accent); display: grid; gap: 6px; }
+ul.plain { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+pre { margin: 0; background: var(--code-bg); padding: 12px 14px; border-radius: 8px; overflow-x: auto; font: 400 .86rem/1.5 var(--f-mono); }
+.flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: .92rem; }
+.flow span.box { background: var(--surface); border: 1px solid var(--line); padding: 8px 12px; border-radius: 8px; font-weight: 600; }
+.flow span.arrow { color: var(--muted); }
+.sym { display: grid; gap: 14px; }
+.sym details { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.sym summary { cursor: pointer; padding: 14px 18px; font-weight: 600; list-style-position: outside; }
+.sym .body { padding: 0 18px 18px; display: grid; gap: 12px; }
+footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line); padding-top: 20px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Laurentius Apotheke Böckeler e.K. · Karriereseite</span>
+    <h1>Einrichtung der Karriere-Subdomain und Hilfe bei Mailproblemen</h1>
+    <p class="lead">Die neue Karriereseite läuft bei Render (Server in Frankfurt) und soll unter <code>karriere.laurentius-apotheke-erwitte.de</code> erreichbar sein. Teil A richtet sich an den Dienstleister, der die Domain betreut. Teil B hilft, wenn Bewerbungen per E-Mail nicht ankommen.</p>
+    <div class="meta"><span>Stand: 18.11.2026</span><span>Test-Adresse bis zur Umstellung: <code>karriere-laurentius-apotheke.onrender.com</code></span></div>
+    <nav class="toc" aria-label="Inhalt">
+      <a href="#status">Stand der Einrichtung</a>
+      <a href="#teil-a">A · DNS für den Dienstleister</a>
+      <a href="#teil-b">B · Wenn Mails nicht ankommen</a>
+    </nav>
+  </header>
+
+  <section id="status" aria-labelledby="status-h">
+    <h2 id="status-h">Stand der Einrichtung</h2>
+    <div class="status">
+      <div class="status-row"><span class="pill ok">erledigt</span><p>Web-Service <strong>karriere-laurentius-apotheke</strong> bei Render angelegt (Region Frankfurt, mit persistentem Speicher). Jede Änderung im Repository wird automatisch veröffentlicht.</p></div>
+      <div class="status-row"><span class="pill ok">erledigt</span><p>Subdomain <code>karriere.laurentius-apotheke-erwitte.de</code> bei Render hinterlegt. Render wartet nur noch auf den DNS-Eintrag aus Schritt A1 und stellt danach automatisch das HTTPS-Zertifikat aus.</p></div>
+      <div class="status-row"><span class="pill todo">offen</span><p><strong>Dienstleister:</strong> DNS-Eintrag für die Subdomain setzen (A1).</p></div>
+      <div class="status-row"><span class="pill todo">offen</span><p><strong>Apotheke / Multiplexo:</strong> Brevo-Konto für den Mailversand anlegen und den API-Key bei Render hinterlegen (A2). Bis dahin werden Bewerbungen sicher zwischengespeichert, aber noch nicht zugestellt.</p></div>
+      <div class="status-row"><span class="pill todo">offen</span><p><strong>Dienstleister:</strong> DNS-Einträge für den Mailversand übernehmen, die Brevo anzeigt (A3).</p></div>
+      <div class="status-row"><span class="pill todo">offen</span><p><strong>Dienstleister:</strong> Auf der Homepage einen Menüpunkt „Karriere“ auf die neue Adresse verlinken (A4).</p></div>
+    </div>
+  </section>
+
+  <section id="teil-a" aria-labelledby="a-h">
+    <div class="part-head">
+      <span class="eyebrow">Teil A · für den Homepage-Dienstleister</span>
+      <h2 id="a-h">DNS-Einträge für karriere.laurentius-apotheke-erwitte.de</h2>
+      <p>Alle Änderungen betreffen die Zone <code>laurentius-apotheke-erwitte.de</code>. Es werden nur Einträge <strong>hinzugefügt</strong>. Bestehende Einträge für Shop, Homepage und Postfächer bleiben unverändert.</p>
+    </div>
+
+    <div class="dont">
+      <strong>Bitte nicht ändern</strong>
+      <ul class="plain">
+        <li>MX-Einträge: Darüber laufen die Postfächer, auch <code>info@laurentius-apotheke-erwitte.de</code>, an das die Bewerbungen gehen.</li>
+        <li>Einträge für die Hauptdomain und <code>www</code> (Shop).</li>
+        <li>Einen bestehenden SPF-Eintrag nicht durch einen zweiten ersetzen oder doppeln (siehe A3).</li>
+      </ul>
+    </div>
+
+    <ol class="steps">
+      <li>
+        <h3>A1 · Subdomain auf Render zeigen lassen</h3>
+        <p>Einen CNAME-Eintrag anlegen. Gibt es für <code>karriere</code> schon einen A-, AAAA- oder CNAME-Eintrag, diesen vorher entfernen; ein CNAME darf nicht neben anderen Einträgen desselben Namens stehen.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Typ</th><th>Name / Host</th><th>Ziel / Wert</th><th>TTL</th></tr></thead>
+            <tbody>
+              <tr><td>CNAME</td><td><div class="val"><code>karriere</code><button class="copy" type="button" data-copy="karriere">Kopieren</button></div></td><td><div class="val"><code>karriere-laurentius-apotheke.onrender.com</code><button class="copy" type="button" data-copy="karriere-laurentius-apotheke.onrender.com">Kopieren</button></div></td><td>3600 (oder Standard)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Manche Oberflächen erwarten den vollständigen Namen <code>karriere.laurentius-apotheke-erwitte.de</code> oder ein abschließendes Punkt-Zeichen beim Ziel (<code>…onrender.com.</code>). Beides ist gleichwertig.</p>
+        <div class="note"><strong>Falls die Domain CAA-Einträge hat</strong><p>Dann müssen die Zertifizierungsstellen erlaubt sein, die Render für das HTTPS-Zertifikat verwendet. Render zeigt im Dashboard unter <em>Settings → Custom Domains</em> einen Hinweis, falls ein CAA-Eintrag die Ausstellung blockiert. Ohne CAA-Einträge ist nichts zu tun.</p></div>
+        <p><strong>Prüfen:</strong> Nach einigen Minuten bis wenigen Stunden sollte diese Abfrage das Render-Ziel zeigen:</p>
+        <pre>dig +short CNAME karriere.laurentius-apotheke-erwitte.de</pre>
+        <p>Danach erkennt Render den Eintrag automatisch, stellt das Zertifikat aus und die Seite ist unter <code>https://karriere.laurentius-apotheke-erwitte.de</code> erreichbar.</p>
+      </li>
+
+      <li>
+        <h3>A2 · Brevo-Konto für den Mailversand (Apotheke oder Multiplexo)</h3>
+        <p>Die Bewerbungsmails verschickt der französische Dienst Brevo (Server in der EU). Absender ist <code>karriere@laurentius-apotheke-erwitte.de</code>; dafür muss kein Postfach existieren, Antworten gehen an <code>info@</code>.</p>
+        <ul class="plain">
+          <li>Konto auf brevo.com anlegen (der kostenlose Tarif reicht für bis zu 300 Mails pro Tag).</li>
+          <li>Den Auftragsverarbeitungsvertrag (DPA) in den Brevo-Kontoeinstellungen akzeptieren.</li>
+          <li>Unter <em>Senders, Domains &amp; Dedicated IPs → Domains</em> die Domain <code>laurentius-apotheke-erwitte.de</code> hinzufügen. Brevo zeigt dann die DNS-Einträge für Schritt A3 an.</li>
+          <li>Unter <em>SMTP &amp; API → API Keys</em> einen Schlüssel erzeugen und bei Render als Umgebungsvariable <code>BREVO_API_KEY</code> eintragen (Service <em>karriere-laurentius-apotheke → Environment</em>). Den Schlüssel nicht per E-Mail verschicken.</li>
+        </ul>
+      </li>
+
+      <li>
+        <h3>A3 · DNS-Einträge für den Mailversand übernehmen</h3>
+        <p>Damit Bewerbungsmails und Bestätigungen nicht im Spam landen, muss die Domain bei Brevo bestätigt werden. Die genauen Werte stehen im Brevo-Dashboard; sie enthalten einen individuellen Code. Typischerweise sind es:</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Zweck</th><th>Typ</th><th>Name</th><th>Wert</th></tr></thead>
+            <tbody>
+              <tr><td>Bestätigung der Domain</td><td>TXT</td><td><code>@</code> (Hauptdomain)</td><td><code>brevo-code:…</code> (aus Brevo)</td></tr>
+              <tr><td>DKIM-Signatur</td><td>CNAME oder TXT</td><td>z. B. <code>brevo1._domainkey</code>, <code>brevo2._domainkey</code></td><td>wie in Brevo angezeigt</td></tr>
+              <tr><td>DMARC (nur falls noch keiner existiert)</td><td>TXT</td><td><code>_dmarc</code></td><td>z. B. <code>v=DMARC1; p=none; rua=mailto:…</code> (Vorschlag aus Brevo)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note"><strong>SPF</strong><p>Fordert Brevo einen SPF-Eintrag, den <strong>bestehenden</strong> SPF-TXT-Eintrag ergänzen, z. B. von <code>v=spf1 include:anbieter.de ~all</code> zu <code>v=spf1 include:anbieter.de include:spf.brevo.com ~all</code>. Pro Domain darf es nur einen SPF-Eintrag geben; ein zweiter macht beide ungültig und kann den normalen Mailverkehr der Apotheke stören.</p></div>
+        <p>Anschließend in Brevo auf <em>Verify</em> bzw. <em>Authenticate</em> klicken. Alle Einträge sollten grün angezeigt werden.</p>
+      </li>
+
+      <li>
+        <h3>A4 · Karriereseite auf der Homepage verlinken</h3>
+        <ul class="plain">
+          <li>Auf <code>laurentius-apo-erwitte.de</code> einen Menüpunkt oder Button „Karriere“ mit Link auf <code>https://karriere.laurentius-apotheke-erwitte.de</code> setzen.</li>
+          <li>Optional: <code>laurentius-apo-erwitte.de/karriere</code> per 301-Weiterleitung auf die Subdomain umleiten (für Flyer und Anzeigen).</li>
+          <li>Optional: Im Google-Unternehmensprofil der Apotheke die Karriereseite verlinken.</li>
+        </ul>
+      </li>
+    </ol>
+    <p>Bitte kurz Bescheid geben, wenn A1 und A3 erledigt sind. Dann prüfen wir Zertifikat, Zustellung und Spam-Bewertung mit einer Testbewerbung.</p>
+  </section>
+
+  <section id="teil-b" aria-labelledby="b-h">
+    <div class="part-head">
+      <span class="eyebrow">Teil B · für Apotheke und technische Betreuung</span>
+      <h2 id="b-h">Wenn Bewerbungsmails nicht ankommen</h2>
+      <p>So läuft eine Bewerbung durch das System. Geht der Versand schief, geht nichts verloren: Die Bewerbung bleibt verschlüsselt gespeichert, bis beide Mails zugestellt sind.</p>
+    </div>
+    <div class="flow" aria-label="Ablauf">
+      <span class="box">Formular</span><span class="arrow">→</span>
+      <span class="box">Render: Prüfung &amp; verschlüsselte Ablage</span><span class="arrow">→</span>
+      <span class="box">Brevo</span><span class="arrow">→</span>
+      <span class="box">info@ + CC an Frau Böckeler</span><span class="arrow">+</span>
+      <span class="box">Bestätigung an Bewerber/in</span>
+    </div>
+    <p>Schlägt der Versand fehl, versucht das System es sofort dreimal, schickt eine Alarm-Mail an die technische Betreuung (falls <code>MAIL_ALARM</code> gesetzt ist) und wiederholt den Versand danach automatisch alle 15 Minuten.</p>
+
+    <div class="sym">
+      <details open>
+        <summary>Eine Bewerbung fehlt im Postfach info@</summary>
+        <div class="body">
+          <ol class="plain">
+            <li><strong>Spam- und Filterordner</strong> von info@ prüfen, auch Weiterleitungs- oder Sortierregeln. Betreffzeilen beginnen mit <code>[A]</code>, <code>[B]</code> oder <code>[C] Neue Bewerbung …</code>.</li>
+            <li><strong>Brevo → Transactional → Logs</strong>: Nach Empfänger <code>info@laurentius-apotheke-erwitte.de</code> filtern. „Delivered“ heißt, Brevo hat zugestellt; dann liegt die Ursache beim Postfach. „Bounce“ oder „Blocked“ zeigen die Begründung des Empfangsservers.</li>
+            <li><strong>Render → karriere-laurentius-apotheke → Logs</strong>: Nach <code>[karriere]</code> suchen. Die Meldungen enthalten keine Bewerberdaten, nur eine Bewerbungs-ID und den Fehler (Übersicht unten).</li>
+            <li><strong>Warteschlange prüfen</strong> unter Render → <em>Shell</em>:
+              <pre>ls /var/data/karriere/queue</pre>
+              Jede wartende Bewerbung erzeugt eine <code>.bin</code>- und eine <code>.meta.json</code>-Datei. Leer heißt: Alles wurde an Brevo übergeben.</li>
+            <li><strong>Sofort neu zustellen</strong>, statt auf den 15-Minuten-Takt zu warten:
+              <pre>runuser -u www-data -- php /var/www/html/api/queue-worker.php</pre></li>
+          </ol>
+        </div>
+      </details>
+
+      <details>
+        <summary>Nur die Kopie an Frau Böckeler (Gmail) fehlt</summary>
+        <div class="body">
+          <ul class="plain">
+            <li>Im Gmail-Postfach unter <em>Spam</em> und <em>Alle Nachrichten</em> suchen; Gmail sortiert neue Absender manchmal aus. Einmal „Kein Spam“ markieren hilft.</li>
+            <li>In den Brevo-Logs prüfen, ob die CC-Adresse als Empfänger auftaucht. Fehlt sie, ist <code>MAIL_CC</code> bei Render leer oder falsch geschrieben.</li>
+            <li>Gmail ist bei fehlender Domain-Bestätigung (A3) besonders streng. Zeigt Brevo die Domain nicht als bestätigt an, zuerst A3 erledigen.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Bewerber/innen bekommen keine Bestätigung</summary>
+        <div class="body">
+          <ul class="plain">
+            <li>In den Brevo-Logs nach der Adresse der Person suchen. „Hard bounce“ heißt meist: Die Adresse war falsch eingetippt. Dann telefonisch melden; die Nummer steht in der Bewerbungsmail.</li>
+            <li>Landet die Bestätigung im Spam, fehlt meist die Domain-Bestätigung bei Brevo (A3).</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Mails landen im Spam</summary>
+        <div class="body">
+          <ul class="plain">
+            <li>Brevo → <em>Domains</em>: Sind alle Einträge grün (Bestätigung, DKIM, DMARC)? Wenn nicht, A3 mit dem Dienstleister abschließen.</li>
+            <li>Test: Eine Probebewerbung mit einer Adresse von mail-tester.com abschicken. Der Bericht zeigt, welcher Eintrag fehlt.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Die Seite zeigt beim Absenden eine Fehlermeldung</summary>
+        <div class="body">
+          <ul class="plain">
+            <li>„Es wurden gerade sehr viele Bewerbungen …“: Schutz gegen Spam-Wellen (5 Bewerbungen pro Stunde und Anschluss, 60 insgesamt). Normalerweise genügt es, später erneut zu senden.</li>
+            <li>„Technischer Fehler auf unserer Seite“: In den Render-Logs nach <code>[karriere]</code> suchen. Häufig fehlt nach einer Änderung eine Umgebungsvariable.</li>
+            <li>Ist der Service nicht erreichbar, im Render-Dashboard den letzten Deploy prüfen und bei Bedarf über <em>Rollback</em> auf die vorige Version zurückgehen.</li>
+            <li>Bewerber/innen können sich in der Zwischenzeit über den Link „Klassisch per E-Mail bewerben“ oder telefonisch melden.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+
+    <h3>Fehlermeldungen in den Render-Logs</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Meldung enthält</th><th>Bedeutung</th><th>Lösung</th></tr></thead>
+        <tbody>
+          <tr><td><code>Brevo: API-Key fehlt</code></td><td>Kein Schlüssel hinterlegt</td><td><code>BREVO_API_KEY</code> bei Render eintragen (A2)</td></tr>
+          <tr><td><code>Brevo: HTTP 401</code></td><td>Schlüssel ungültig oder gelöscht</td><td>Neuen API-Key in Brevo erzeugen und bei Render ersetzen</td></tr>
+          <tr><td><code>Brevo: HTTP 400</code> mit „sender“</td><td>Absenderadresse oder Domain bei Brevo nicht bestätigt</td><td>Domain in Brevo bestätigen (A3) bzw. <code>MAIL_ABSENDER</code> prüfen</td></tr>
+          <tr><td><code>Brevo: HTTP 402</code> oder „credits“</td><td>Tageskontingent aufgebraucht oder Konto gesperrt</td><td>Brevo-Konto prüfen, ggf. Tarif erhöhen; der Versand wird automatisch nachgeholt</td></tr>
+          <tr><td><code>Could not resolve host</code> / Zeitüberschreitung</td><td>Brevo kurzzeitig nicht erreichbar</td><td>Nichts tun: Der Versand wird alle 15 Minuten wiederholt</td></tr>
+          <tr><td><code>Schlüssel fehlt oder ist zu kurz</code></td><td>Interner Verschlüsselungsschlüssel fehlt</td><td><code>KARRIERE_SCHLUESSEL</code> bei Render wiederherstellen (nicht ändern, solange Bewerbungen in der Warteschlange liegen)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Empfänger ändern</h3>
+    <p>Render → <em>karriere-laurentius-apotheke → Environment</em>. Speichern startet automatisch einen neuen Deploy (ca. 3–5 Minuten).</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Variable</th><th>Bedeutung</th><th>Aktueller Wert</th></tr></thead>
+        <tbody>
+          <tr><td><code>MAIL_EMPFAENGER</code></td><td>Hauptempfänger der Bewerbungen (mehrere mit Komma)</td><td><code>info@laurentius-apotheke-erwitte.de</code></td></tr>
+          <tr><td><code>MAIL_CC</code></td><td>Kopie (mehrere mit Komma)</td><td>Gmail-Adresse von Frau Böckeler</td></tr>
+          <tr><td><code>MAIL_CC_MODUS</code></td><td><code>voll</code> = komplette Bewerbung in Kopie, <code>hinweis</code> = nur Kurzinfo ohne Kontaktdaten</td><td><code>voll</code></td></tr>
+          <tr><td><code>MAIL_ALARM</code></td><td>Technische Betreuung, bekommt Alarm bei Zustellproblemen</td><td>noch nicht gesetzt</td></tr>
+          <tr><td><code>MAIL_ABSENDER</code></td><td>Absenderadresse (Domain muss bei Brevo bestätigt sein)</td><td><code>karriere@laurentius-apotheke-erwitte.de</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note"><strong>Datenschutz</strong><p>Bewerbungsmails und Screenshots aus den Brevo-Logs nicht an Dritte weiterleiten. Für die Fehlersuche reichen Bewerbungs-ID, Uhrzeit und die Fehlermeldung aus den Render-Logs; diese enthalten keine Bewerberdaten.</p></div>
+  </section>
+
+  <footer>Technische Umsetzung: Multiplexo GmbH. Die Konfiguration liegt im Repository <code>Multiplexo/karriereseite_boeckeler</code> (Datei <code>render.yaml</code> und <code>README.md</code>).</footer>
+</div>
+
+<script>
+document.querySelectorAll('.copy').forEach((btn) => {
+  btn.addEventListener('click', async () => {
+    const text = btn.dataset.copy;
+    try { await navigator.clipboard.writeText(text); btn.textContent = 'Kopiert'; }
+    catch {
+      const code = btn.previousElementSibling;
+      const r = document.createRange(); r.selectNodeContents(code);
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'Markiert';
+    }
+    setTimeout(() => { btn.textContent = 'Kopieren'; }, 1800);
+  });
+});
+</script>

@@ -1,6 +1,6 @@
 # Karriereseite Laurentius Apotheke Erwitte
 
-Mobile-first Karriereseite mit mehrstufigem Bewerberfunnel (Kurzbewerbung < 2 Minuten), serverseitiger Vorqualifizierung (Status A/B/C) und strukturierter E-Mail an `bewerbung@laurentius-apo-erwitte.de`. Umsetzung des Dev-Briefings vom 10.11.2026.
+Mobile-first Karriereseite mit mehrstufigem Bewerberfunnel (Kurzbewerbung < 2 Minuten), serverseitiger Vorqualifizierung (Status A/B/C) und strukturierter E-Mail an `info@laurentius-apotheke-erwitte.de` (plus Kopie). Umsetzung des Dev-Briefings vom 10.11.2026.
 
 | Baustein | Umsetzung |
 | --- | --- |
@@ -14,11 +14,11 @@ Mobile-first Karriereseite mit mehrstufigem Bewerberfunnel (Kurzbewerbung < 2 Mi
 
 | URL | Inhalt |
 | --- | --- |
-| `/karriere/` | One-Pager: Hero mit Inhaberin, Stellen, Benefits, Team, Botendienst, Ablauf, Standort, FAQ, Abschluss-CTA |
-| `/karriere/pta/` · `/pka/` · `/apotheker/` · `/ausbildung/` | Stellenseiten mit JSON-LD `JobPosting` (Google for Jobs) |
-| `/karriere/bewerben/?stelle=…` | Funnel (Stelle vorbelegt → Schritt 1 entfällt) |
-| `/karriere/datenschutz-bewerbung/` | Datenschutzhinweise für Bewerber/innen (**Entwurf, DSB-Prüfung nötig**) |
-| `/karriere/sitemap.xml`, `/robots.txt`, `/404.html` | SEO |
+| `/` | One-Pager: Hero mit Inhaberin, Stellen, Benefits, Team, Botendienst, Ablauf, Standort, FAQ, Abschluss-CTA |
+| `/pta/` · `/pka/` · `/apotheker/` · `/ausbildung/` | Stellenseiten mit JSON-LD `JobPosting` (Google for Jobs) |
+| `/bewerben/?stelle=…` | Funnel (Stelle vorbelegt → Schritt 1 entfällt) |
+| `/datenschutz-bewerbung/` | Datenschutzhinweise für Bewerber/innen (**Entwurf, DSB-Prüfung nötig**) |
+| `/sitemap.xml`, `/robots.txt`, `/404.html` | SEO |
 
 ## Pflege ohne Entwickler
 
@@ -40,8 +40,7 @@ Fotos werden beim Build automatisch zugeschnitten und als AVIF/WebP mit `srcset`
 | `src/assets/team/mitarbeiterin-1.jpg`, `mitarbeiterin-2.jpg` | Team-Bereich + PTA/PKA-Seiten (Namen/Rollen in `inhalte.json` eintragen) |
 | `src/assets/team/botendienst.jpg` | Abschnitt „Botendienst“, wird oben-bündig auf 16:9 beschnitten (**das Kennzeichen wird nicht ausgeliefert**) |
 | `src/assets/roh/aussenansicht.jpg` | Standort: Zuschnitt auf die Ladenfront und gedämpfter HDR-Look gemäß `src/data/bilder.json` |
-| `public/img/logo.svg` (oder `.png`) | Logo im Header, sonst Wortmarke |
-| `public/img/logo-google.png` | quadratisches Logo für Google for Jobs |
+| `src/assets/roh/logo.png` (oder `.svg`) | Original-Logo: daraus entstehen automatisch Favicon, Apple-Touch-Icon, das A im Header und das Google-for-Jobs-Logo (Ausschnitt in `src/data/bilder.json`) |
 
 Nach neuen Fotos `npm run og` ausführen; das erzeugt die Vorschaubilder für WhatsApp und Social Media neu.
 
@@ -65,18 +64,26 @@ Kompletten Ablauf inklusive PHP-Endpunkt testen: Eine `config.php` mit `'transpo
 npm run build && KARRIERE_CONFIG=/pfad/zu/config.php npm run serve
 ```
 
-Dann `http://127.0.0.1:8080/karriere/` öffnen.
+Dann `http://127.0.0.1:8080/` öffnen.
 
-## Deployment
+## Betrieb auf Render
 
-1. `npm run build`: Der Inhalt von `dist/` gehört nach `/karriere` auf dem Webspace (für die Subdomain-Variante mit `BASE_PATH=/ SITE_URL=https://karriere.laurentius-apo-erwitte.de npm run build` bauen).
-2. Auf dem Server `api/config.sample.php` nach `api/config.php` kopieren und ausfüllen: SMTP-Zugang, Schlüssel (`php -r "echo base64_encode(random_bytes(32));"`), Alarm-Adresse. `storage_dir` möglichst **außerhalb** des Webroots legen.
-3. Cronjob alle 15 Minuten: `php /pfad/karriere/api/queue-worker.php`. Er stellt fehlgeschlagene Mails erneut zu und löscht Download-Dateien nach 14 Tagen.
-4. Für die Absenderdomain SPF, DKIM und DMARC einrichten, sonst landen Mails im Spam.
-5. Optional per GitHub Action: Repository-Secrets `SFTP_HOST`, `SFTP_USER`, `SFTP_PASSWORD`, `SFTP_PATH` setzen. Die Action testet, baut und spiegelt `dist/` per SFTP (`config.php` und `storage/` bleiben unangetastet).
-6. Search Console: Sitemap einreichen. Läuft die Seite unter `/karriere`, gehört die Sitemap-Zeile auch in die `robots.txt` der Hauptdomain.
+Die Seite läuft als Docker-Web-Service **karriere-laurentius-apotheke** bei Render (Workspace Multiplexo GmbH, Region Frankfurt, Plan Starter, 1 GB Disk unter `/var/data`). Jeder Push auf `main` wird automatisch gebaut und veröffentlicht.
 
-Voraussetzungen beim Hoster: PHP ≥ 8.1 mit `sodium`, `fileinfo`, `curl`. Apache mit `.htaccess` (HTTPS-Umleitung, CSP/HSTS-Header und Zugriffssperren werden automatisch erzeugt). Unter nginx die Regeln aus `dist/.htaccess` übertragen und `api/` außer `bewerbung.php`/`download.php` sperren.
+- Adresse: `https://karriere.laurentius-apotheke-erwitte.de` (Custom Domain hinterlegt, wartet auf DNS-CNAME), bis dahin `https://karriere-laurentius-apotheke.onrender.com`
+- Konfiguration nur über Umgebungsvariablen (siehe `render.yaml` und `api/config.env.php`), Secrets stehen nicht im Repository
+- Mailversand über die Brevo-HTTP-API: Eingangsmail an `MAIL_EMPFAENGER` (info@…) mit Kopie an `MAIL_CC`, Bestätigung an Bewerber/innen mit Reply-To auf info@
+- Der Warteschlangen-Worker läuft im Container alle 15 Minuten (`docker/start.sh`)
+
+**Anleitung für den Homepage-Dienstleister (DNS) und Fehlerbehebung bei Mailproblemen:** `docs/anleitung-subdomain-und-mail.html`, auch als teilbare Seite veröffentlicht.
+
+### Alternative: klassischer Webspace
+
+1. `npm run build` und den Inhalt von `dist/` hochladen (für eine Unterseite der Homepage: `SITE_URL=https://www.laurentius-apo-erwitte.de BASE_PATH=/karriere npm run build`).
+2. Auf dem Server `api/config.sample.php` als `api/config.php` ausfüllen; `storage_dir` möglichst außerhalb des Webroots.
+3. Cronjob alle 15 Minuten: `php /pfad/api/queue-worker.php`.
+
+Voraussetzungen: PHP ≥ 8.1 mit `sodium`, `fileinfo`, `curl`, Apache mit `.htaccess` (Header und Zugriffssperren werden automatisch erzeugt).
 
 ## Funnel: Sicherheit & Datenschutz
 
@@ -92,12 +99,15 @@ Aus dem Briefing: Stellenumfänge/Startdaten bestätigen, Gehalt/Tarif, Benefits
 
 Neu aufgefallen:
 
-- [ ] **Ortsname „Bökela“:** Im Briefing steht „Bökela“ bzw. „Erwitte-Böckeler“. Einen Ortsteil dieses Namens konnten wir nicht verifizieren, die Seite nutzt daher durchgängig „Erwitte“. Bitte bestätigen.
+- [x] Firmenname: Laurentius Apotheke Böckeler e.K. (Ort: Erwitte)
+- [ ] Brevo-Konto anlegen, Domain bestätigen, `BREVO_API_KEY` bei Render setzen; `MAIL_ALARM` (technischer Kontakt) setzen
+- [ ] DNS beim Dienstleister: CNAME `karriere` → `karriere-laurentius-apotheke.onrender.com`
+- [ ] Datenschutz: Kopie an ein privates Gmail-Postfach mit dem DSB abstimmen (US-Anbieter, kein AV-Vertrag im Privat-Tarif) oder `MAIL_CC_MODUS=hinweis` nutzen
 - [ ] **„Sonntag frei“ vs. Notdienste:** Notdienste können auch sonntags anfallen. Die Seite sagt deshalb „Sonntag regulär frei“ und verweist bei Notdiensten auf die FAQ.
 - [ ] **Außenfoto:** Wasserzeichen „LOVELT“. Nutzungsrechte beim Fotografen klären und das Original ohne Wasserzeichen in höherer Auflösung anfragen (aktuell ca. 680 px breit).
 - [ ] **Fotofreigaben** (schriftlich): Julia Grundmann, die beiden Kolleginnen, die beiden Boten. Dazu Namen/Rollen und echte Zitate aus dem Interview.
 - [ ] **Zitat der Inhaberin** (Entwurf): „Bei uns hat Beratung Zeit – und Feierabend ist Feierabend. Ich freue mich darauf, dich kennenzulernen.“
 - [ ] **Fahrer/in Botendienst (Minijob):** als Stelle vorbereitet (`status: "entwurf"`). Bei Bedarf Stunden ergänzen und auf `"offen"` setzen.
-- [ ] Logo als SVG und exakte Hausfarben. Aktuell wird das Logo-Rot `#e2001a` für CTAs und `#a3121f` für Akzente verwendet.
+- [ ] Logo-Datei nach `src/assets/roh/logo.png` legen; exakte Hausfarben bestätigen (aktuell Logo-Rot `#e2001a` für CTAs, `#a3121f` für Akzente).
 - [ ] Pendelzeiten, Parkplätze und Busanbindung bestätigen.
 - [ ] Datenschutzhinweise durch DSB prüfen lassen und danach `datenschutzhinweise_freigegeben: true` setzen. Impressum-/Datenschutz-URLs der Hauptseite prüfen (`site.json`).
