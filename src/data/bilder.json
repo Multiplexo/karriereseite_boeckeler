@@ -22,8 +22,57 @@
     "_hinweis": "Original-Logo (rotes A über dem Schriftzug) als src/assets/roh/logo.png oder .svg ablegen. Für Favicon und Header-Zeichen wird der obere Bereich mit dem A ausgeschnitten und automatisch auf den Rand zugeschnitten. Für Google for Jobs wird das ganze Logo quadratisch auf Weiß gesetzt.",
     "zeichen_bereich_prozent": {
       "oben": 0,
-      "hoehe": 52
+      "hoehe": 50
     },
     "hintergrund": "#ffffff"
+  },
+  "personen": {
+    "_hinweis": "Gesichtsposition je Foto in Prozent der Bildbreite/-höhe: fokus = Gesichtsmitte [x, y], kopf = [Kopfoberkante, Kinn] (y). Daraus entstehen automatisch die Nahaufnahmen (<name>-nah.jpg, 4:5, Kopf und Schultern) und die Bildausschnitte in jedem Rahmenformat. Bei einem neuen Foto diese Werte anpassen.",
+    "dorothee-boeckeler": {
+      "fokus": [
+        52,
+        21
+      ],
+      "kopf": [
+        11,
+        30
+      ]
+    },
+    "julia-grundmann": {
+      "fokus": [
+        52,
+        24
+      ],
+      "kopf": [
+        8,
+        35
+      ]
+    },
+    "mitarbeiterin-1": {
+      "fokus": [
+        52,
+        25
+      ],
+      "kopf": [
+        11,
+        33
+      ]
+    },
+    "mitarbeiterin-2": {
+      "fokus": [
+        45,
+        30
+      ],
+      "kopf": [
+        11,
+        41
+      ]
+    },
+    "botendienst": {
+      "fokus": [
+        50,
+        30
+      ]
+    }
   }
 }

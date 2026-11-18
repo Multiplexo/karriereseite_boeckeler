@@ -19,7 +19,7 @@ const ohneBild = alle.filter((e) => !foto(e.foto));
         <div class:list={['beleg-bild', { draft: e.freigegeben === false }]}>
           <figure class:list={['beleg-bild__foto', `beleg-bild__foto--${e.foto_format ?? 'quer'}`]}>
             {e.foto_format === 'hoch'
-              ? <Foto name={e.foto} alt={e.foto_alt ?? ''} widths={[400, 640, 920]} sizes="(min-width: 860px) 460px, 92vw" />
+              ? <Foto name={e.foto} alt={e.foto_alt ?? ''} widths={[400, 640, 920]} sizes="(min-width: 860px) 460px, 92vw" rahmen={{ m: 4 / 5, d: 4 / 5 }} />
               : <Foto name={e.foto} alt={e.foto_alt ?? ''} widths={[480, 800, 1200]} sizes="(min-width: 860px) 560px, 92vw" width={1200} height={675} position="top" />}
           </figure>
           <div class="beleg-bild__text"><h3>{e.titel}</h3><p>{e.text}</p></div>

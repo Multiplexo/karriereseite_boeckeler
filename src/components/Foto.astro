@@ -1,22 +1,27 @@
 ---
 // Echtes Foto aus src/assets/team/ (AVIF/WebP mit srcset) oder, falls die Datei fehlt, ein ruhiger Platzhalter.
+// nah: Nahaufnahme (Kopf und Schultern) statt Ganzkörper.
+// rahmen: Seitenverhältnis des Containers mobil (m) und Desktop (d) – daraus wird der Bildausschnitt so berechnet,
+// dass das Gesicht im oberen Drittel sitzt (CSS-Variablen --pos-m / --pos-d).
 import { Picture } from 'astro:assets';
-import { foto } from '../lib/bilder';
+import { foto, position } from '../lib/bilder';
 interface Props {
   name: string | null | undefined;
   alt: string;
   widths: number[];
   sizes: string;
+  nah?: boolean;
+  rahmen?: { m: number; d: number };
   width?: number;
   height?: number;
-  position?: string;
   eager?: boolean;
   platzhalter?: string;
 }
-const { name, alt, widths, sizes, width, height, position = 'top', eager = false, platzhalter = '' } = Astro.props;
-const bild = foto(name);
-const zuschnitt = width && height ? { width, height, fit: 'cover' as const, position } : {};
+const { name, alt, widths, sizes, nah = false, rahmen, width, height, eager = false, platzhalter = '' } = Astro.props;
+const bild = foto(name, nah);
+const zuschnitt = width && height ? { width, height, fit: 'cover' as const, position: 'top' } : {};
+const style = rahmen ? `--pos-m:${position(name, rahmen.m, nah)};--pos-d:${position(name, rahmen.d, nah)}` : undefined;
 ---
 {bild
-  ? <Picture src={bild} formats={['avif', 'webp']} widths={widths} sizes={sizes} alt={alt} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} {...zuschnitt} />
+  ? <Picture src={bild} formats={['avif', 'webp']} widths={widths} sizes={sizes} alt={alt} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} style={style} {...zuschnitt} />
   : <span class="person__init" aria-hidden="true">{platzhalter}</span>}

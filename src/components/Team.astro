@@ -22,7 +22,9 @@ const initialen = (n: string) => n.replace(/[^A-Za-zÄÖÜäöüß ]/g, '').trim
       <div class="team">
         {portraits.map((p) => (
           <figure class:list={['person', { draft: p.freigegeben === false }]}>
-            <Foto name={p.foto} alt={`Porträt ${p.name}, ${p.rolle}`} widths={[300, 480, 720]} sizes="(min-width: 900px) 370px, 78vw" platzhalter={initialen(p.name)} />
+            <div class="person__bild">
+              <Foto name={p.foto} nah alt={`Porträt ${p.name}, ${p.rolle}`} widths={[300, 480, 720]} sizes="(min-width: 900px) 370px, 78vw" platzhalter={initialen(p.name)} />
+            </div>
             <figcaption>
               <strong>{p.name}</strong>{p.rolle}{p.seit ? ` · ${p.seit}` : ''}
               {p.zitat && <q>{p.zitat}</q>}

@@ -7,25 +7,27 @@ const { chromium } = createRequire(import.meta.url)('playwright'); // global ode
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const { stellen } = JSON.parse(fs.readFileSync(path.join(root, 'src/data/stellen.json'), 'utf8'));
-const portraitPfad = ['jpg', 'jpeg', 'png', 'webp'].map((e) => path.join(root, `src/assets/team/dorothee-boeckeler.${e}`)).find(fs.existsSync);
+const portraitPfad = ['-nah.jpg', '.jpg'].map((e) => path.join(root, `src/assets/team/dorothee-boeckeler${e}`)).find(fs.existsSync);
+const zeichenPfad = path.join(root, 'public/img/logo-zeichen.png');
+const zeichen = fs.existsSync(zeichenPfad) ? `data:image/png;base64,${fs.readFileSync(zeichenPfad).toString('base64')}` : null;
 const portrait = portraitPfad ? `data:image/jpeg;base64,${fs.readFileSync(portraitPfad).toString('base64')}` : null;
 
 const html = (titel, zeile) => `<!doctype html><html><head><meta charset="utf-8"><style>
 *{margin:0;box-sizing:border-box} body{width:1200px;height:630px;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#faf8f6;display:flex;overflow:hidden}
 .l{flex:1;padding:64px 56px;display:flex;flex-direction:column;border-top:14px solid #e2001a}
-.brand{color:#e2001a;font-weight:800;letter-spacing:.05em;font-size:30px;line-height:1.05}
-.brand small{display:block;color:#5a5552;font-weight:500;letter-spacing:0;font-size:22px;margin-top:6px}
+.brand{display:flex;align-items:center;gap:16px;color:#1d1716;font:700 30px/1.05 Georgia,'Times New Roman',serif;letter-spacing:.05em}.brand img{height:72px}
+.brand small{display:block;color:#5a5552;font:500 22px/1.3 system-ui,sans-serif;letter-spacing:0;margin-top:6px}
 h1{font-size:${titel.length > 22 ? 62 : 76}px;line-height:1.05;color:#1f1b1a;margin-top:auto;letter-spacing:-.02em}
 p{font-size:30px;color:#5a5552;margin-top:18px}
 .chips{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}.chips span{background:#fbeceb;color:#a3121f;font-weight:700;font-size:22px;padding:8px 16px;border-radius:99px}
-.r{width:${portrait ? 420 : 0}px;background:#fbeceb url(${portrait}) center 18%/cover}
-</style></head><body><div class="l"><div class="brand">LAURENTIUS APOTHEKE<small>Karriere · Erwitte</small></div>
+.r{width:${portrait ? 420 : 0}px;background:#fbeceb url(${portrait}) center 25%/cover}
+</style></head><body><div class="l"><div class="brand">${zeichen ? `<img src="${zeichen}" alt="">` : ''}<span>LAURENTIUS<br>APOTHEKE<small>Karriere · Erwitte</small></span></div>
 <h1>${titel}</h1><p>${zeile}</p><div class="chips"><span>Feierabend spätestens 18 Uhr</span><span>Bewerben in 60 Sekunden</span></div></div>
 ${portrait ? '<div class="r"></div>' : ''}</body></html>`;
 
 const b = await chromium.launch();
 const p = await b.newPage({ viewport: { width: 1200, height: 630 } });
-const jobs = [{ slug: 'karriere', titel: 'Wir suchen dich (m/w/d)', zeile: 'PTA · PKA · Apotheker/in · Ausbildung' },
+const jobs = [{ slug: 'karriere', titel: 'Wir suchen dich (m/w/d)', zeile: 'PTA · PKA · Apotheker:in · Ausbildung' },
   ...stellen.map((s) => ({ slug: s.slug, titel: `${s.titel} (m/w/d)`, zeile: 'in Erwitte gesucht' }))];
 for (const j of jobs) {
   await p.setContent(html(j.titel, j.zeile));

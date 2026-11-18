@@ -30,7 +30,7 @@ const bewerbenHref = url('bewerben/') + (stelle ? `?stelle=${stelle}` : '');
     <div class="hero__media">
       {vorhanden ? (
         <figure class="hero__foto">
-          <Foto name={bild} alt={bildAlt} widths={[400, 640, 880, 1100]} sizes="(min-width: 960px) 460px, 92vw" eager />
+          <Foto name={bild} alt={bildAlt} widths={[400, 640, 880, 1100]} sizes="(min-width: 960px) 460px, 92vw" rahmen={{ m: 4 / 3.4, d: 4 / 5 }} eager />
         </figure>
       ) : (
         <div class="hero__foto hero__foto--art"><HeroArt /></div>

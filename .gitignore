@@ -16,3 +16,5 @@ public/favicon-192.png
 public/apple-touch-icon.png
 public/img/logo-zeichen.png
 public/img/logo-google.png
+# Automatisch erzeugte Nahaufnahmen (scripts/bilder.mjs)
+src/assets/team/*-nah.jpg
